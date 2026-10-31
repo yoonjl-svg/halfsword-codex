@@ -1,0 +1,70 @@
+[
+  {
+    "name": "fights12",
+    "command": [
+      "node",
+      "tools/sim/fights12.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 95.76,
+    "sha256_without_warning": "ee193a8943ab790b9aec41f963a050061d4f7cba9130edc687ee2dc359526541"
+  },
+  {
+    "name": "live_battery",
+    "command": [
+      "node",
+      "tools/sim/live_battery.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 19.8,
+    "sha256_without_warning": "e8127a92b825f397e17caae7473f1fc5882e955b493f8e8fa6069a71efd5454e"
+  },
+  {
+    "name": "finish_thrust",
+    "command": [
+      "node",
+      "tools/sim/finish_thrust.mjs",
+      "1",
+      "--stand"
+    ],
+    "exitCode": 0,
+    "seconds": 10.81,
+    "sha256_without_warning": "9630b5d351156cbaac734c80af7f0d6a1c9b468cf6c568fb844518548ebd92b2"
+  },
+  {
+    "name": "corr_s0",
+    "command": [
+      "node",
+      "tools/sim/corr_s0.mjs",
+      "--limits=off,on",
+      "--scenes=a,b"
+    ],
+    "exitCode": 0,
+    "seconds": 99.5,
+    "sha256_without_warning": "ceefce8f9fccc045f2e768d8b71e6ebeae92e9a989624545a2e7e8e0008790aa",
+    "identical": 12
+  },
+  {
+    "name": "weapon_smoke",
+    "command": [
+      "node",
+      "tools/sim/weapon_smoke.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 55.5,
+    "sha256_without_warning": "cbcb9862244f32283ac5c999b4846bff623b32fa484e394e29d2cdc94f73bd44",
+    "ok": 34,
+    "fail": 0,
+    "nan": 0
+  },
+  {
+    "name": "match_twin",
+    "command": [
+      "node",
+      "tools/sim/match_twin.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 70.56,
+    "sha256_without_warning": "ee193a8943ab790b9aec41f963a050061d4f7cba9130edc687ee2dc359526541"
+  }
+]

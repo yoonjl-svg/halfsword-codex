@@ -1,0 +1,165 @@
+{
+  "date_kst": "2026-11-01",
+  "verified_at_utc": "2026-10-31T18:35:38.668756+00:00",
+  "main_base": "029f08a43d0a255134c3870242b01c3189e40ae2",
+  "feature_branch": "wk/saengsa",
+  "feature_head": "d378fa1663e7c6470f01e634c94900a4eccb14f9",
+  "request": "user explicitly requested merging U-hwa saengsa development into main",
+  "checks": {
+    "tests": 699,
+    "pass": 699,
+    "fail": 0,
+    "build": true,
+    "pwa": "4dc20b8963bc70ddd6a9b7a5",
+    "gates": [
+      {
+        "name": "fights12",
+        "command": [
+          "node",
+          "tools/sim/fights12.mjs"
+        ],
+        "exitCode": 0,
+        "seconds": 95.76,
+        "sha256_without_warning": "ee193a8943ab790b9aec41f963a050061d4f7cba9130edc687ee2dc359526541"
+      },
+      {
+        "name": "live_battery",
+        "command": [
+          "node",
+          "tools/sim/live_battery.mjs"
+        ],
+        "exitCode": 0,
+        "seconds": 19.8,
+        "sha256_without_warning": "e8127a92b825f397e17caae7473f1fc5882e955b493f8e8fa6069a71efd5454e"
+      },
+      {
+        "name": "finish_thrust",
+        "command": [
+          "node",
+          "tools/sim/finish_thrust.mjs",
+          "1",
+          "--stand"
+        ],
+        "exitCode": 0,
+        "seconds": 10.81,
+        "sha256_without_warning": "9630b5d351156cbaac734c80af7f0d6a1c9b468cf6c568fb844518548ebd92b2"
+      },
+      {
+        "name": "corr_s0",
+        "command": [
+          "node",
+          "tools/sim/corr_s0.mjs",
+          "--limits=off,on",
+          "--scenes=a,b"
+        ],
+        "exitCode": 0,
+        "seconds": 99.5,
+        "sha256_without_warning": "ceefce8f9fccc045f2e768d8b71e6ebeae92e9a989624545a2e7e8e0008790aa",
+        "identical": 12
+      },
+      {
+        "name": "weapon_smoke",
+        "command": [
+          "node",
+          "tools/sim/weapon_smoke.mjs"
+        ],
+        "exitCode": 0,
+        "seconds": 55.5,
+        "sha256_without_warning": "cbcb9862244f32283ac5c999b4846bff623b32fa484e394e29d2cdc94f73bd44",
+        "ok": 34,
+        "fail": 0,
+        "nan": 0
+      },
+      {
+        "name": "match_twin",
+        "command": [
+          "node",
+          "tools/sim/match_twin.mjs"
+        ],
+        "exitCode": 0,
+        "seconds": 70.56,
+        "sha256_without_warning": "ee193a8943ab790b9aec41f963a050061d4f7cba9130edc687ee2dc359526541"
+      }
+    ],
+    "production": {
+      "passed": true,
+      "checks": [
+        "unqualified entry remains locked",
+        "latest shop still shows three items",
+        "signup charges two nameless hires and creates a 16-team tournament, matches wait for 10:00",
+        "production player + companion 2v2 runs, restart unavailable, four bodies and loadout saved on leaving, no test-mode save keys",
+        "resume can re-enter, controlled outcome persists after reload, completed resume cleared, next round enforces two-hour rest"
+      ],
+      "errors": [],
+      "tournamentTeams": 16,
+      "hirePaid": 40,
+      "resumeKeys": [
+        "0-0",
+        "15-0",
+        "0-1",
+        "15-2"
+      ]
+    },
+    "resume": {
+      "saved": [
+        "/tmp/saengsa-main-20261101/resume-final/r1_leave.png",
+        "/tmp/saengsa-main-20261101/resume-final/r1_back.png"
+      ],
+      "log": [
+        {
+          "cycle": 1,
+          "sim": 23.6,
+          "quitResult": null,
+          "saved": [
+            "0-1",
+            "5-0",
+            "0-2",
+            "5-1"
+          ],
+          "hurt": 4,
+          "hud": [
+            "하인리히",
+            "마르그레테",
+            "오토",
+            "한스"
+          ],
+          "bodies": [
+            {
+              "name": "무명 검객 오토",
+              "leave": "0.584/chest,abdomen,pelvis,abdomen,chest,abdomen/삶",
+              "back": "0.583/chest,abdomen,pelvis,abdomen,chest,abdomen/삶",
+              "ok": true
+            },
+            {
+              "name": "하인리히 도른",
+              "leave": "0.78/chest,abdomen,farmS,uarmS/삶",
+              "back": "0.779/chest,abdomen,farmS,uarmS/삶",
+              "ok": true
+            },
+            {
+              "name": "무명 검객 한스",
+              "leave": "0.659/uarmO,uarmS,chest,chest,abdomen/삶",
+              "back": "0.658/uarmO,uarmS,chest,chest,abdomen/삶",
+              "ok": true
+            },
+            {
+              "name": "마르그레테 슈바르츠",
+              "leave": "0.808/thighF,chest,thighF,abdomen,abdomen/삶",
+              "back": "0.806/thighF,chest,thighF,abdomen,abdomen/삶",
+              "ok": true
+            }
+          ],
+          "allSame": true
+        }
+      ],
+      "errors": []
+    }
+  },
+  "publication": "separate receipt after deployment",
+  "limitations": [
+    "Chromium + SwiftShader; not real phone performance",
+    "Other AI-team matches retain quick resolution",
+    "Outcome injection used only to verify save/cooldown wiring; not balance measurement",
+    "Legacy long browser E2E did not finish and was stopped; not counted as passed"
+  ]
+}

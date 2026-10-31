@@ -130,7 +130,8 @@ function ghost(f, on) {
     V.groups = null;
     return;
   }
-  const foeWeapon = f.foe?.swordColliders?.[0] ? f.foe.swordColliders[0].collisionGroups() >>> 16 : 0;
+  // 상대 편 칼 비트 (fighter.js this.bits — 2:2 동시 대전 10/29: 지금 겨눈 상대 하나가 아니라 상대 편 칼 모두). 1:1 은 예전처럼 상대 칼 콜라이더에서 읽은 값과 같다
+  const foeWeapon = f.bits?.foeWeapon ?? (f.foe?.swordColliders?.[0] ? f.foe.swordColliders[0].collisionGroups() >>> 16 : 0);
   const saved = [];
   for (const k in f.bodies) {
     const rb = f.bodies[k];

@@ -11,7 +11,7 @@
 import * as THREE from 'three';
 import { SECRET, SKILL, BIND, CLOSE, UNIQUE_ASSIST, GAIT, realS } from './config.js';
 import { TRADITIONS, playerSecretDef } from './schools.js';
-import { Senses } from './ai_sense.js';
+import { Senses, addFoeSense, setFoeSense, recordFoeSenses } from './ai_sense.js';
 import { segDist } from './skill.js';
 import { kitOff } from './skill_kit.js'; // 격살 (10/22): 받은 자세가 동방 막기 I(C7 — 몸꼴 parryCover)일 때만
 import { RisolutoWatch, lungeGapOk } from './italian_risoluto.js'; // 이탈리아 거침없이 나아가 찌르기 — 덮인 채 나아가기 (10/22 사람 먼저)
@@ -781,6 +781,15 @@ export class PlayerSecretWatch {
     return secretLeft(this.me);
   }
 
+  /** 2:2 (동시 대전 3단계 10/29): 상대를 하나 더 · 겨눈 상대 바꾸기 — 눈(Senses)만 상대마다 (ai_sense.js) · 창 걸쇠 · 셈은 내 몸의 것이라 그대로 */
+  addFoe(f) {
+    addFoeSense(this, f);
+  }
+  setFoe(f) {
+    setFoeSense(this, f);
+    if (this.riso && f) this.riso.foe = f; // 이탈리아 거침없이 나아가 찌르기도 지금 상대의 걸음을 본다
+  }
+
   /** 판정 쪽 간격 (검술 풀이의 꾸러미 값 — AI 와 같은 수) */
   view() {
     const art = this.me.swordArt;
@@ -812,7 +821,7 @@ export class PlayerSecretWatch {
       this.open = null;
       this.queued = null;
     }
-    this.sense.record(dt);
+    recordFoeSenses(this, dt); // 1:1 = this.sense.record(dt) 그대로 (2:2 는 상대마다 — setFoe)
     if (this.open) {
       this.open.age = (this.open.age ?? 0) + dt;
       if ((this.open.t -= dt) <= 0 && !this.holding()) this.open = null; // 창 끝 (secretHold: 열린 뒤 playerWindow 초까지는 짧은 창도 지킴)

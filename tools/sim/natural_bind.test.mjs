@@ -62,6 +62,7 @@ test('칼 면 (combat.js armSteel): 떨어져 있으면 반발 min(제 값, 0.2)
         const apart = (after) => look(G, G.player).forEach(([e, mu], i) => { const [e0, mu0] = base(i); near(e, nat ? Math.min(e0, BIND.restitution) : after ? G.player.restitution : e0, 1e-6); near(mu, mu0, 1e-6); });
         apart(false);
         C.bladeLast = C.stepNo; // 칼끼리 맞닿음 (이번 스텝)
+        for (const f of C.fighters) C.bladeLastOf.set(f, C.stepNo); // 동시 대전 병합: 실제 칼 접촉은 싸움꾼마다 시각을 적는다(combat.js clashGroup)
         C.armSteel();
         look(G, G.player).forEach(([e, mu], i) => { near(e, 0); near(mu, nat ? BIND.friction : base(i)[1], 1e-6); });
         C.stepNo += CONFIG.STEEL.rearmSteps + 1; // 떨어진 지 rearmSteps 넘음
@@ -73,6 +74,29 @@ test('칼 면 (combat.js armSteel): 떨어져 있으면 반발 min(제 값, 0.2)
       BIND.natural = keep;
     }
   }
+});
+
+test('2:2 자연 바인드: 맞닿은 두 칼만 반발을 끄고, 나머지 두 칼의 재질은 유지한다', async () => {
+  const { newMatch } = await import('./jelly_harness.mjs');
+  const G = newMatch({ count: 4, seed: 3 });
+  try {
+    const C = G.combat;
+    const base = G.fighters.map((f) => f.swordColliders.map((c) => ({ e: c.restitution(), mu: c.friction() })));
+    C.armSteel();
+    C.bladeLast = C.stepNo;
+    for (const f of G.fighters.slice(0, 2)) C.bladeLastOf.set(f, C.stepNo);
+    C.armSteel();
+    G.fighters.forEach((f, i) => f.swordColliders.forEach((c, j) => {
+      near(c.restitution(), i < 2 ? 0 : Math.min(base[i][j].e, BIND.restitution), 1e-6);
+      near(c.friction(), i < 2 ? BIND.friction : base[i][j].mu, 1e-6);
+    }));
+    C.stepNo += CONFIG.STEEL.rearmSteps + 1;
+    C.armSteel();
+    G.fighters.forEach((f, i) => f.swordColliders.forEach((c, j) => {
+      near(c.restitution(), Math.min(base[i][j].e, BIND.restitution), 1e-6);
+      near(c.friction(), base[i][j].mu, 1e-6);
+    }));
+  } finally { G.world.free(); }
 });
 
 test('밀기 칸 natP 는 모르트슐라크 누르기 셈(this.press)과 따로 (10/31 고침 — 10/11 판은 같은 칸을 써 10/24 뒤로 켜면 mordTick 이 비기 없는 AI 에서 멈춤)', () => {

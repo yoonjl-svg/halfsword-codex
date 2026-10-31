@@ -112,7 +112,7 @@ function over(f, on) {
   const cols = f.swordColliders ?? [];
   if (on && !f._mordGroups) {
     f._mordGroups = cols.map((c) => c.collisionGroups());
-    const wBit = (f.index ?? 0) === 0 ? 16 : 4; // 상대 칼 비트 (fighter.js weaponBit(1 − index) — 0 번 몸 4 · 1 번 몸 16)
+    const wBit = f.bits?.foeWeapon ?? 0; // 상대 편 칼 비트 (fighter.js this.bits — 1:1 은 예전 그대로 0 번 몸 16 · 1 번 몸 4 · 2:2 는 상대 편 둘의 칼)
     for (const c of cols) c.setCollisionGroups(c.collisionGroups() & ~wBit);
   } else if (!on && f._mordGroups) {
     cols.forEach((c, i) => c.setCollisionGroups(f._mordGroups[i]));

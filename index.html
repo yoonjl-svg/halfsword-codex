@@ -155,6 +155,16 @@
       #staminaHud { position: fixed; inset: 0; pointer-events: none; }
       .stamina-bar { position: absolute; width: 56px; height: 2px; transform: translate(-50%, -100%); background: rgba(24,18,14,.35); border-radius: 1px; overflow: hidden; box-shadow: 0 0 0 .25px var(--c-text), 0 0 0 .5px var(--c-accent); }
       .stamina-bar > span { display: block; width: 100%; height: 100%; background: var(--c-sub); opacity: .85; transform-origin: left center; }
+      /* 동시 대전 이름 · 체력 목록 (src/team_hud.js — 사장님 10/29 22:3x '왼쪽 상단에 작게 이름과 체력바'): 글자 = 기술 칸 둘째 줄(.slot small · #techSlot small)과 같은
+         크기 · 굵기 · 줄 높이 · 색 · 외곽선 · 막대 40 × 2 px = 기력 막대(56 × 2)의 약 70 % · 채움 = 편 색 · 죽으면 흐림. 1:1 엔 없음 */
+      /*  10/30 01:0x: 짧은 이름 밑에 막대 · 한 줄에 둘 — 첫 줄 상대 · 둘째 줄 내 편 */
+      #teamList { position: absolute; left: var(--safe-l); top: var(--safe-t); display: flex; flex-direction: column; gap: 3px; max-width: var(--side-w); text-shadow: var(--hud-outline); }
+      #teamList .tl-row { display: flex; gap: 12px; }
+      #teamList .tl-c { display: flex; flex-direction: column; gap: 1px; min-width: 40px; max-width: 7em; }
+      #teamList .tl-n { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--fs-s); font-weight: var(--fw-body); line-height: 1.35; color: var(--c-sub); word-break: keep-all; }
+      #teamList .tl-b { display: block; width: 40px; height: 2px; background: rgba(24,18,14,.35); border-radius: 1px; overflow: hidden; box-shadow: 0 0 0 .25px var(--c-text), 0 0 0 .5px var(--c-accent); }
+      #teamList .tl-b > span { display: block; width: 100%; height: 100%; opacity: .9; transform-origin: left center; transition: transform .25s; }
+      #teamList .dead { opacity: .4; }
       .stamina-bar { transition: opacity .4s; }
       .stamina-bar[data-full="true"] { opacity: .6; }
       .stamina-bar[data-level="1"], .stamina-bar[data-level="2"] { animation: stamina-breath 1.8s ease-in-out infinite; }

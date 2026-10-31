@@ -35,6 +35,7 @@ import { lowFinishOn, lowFinishPosture, downLowTarget } from './finish_entry.js'
 import { UNIQUE_ASSIST as UA, IB_FLOW } from './config.js'; // IB_FLOW.power: 이베리아 흐르는 긋기 위력 (10/28 — analyze)
 import { strokeTechOf, strokeHitK } from './unique_assist.js'; // 강화동작 이점 (10/21): 맞는 순간 지금 기술 이름
 import { kitOff, perkOff } from './skill_kit.js'; // 플레이어 스킬트리 몫 (10/21 — 흘려 받기 J3 · 강화동작 이점 = 심화 칸 G6 · I8 · C4)
+import { MAX_FIGHTERS } from './team.js'; // 셋 이상 판: 같은 편도 적과 똑같이 상처 · 칼 겨루기 (사장님 10/29 22:3x — 제 몸끼리만 버린다)
 
 /** 발도 충돌 끔 쌍: 서로 다른 싸움꾼이고, 충돌을 끄는 중인 쪽의 칼·칼 쪽 팔·빈팔이 낀 쌍 (팔 ↔ 몸, 칼 ↔ 칼) */
 const IAI_GHOST_PARTS = new Set(['uarmS', 'farmS', 'uarmO', 'farmO']);
@@ -129,9 +130,14 @@ export class Combat {
     // 칼끼리 닿아 있는 상태 (소리용): 처음 부딪히는 순간 = "쨍", 맞댄 채 미끄러지는 동안 = 긁히는 소리
     //  last/start = 마지막으로·처음으로 닿은 스텝, slide = 미끄러지는 속도(m/s), press = 누르는 힘(N)
     this.bladeContact = { last: -1e9, start: 0, slide: 0, press: 0 };
-    // 칼끼리 닿은 마지막 스텝. 떨어진 지 STEEL.rearmSteps가 지나야 다시 튕길 수 있다
+    // 칼끼리 닿은 마지막 스텝. 떨어진 지 STEEL.rearmSteps가 지나야 다시 튕길 수 있다 (어느 짝이든 — 짝마다는 bladePairs, 싸움꾼마다는 bladeLastOf)
     this.bladeLast = -1e9;
-    this.steelArmed = true; // 지금 칼 재질에 반발이 켜져 있는가
+    this.steelArmed = true; // 칼 재질에 반발이 켜져 있는가의 처음 값 (싸움꾼마다 지금 값은 steelArmedOf)
+    // 칼 겨루기는 싸움꾼 짝마다 (2:2 동시 대전 10/29 — bladeClash): 짝 열쇠(앞 자리 × MAX_FIGHTERS + 뒤 자리) → { last(그 짝이 마지막으로 닿은 스텝 — fresh), bc(소리용 접촉) }.
+    //  처음 생긴 짝의 bc 는 위 this.bladeContact 그 객체 — 1:1 은 짝이 하나라 main.js 긁는 소리가 읽는 값이 예전 그대로다
+    this.bladePairs = new Map();
+    this.bladeLastOf = new Map(); // 싸움꾼 → 그 칼이 마지막으로 칼에 닿은 스텝 (armSteel — 반발을 싸움꾼마다 끄고 켬)
+    this.steelArmedOf = new Map(); // 싸움꾼 → 지금 칼 재질에 반발이 켜져 있나 (없으면 this.steelArmed)
     this.touching = new Map(); // "칼콜라이더:몸콜라이더" → 마지막으로 닿은 스텝 (투구·뼈 되튐을 한 번만)
     this.fighters = [...new Set([...colliderInfo.values()].map((i) => i.fighter))];
     // Rapier 물리 훅: 칼과 상대 몸이 부딪히려 할 때마다(매 스텝) 불린다.
@@ -145,7 +151,7 @@ export class Combat {
   pairOf(c1, c2) {
     const a = this.info.get(c1);
     const b = this.info.get(c2);
-    if (!a || !b || a.fighter === b.fighter) return null;
+    if (!a || !b || a.fighter === b.fighter) return null; // 제 몸 (같은 편은 적과 똑같이 — 사장님 10/29 22:3x)
     if (a.fighter.revival || b.fighter.revival) return null; // 부활하는 동안엔 상처를 주고받지 않는다 (revive.js)
     if (a.detached || b.detached) return null; // 잘려 떨어진 팔다리(와 그 손의 칼)는 잔해: 상처를 내지도 받지도 않는다 (fighter.sever)
     // 손에서 놓친(땅에 떨어진) 칼은 부딪히기만 하고 상처를 내지 않는다
@@ -158,7 +164,7 @@ export class Combat {
   filterContactPair(c1, c2) {
     const pr = this.pairOf(c1, c2);
     if (pr && (pr.w.fighter.instantGhost > 0 || pr.w.fighter.holdGhost > 0)) return 0; // 순간 베기 직후(SECRET.instantNoCollide): 몸 안에 놓인 칼이 튀지 않게 내 칼 ↔ 상대 몸 충돌 끔 · holdGhost = 팔을 뻗은 겨눈 찌름이 맞힌 뒤 굳음 동안 (secret_instant.js endCombo — 10/24 SECRET.thrustArm · 사람 비기만)
-    if (!pr && (this.fighters[0]?.instantGhost > 0 || this.fighters[1]?.instantGhost > 0) && iaiGhostPair(this.info.get(c1), this.info.get(c2))) return 0; // 발도(운동학 팔·칼) 동안: 내 칼 ↔ 상대 칼, 내 칼 팔 ↔ 상대 몸·칼 충돌도 끔
+    if (!pr && this.anyInstantGhost() && iaiGhostPair(this.info.get(c1), this.info.get(c2))) return 0; // 발도(운동학 팔·칼) 동안: 내 칼 ↔ 상대 칼, 내 칼 팔 ↔ 상대 몸·칼 충돌도 끔
     if (!pr || pr.w.part !== 'blade') return 1; // 1 = 평소처럼 부딪힘
     const key = `${pr.wc}:${pr.vc}`;
     let cut = this.cutting.get(key);
@@ -174,6 +180,12 @@ export class Combat {
       return 0;
     }
     return 1;
+  }
+
+  /** 발도 충돌 끔이 걸린 싸움꾼이 하나라도 있나 (filterContactPair — 판의 싸움꾼 수만큼 본다. 1:1 은 예전 [0] · [1] 과 같은 답) */
+  anyInstantGhost() {
+    for (const f of this.fighters) if (f.instantGhost > 0) return true;
+    return false;
   }
 
   /** 스텝 전 저장값으로, 칼날 위에서 몸 부위 중심에 가장 가까운 점을 접촉점으로 가정해 분석 */
@@ -528,7 +540,7 @@ export class Combat {
       const h2 = e.collider2();
       const a = this.info.get(h1);
       const b = this.info.get(h2);
-      if (!a || !b || a.fighter === b.fighter) return;
+      if (!a || !b || a.fighter === b.fighter) return; // 제 몸 (같은 편은 적과 똑같이)
       if (a.detached || b.detached) return; // 잔해(잘린 팔다리)는 겨루기·튕김 판정에서 뺀다
       if (a.kind === 'weapon' && b.kind === 'weapon') {
         if (!a.fighter.armed || !b.fighter.armed) return; // 땅에 떨어진 칼은 겨루기(바인드·쨍)가 아니다
@@ -556,12 +568,50 @@ export class Combat {
   /**
    * 칼끼리 부딪힘: 이번 스텝에 두 칼이 주고받은 충격량을 모아서 싸움꾼에게 알리고(fighter.feel: 누르는 힘,
    * 새로 부딪힘), 소리·불꽃 훅을 부른다. 튕김 자체는 물리 엔진이 강철 재질(반발 계수)로 계산했다.
+   *  2:2 동시 대전 (10/29): 이번 스텝의 칼 쌍을 싸움꾼 짝(앞 자리 · 뒤 자리 — 들어온 차례)으로 묶어 짝마다 한 번씩 푼다(clashGroup).
+   *  새로 부딪힘(fresh) · 소리 접촉은 짝마다, 반발 끄고 켜기(armSteel)는 싸움꾼마다, 느낌(feel)은 그 싸움꾼의 가장 센 짝(충격량 J — 같으면 먼저 온 짝) 것.
+   *  1:1 은 짝이 늘 하나라 예전과 같은 셈을 같은 차례로 한다 (관문 해시 그대로)
    */
   bladeClash(world, pairs) {
     if (!pairs.length) {
       for (const f of this.fighters) if (f.feel) (f.feel.touching = false), (f.feel.force = 0);
       return;
     }
+    const groups = this.groupBlades(pairs);
+    if (groups.length === 1) {
+      const g = groups[0];
+      this.clashGroup(world, g, this.measureClash(world, g), null);
+      return;
+    }
+    const meas = groups.map((g) => this.measureClash(world, g));
+    const best = new Map(); // 싸움꾼 → 가장 센 짝의 차례
+    groups.forEach((g, i) => {
+      for (const f of [g.A.fighter, g.B.fighter]) if (!best.has(f) || meas[i].J > meas[best.get(f)].J) best.set(f, i);
+    });
+    groups.forEach((g, i) => this.clashGroup(world, g, meas[i], (f) => best.get(f) === i));
+    for (const f of this.fighters) if (f.feel && !best.has(f)) (f.feel.touching = false), (f.feel.force = 0); // 이번 스텝 칼이 안 닿은 싸움꾼
+  }
+
+  /** 칼 쌍 [앞 싸움꾼 콜라이더, 뒤 싸움꾼 콜라이더] 들을 싸움꾼 짝으로 묶는다 (들어온 차례). 짝 = { key, pairs, A, B(앞 · 뒤 칼 콜라이더 정보 — 그 짝의 첫 쌍) } */
+  groupBlades(pairs) {
+    const fa = this.info.get(pairs[0][0]).fighter;
+    const fb = this.info.get(pairs[0][1]).fighter;
+    let one = true;
+    for (let i = 1; i < pairs.length && one; i++) one = this.info.get(pairs[i][0]).fighter === fa && this.info.get(pairs[i][1]).fighter === fb;
+    if (one) return [{ key: fa.index * MAX_FIGHTERS + fb.index, pairs, A: this.info.get(pairs[0][0]), B: this.info.get(pairs[0][1]) }];
+    const by = new Map();
+    for (const p of pairs) {
+      const key = this.info.get(p[0]).fighter.index * MAX_FIGHTERS + this.info.get(p[1]).fighter.index;
+      let g = by.get(key);
+      if (!g) by.set(key, (g = { key, pairs: [], A: this.info.get(p[0]), B: this.info.get(p[1]) }));
+      g.pairs.push(p);
+    }
+    return [...by.values()];
+  }
+
+  /** 짝 하나의 칼 쌍들이 이번 스텝 주고받은 충격량 합 J · 첫 접점 point · 법선 nrm(앞 칼 → 뒤 칼, 정규화) — 읽기만 */
+  measureClash(world, g) {
+    const pairs = g.pairs;
     let J = 0;
     let point = null;
     const n = _c.set(0, 0, 0);
@@ -580,11 +630,15 @@ export class Combat {
         if (!point && m.numSolverContacts() > 0) point = tv(m.solverContactPoint(0));
       });
     }
-    const A = this.info.get(pairs[0][0]);
-    const B = this.info.get(pairs[0][1]);
-    if (!point) point = A.fighter.bladePoint(0.6);
+    if (!point) point = g.A.fighter.bladePoint(0.6);
     if (J > 0) n.normalize();
-    const nrm = n.clone();
+    return { J, point, nrm: n.clone() };
+  }
+
+  /** 짝 하나의 칼 부딪힘을 푼다 (bladeClash). own(f): 이 짝이 f 의 느낌(feel)을 적나 — null 이면 둘 다 (짝이 하나뿐) */
+  clashGroup(world, g, m, own) {
+    const { A, B, pairs } = g;
+    const { J, point, nrm } = m;
     // 부딪히기 직전 상대 속도 (스텝 전 저장값) — 부딪힌 뒤엔 엔진이 이미 속도를 꺾어 놓았다
     //  vn = 맞닿는 방향으로 다가오던 빠르기(부딪히는 세기), vt = 칼날을 따라 스치던 빠르기
     const SA = A.state || A.fighter.cache?.sword; // 휘는 마디 무기는 닿은 그 마디의 스텝 전 상태
@@ -601,8 +655,13 @@ export class Combat {
     }
     A.fighter.stamina.block(B.fighter);
     B.fighter.stamina.block(A.fighter);
-    const fresh = this.stepNo - this.bladeLast > STEEL.rearmSteps; // 떨어져 있다가 새로 부딪힘
+    let ps = this.bladePairs.get(g.key); // 이 짝의 겨룸 상태 (처음 생긴 짝의 소리 접촉 = this.bladeContact)
+    if (!ps) this.bladePairs.set(g.key, (ps = { last: -1e9, bc: this.bladePairs.size ? { last: -1e9, start: 0, slide: 0, press: 0 } : this.bladeContact }));
+    const fresh = this.stepNo - ps.last > STEEL.rearmSteps; // 떨어져 있다가 새로 부딪힘 (이 짝이)
+    ps.last = this.stepNo;
     this.bladeLast = this.stepNo;
+    this.bladeLastOf.set(A.fighter, this.stepNo);
+    this.bladeLastOf.set(B.fighter, this.stepNo);
     // 우케나가시 흘려 받기 (config NAGASHI): 받은 칼을 칼 지붕을 따라 미끄러뜨리고, 받는 쪽 손 흔들림·무기 닳음을 던다 (아래 feel)
     //  판정 개편(FLOW_REDESIGN.on — 사장님 10/18 22:1x)이면 새로 부딪힌 순간이 아니어도 접촉 창(0.12 s) 안에서 다시 본다 (nagashi_redesign.js)
     const flowD = (fresh || FLOW_REDESIGN.on) && NAGASHI.on && SA && SB && J > 0 ? this.nagashi(A, B, SA, SB, point, nrm, vn) : null;
@@ -615,7 +674,7 @@ export class Combat {
     const sp = Math.hypot(va.x - vb.x, va.y - vb.y, va.z - vb.z); // 스텝 뒤 상대 속도 (튕기고 남은 속도)
     const force = J / this.dt;
     // 소리용 접촉 상태 (맞댄 채 미끄러지면 긁히는 소리: binding)
-    const bc = this.bladeContact;
+    const bc = ps.bc;
     if (this.stepNo - bc.last > 6) bc.start = this.stepNo;
     bc.last = this.stepNo;
     bc.slide = sp;
@@ -624,26 +683,31 @@ export class Combat {
     for (const [f, sgn] of [[A.fighter, -1], [B.fighter, 1]]) {
       const fe = f.feel;
       if (!fe) continue;
-      fe.touching = true;
-      fe.force = force;
-      fe.normal.copy(nrm).multiplyScalar(sgn); // 상대 칼이 내 칼을 미는 방향
-      fe.point.copy(point);
-      fe.time = fresh ? 0 : fe.time + this.dt;
+      const mine = !own || own(f); // 2:2: 느낌 칸은 그 싸움꾼의 가장 센 짝만 적는다 (충격 · 닳음은 짝마다)
+      if (mine) {
+        fe.touching = true;
+        fe.force = force;
+        fe.normal.copy(nrm).multiplyScalar(sgn); // 상대 칼이 내 칼을 미는 방향
+        fe.point.copy(point);
+        fe.time = fresh ? 0 : fe.time + this.dt;
+      }
       if (fresh) {
         const jf = f === flowD ? J * (1 - NAGASHI.joltCut) : J; // 흘려 받은 쪽은 받는 충격을 joltCut 만큼 덜 (config NAGASHI)
-        fe.impact = J;
-        fe.impactSpeed = vn;
+        if (mine) {
+          fe.impact = J;
+          fe.impactSpeed = vn;
+        }
         f.takeJolt?.(jf);
         f.absorbWeaponImpact?.(jf, f === A.fighter ? B.fighter : A.fighter); // 칼끼리 세게 부딪힌 몫만큼 내구도가 있는 무기(나뭇가지 등)를 깎는다 (상대 칼의 breakMult — 청강검 '창천')
       }
     }
     for (const f of [A.fighter, B.fighter]) if (f.skill?.corr === 'v2') (f.bladeTouch = true), (f.touchStep = this.stepNo); // 보정 v2: 칼끼리 닿음
     for (const f of [A.fighter, B.fighter]) f.schoolPassive?.bladeContact(); // 독일 인데스 (10/28 01:4x 사장님 '무기가 맞부딪혔을 때' — school_passive.js): 닿아 있는 스텝마다 창을 열고 시계를 0 으로 · 두 몸 모두
-    if (BIND.natural) this.bindFeel(pairs, point, A.fighter, B.fighter, fresh);
+    if (BIND.natural) this.bindFeel(pairs, point, A.fighter, B.fighter, fresh, own);
     A.fighter.parryGuard?.opposition?.onClash(B.fighter, { vn });
     B.fighter.parryGuard?.opposition?.onClash(A.fighter, { vn });
     if (fresh && SA && SB && J > 0) this.koteSword(A, B, SA, SB, point, nrm, vn); // 손목 치기가 상대 칼 손 쪽 절반을 세게 침 (J8 판정 완화 — 사람만)
-    this.hooks.onClash?.(point, sp, { fresh, vn, vt, force, impulse: J, normal: nrm, nagashi: !!flowD });
+    this.hooks.onClash?.(point, sp, { fresh, vn, vt, force, impulse: J, normal: nrm, nagashi: !!flowD, a: A.fighter, b: B.fighter }); // a · b = 앞 · 뒤 싸움꾼 (2:2 — main.js 가 보는 몸이 낀 부딪힘인지 본다)
   }
 
   /**
@@ -778,10 +842,10 @@ export class Combat {
    *  feel.at = 코등이 0 → 칼끝 1 (음수 = 코등이·자루 위 — 강함 Stärke 쪽일수록 작다) · feel.hilt = 이번 스텝 내 코등이·자루 콜라이더가 상대 칼에 닿음(코등이 걸림) ·
    *  feel.bindT = 이어 붙은 시간(s, fe.time 과 같으나 실험 쪽 셈). AI(독일 느낌 결정)와 측정 도구가 읽는다
    */
-  bindFeel(pairs, point, A, B, fresh) {
+  bindFeel(pairs, point, A, B, fresh, own = null) {
     for (const f of [A, B]) {
       const fe = f.feel;
-      if (!fe || !f.sword) continue;
+      if (!fe || !f.sword || (own && !own(f))) continue; // 2:2: 느낌은 가장 센 짝만 (bladeClash)
       const o = f.sword.translation();
       const ax = _a.set(0, 1, 0).applyQuaternion(rotQ(f.sword));
       const along = _b.copy(point).sub(_c.set(o.x, o.y, o.z)).dot(ax);
@@ -795,13 +859,14 @@ export class Combat {
 
   /** 칼끼리 맞댄 채(바인드)엔 반발을 끈다: 누를 때마다 접촉점이 새로 생기며 튕겨 떨리지 않게 */
   armSteel() {
-    const armed = this.stepNo - this.bladeLast > STEEL.rearmSteps;
-    // 자연 바인드 (BIND.natural ① — 10/31 본판): 처음 한 번 칼 반발을 BIND.restitution 으로 다시 건다 (끄면 이 줄을 지나치기만 한다)
-    if (BIND.natural && !this.natSurface) (this.natSurface = true), (this.steelArmed = null), (this.natBase = new Map());
-    if (armed === this.steelArmed) return;
-    this.steelArmed = armed;
+    // 자연 바인드 (BIND.natural ①): 처음 한 번 칼 반발을 BIND.restitution 으로 다시 건다 (끄면 이 줄을 지나치기만 한다)
+    if (BIND.natural && !this.natSurface) (this.natSurface = true), (this.steelArmed = null), (this.natBase = new Map()), this.steelArmedOf.clear();
+    // 싸움꾼마다 (2:2 — 한 짝이 맞대고 있어도 다른 싸움꾼의 칼은 그대로 튕긴다). 1:1 은 두 칼이 늘 함께 닿아 예전 판(한꺼번에 끄고 켬)과 같은 차례다
     // 무기마다 재질이 다를 수 있어(강철/나무/고무…) 되돌릴 때도 각자 자기 재질 반발값을 쓴다
     for (const f of this.fighters) {
+      const armed = this.stepNo - (this.bladeLastOf.get(f) ?? -1e9) > STEEL.rearmSteps;
+      if (armed === (this.steelArmedOf.has(f) ? this.steelArmedOf.get(f) : this.steelArmed)) continue;
+      this.steelArmedOf.set(f, armed);
       const mat = f.restitution ?? STEEL.restitution;
       for (const c of f.swordColliders || []) {
         if (!BIND.natural) {
@@ -874,8 +939,8 @@ export class Combat {
 
   /** 소리용: 지금 칼끼리 맞대고 있는가 (처음 닿은 뒤 40ms 넘게 계속 닿아 있음) */
   get binding() {
-    const bc = this.bladeContact;
-    return this.stepNo - bc.last <= 3 && bc.last - bc.start >= 5;
+    for (const { bc } of this.bladePairs.values()) if (this.stepNo - bc.last <= 3 && bc.last - bc.start >= 5) return true; // 어느 짝이든 (1:1 은 짝 하나 = this.bladeContact)
+    return false;
   }
 
   /** 실제 접촉점에서 다시 정확히 분석하고 상처/에너지 전달을 적용 */

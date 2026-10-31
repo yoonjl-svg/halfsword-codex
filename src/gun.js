@@ -427,7 +427,7 @@ function fire(f, world, combat) {
   );
   f.takeJolt?.(GUN.recoilBack + GUN.recoilUp);
   const info = combat.info;
-  const hit = castRay(world, _o, _d, (h) => info.get(h)?.fighter !== f);
+  const hit = castRay(world, _o, _d, (h) => info.get(h)?.fighter !== f); // 제 몸만 뺌 (같은 편도 맞는다 — 사장님 10/29 22:3x)
   sound('onShot', f, _d.clone(), hit ? hit.toi : GUN.range); // 효과 모듈의 총알 궤적이 실제 총알을 따라가게 방향·거리를 넘긴다
   const vi = hit ? info.get(hit.collider.handle) : null;
   // 어디에 맞았나 (검사 도구가 읽는다): 허공·땅벽·칼·몸

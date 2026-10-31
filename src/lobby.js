@@ -19,6 +19,8 @@
 //   이미 다 깬 사람(옛 저장 인정 — 저장 wander.noticeSeen 없음)은 대기실에 처음 들어올 때 알림 창 한 번(스킬트리 알림 창과 같은 꼴 · '확인'은 방랑 단추 색 — 사장님 10/24 00:3x)
 //  10/30 상점 (사장님 19:0x — config.js SHOP · shop_panel.js): '상점' 칸 = 상인 프로필 · 대사 · 파는 무기 둘 · '⏳ 1:29:59' · '다음 갱신'(머리 1) (SHOP.enabled — 10/31 00:2x 본판 켬 · 끄면 전 빈 안내 한 줄) ·
 //   뿔피리는 상점 칸 제목 줄 지갑에(내 정보 칸은 좁아 금화 · 머리만 그대로) · 아이템 칸 무기 = 가진 무기 모두(시작 무기 + 산 무기 — owned_weapons.js · 산 무기도 장착) · 시험판은 상점 칸으로 바로 열림(tab)
+//  10/29 생사전 (사장님 14:1x 요지 — 탭 '이벤트'를 '생사전'으로 · docs/design/saengsa_2026-10-29.md): 넷째 탭 '이벤트' → '생사전'(열쇠 tabEvent · panelEvent · 차례 그대로) ·
+//   ③ 칸 = 부제 '3인의 맹약' · 일정 알약 · saengsa_panel.js 판(설명 · 내 팀 · 안내 · '생사전 입장') · 입장 → onSaengsa(game_entry.js showSaengsa)
 import style from './lobby.css?inline';
 import uiStyle from './entrance_ui.css?inline';
 import typeStyle from './entrance_type.css?inline';
@@ -39,6 +41,9 @@ import shopStyle from './shop.css?inline'; // 상점 칸 (10/30)
 import { mountShopPanel } from './shop_panel.js';
 import { SHOP_TEXT } from './shop_text.js';
 import { ownedWeapons } from './owned_weapons.js'; // 아이템 칸 무기 = 가진 무기 (10/30 — 산 무기도)
+import saengsaStyle from './saengsa.css?inline'; // 생사전 칸 (10/29)
+import { mountSaengsaPanel } from './saengsa_panel.js';
+import { SAENGSA_TEXT } from './saengsa_text.js';
 
 // 칸 그림 맞춤 (사장님 ⑨ — 감독 검토 §2 '케틀 햇이 칸 폭의 약 45 %'): 그림 파일의 투명한 가장자리를 빼고, 보이는 부분의 긴 쪽이 칸의 80 % 가 되게 키우고 가운데에 둔다.
 //  같은 그림은 한 번만 잰다(이번 실행 동안). 재기 전 · 못 재면 그림 상자 = 칸의 80 % 그대로 (lobby.css .inventory-item img 의 --fit · --fx · --fy)
@@ -66,10 +71,10 @@ function fitThumb(img) {
 const CHEVRON = '<svg class="chevron" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5 5 6.5 8 3.5"/></svg>';
 const CHECK = '<svg class="check" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.5 5 9 9.5 3.5"/></svg>';
 
-export function mountLobby({ root, game, choice, onDepart, onWander, onBack, tab: firstTab = null }) {
+export function mountLobby({ root, game, choice, onDepart, onWander, onBack, onSaengsa, tab: firstTab = null }) {
   const ctx = game.getSkillBookContext?.() ?? { test: false };
   const shopOn = SHOP.enabled; // 상점 (10/30 — 본판은 끔 · 시험판 켬)
-  root.innerHTML = `<style>${uiStyle}\n${style}\n${shopOn ? shopStyle : ''}\n${typeStyle}</style><main class="lobby" aria-labelledby="lobbyHeading">
+  root.innerHTML = `<style>${uiStyle}\n${style}\n${saengsaStyle}\n${shopOn ? shopStyle : ''}\n${typeStyle}</style><main class="lobby" aria-labelledby="lobbyHeading">
     <canvas class="lobby-backdrop" id="lobbyGrove" aria-hidden="true"></canvas><div class="lobby-shade" aria-hidden="true"></div>
     <header class="lobby-header"><h1 id="lobbyHeading" tabindex="-1"><span>대기실</span></h1><p id="lobbyStatus" class="lobby-status" role="status"></p><button id="lobbyBack" class="secondary small on-art utility">첫 화면</button></header>
     <div class="lobby-columns">
@@ -82,7 +87,7 @@ export function mountLobby({ root, game, choice, onDepart, onWander, onBack, tab
           <button role="tab" id="tabItems" aria-controls="panelInventory" aria-selected="true" data-panel="Inventory">아이템</button>
           <button role="tab" id="tabShop" aria-controls="panelShop" aria-selected="false" tabindex="-1" data-panel="Shop">상점</button>
           <button role="tab" id="tabSkills" aria-controls="panelSkills" aria-selected="false" tabindex="-1" data-panel="Skills">스킬</button>
-          <button role="tab" id="tabEvent" aria-controls="panelEvent" aria-selected="false" tabindex="-1" data-panel="Event">이벤트</button>
+          <button role="tab" id="tabEvent" aria-controls="panelEvent" aria-selected="false" tabindex="-1" data-panel="Event">${SAENGSA_TEXT.title}</button>
         </nav>
       </section>
       <section class="contents-panel" aria-label="대기실 상세">
@@ -96,7 +101,7 @@ export function mountLobby({ root, game, choice, onDepart, onWander, onBack, tab
           ? `<div class="panel-heading"><h2>${SHOP_TEXT.title}</h2><span class="wallet panel-wallet">${COIN_ICON}<b id="shopCoins"></b>${POUCH_ICON}<b id="shopHeads"></b>${HORN_ICON}<b id="shopHorns"></b></span></div><div id="shopHost" class="shop-host"></div>`
           : `<div class="panel-heading"><h2>상점</h2></div><p class="empty-panel">${SHOP_TEXT.closed}</p>`}</div>
         <div role="tabpanel" id="panelSkills" aria-labelledby="tabSkills" hidden><div class="panel-heading"><h2>스킬</h2><span class="wallet panel-wallet">${COIN_ICON}<b id="skillCoins"></b>${POUCH_ICON}<b id="skillHeads"></b></span></div><div id="skillTreeHost" class="skill-tree-host"></div><p id="skillStatus" class="sr-only" role="status"></p></div>
-        <div role="tabpanel" id="panelEvent" aria-labelledby="tabEvent" hidden><div class="panel-heading"><h2>이벤트</h2></div><p class="empty-panel">아직 진행 중인 이벤트가 없습니다.</p></div>
+        <div role="tabpanel" id="panelEvent" aria-labelledby="tabEvent" hidden><div class="panel-heading"><h2>${SAENGSA_TEXT.title}<span class="sg-sub">${SAENGSA_TEXT.subtitle}</span></h2><span class="sg-state" id="saengsaState"></span></div><div id="saengsaHost" class="saengsa-host"></div></div>
       </section>
     </div>
   </main><dialog class="name-dialog" id="nameDialog" aria-labelledby="nameHeading"><form id="nameForm"><h2 id="nameHeading">이름 수정</h2><label for="playerNameInput">이름 · 최대 16자</label><input id="playerNameInput" name="playerName" autocomplete="off" required maxlength="32"><p class="name-error" id="nameError" role="status"></p><div class="dialog-actions"><button type="button" id="cancelName" class="secondary">취소</button><button type="submit" class="primary">저장</button></div></form></dialog>
@@ -216,6 +221,8 @@ export function mountLobby({ root, game, choice, onDepart, onWander, onBack, tab
   const tree = mountSkillTree($('skillTreeHost'), { test: ctx.test, onWallet: () => { renderWallet(); showTitleNotice(); }, announce: text => { $('skillStatus').textContent = text; } }); // 칸을 사서 호칭을 얻으면 스킬 화면 위에 알림 창
   // 상점 칸 (10/30): 무기를 사면 지갑 · 레벨(얻은 것 하나 = Lv +1)을 다시 그림 · 알림 줄에 '구입했습니다.'
   const shop = shopOn ? mountShopPanel($('shopHost'), { status: (text, tone) => status(text, tone), onWallet: () => { renderWallet(); showTitleNotice(); } }) : null;
+  // 생사전 칸 (10/29): 입장 → 생사전 화면(onSaengsa) · 신청하면 금화가 줄어 내 정보 칸을 다시 그림
+  const saengsa = mountSaengsaPanel($('saengsaHost'), { chip: $('saengsaState'), status: (text, tone) => status(text, tone), onWallet: () => renderWallet(), onEnter: () => { if (onSaengsa && !departing) onSaengsa(); } });
   const tabs = [...root.querySelectorAll('.lobby-tabs [role=tab]')]; // 차례 = 2 × 2 칸 차례(윗줄 아이템 · 상점 · 아랫줄 스킬북 · 이벤트) — ↑ ↓ 는 같은 칸 줄, ← → 는 다음 · 앞
   function selectTab(tab) {
     for (const item of tabs) {
@@ -226,6 +233,7 @@ export function mountLobby({ root, game, choice, onDepart, onWander, onBack, tab
     if (tab.dataset.panel === 'Skills') tree.refresh();
     if (tab.dataset.panel === 'Shop') shop?.refresh(); // 열 때마다 새 대사 · 이 칸 물건 · 1 초 시계 시작 (10/30 · 10/31)
     else shop?.stop(); // 다른 칸이면 상점 시계는 쉼
+    if (tab.dataset.panel === 'Event') saengsa.refresh();
     root.querySelector('.contents-panel').scrollTop = 0;
   }
   for (const tab of tabs) {
@@ -372,6 +380,6 @@ export function mountLobby({ root, game, choice, onDepart, onWander, onBack, tab
   return {
     tree, // 시험·사진 도구: lobby.tree.show('german', 2)
     shop, // 시험·사진 도구: lobby.shop.stock (상점 켬일 때만)
-    destroy() { events.abort(); tree.destroy(); shop?.destroy(); $('nameDialog').close(); $('treeDialog').close(); $('wanderDialog').close(); $('titleDialog').close(); grove.dispose(); },
+    destroy() { events.abort(); tree.destroy(); shop?.destroy(); saengsa.destroy(); $('nameDialog').close(); $('treeDialog').close(); $('wanderDialog').close(); $('titleDialog').close(); grove.dispose(); },
   };
 }

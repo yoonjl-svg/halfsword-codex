@@ -113,3 +113,28 @@ export class Senses {
     return best;
   }
 }
+
+// ── 2:2 (동시 대전 3단계 — 10/29): 사람 쪽 창(secret.js PlayerSecretWatch) · 막기 단추(parry_button.js PlayerParryGuard)의 눈을 상대마다 ──
+//  host = { me, foe, sense }. addFoeSense 를 한 번도 안 부르면(1:1) recordFoeSenses = 예전 host.sense.record(dt) 한 줄.
+//  상대마다 Senses 하나 · 모두 매 스텝 적어 시계(sense.t)가 같다 (ai.js setFoe 와 같은 꼴 — AI 는 PER_FOE 로 더 많은 칸을 바꾼다)
+/** 겨눌 수 있는 상대를 하나 더 (판 시작에) */
+export function addFoeSense(host, f) {
+  if (!f || f === host.me) return;
+  const M = (host.foeSenses ??= new Map([[host.foe, host.sense]]));
+  if (M.has(f)) return;
+  const s = new Senses(host.me, f);
+  s.t = host.sense.t;
+  M.set(f, s);
+}
+/** 겨눈 상대를 f 로 (같으면 아무 일 없음) */
+export function setFoeSense(host, f) {
+  if (!f || f === host.foe) return;
+  addFoeSense(host, f);
+  host.foe = f;
+  host.sense = host.foeSenses.get(f);
+}
+/** 매 스텝: 지금 상대 + (2:2) 다른 상대들의 눈 */
+export function recordFoeSenses(host, dt) {
+  if (!host.foeSenses) return host.sense.record(dt);
+  for (const s of host.foeSenses.values()) s.record(dt);
+}

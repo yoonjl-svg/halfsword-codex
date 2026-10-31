@@ -21,7 +21,7 @@ import { STAMINA } from './config.js';
 //  먼저 읽고 물러나거나 먼저 쳐야 한다. 그래서 간격 지키기가 가장 중요한 방어다.
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
-import { AI_LEVELS, AI_PROFICIENCY, ARENA, BODY, SKILL, CLOSE, GAIT, SECRET, BIND, DRYPATH, UNIQUE_ASSIST as UA, SCHOOL_PASSIVE, realS, realRate, TIME } from './config.js';
+import { AI_LEVELS, AI_PROFICIENCY, ARENA, BODY, SKILL, CLOSE, GAIT, SECRET, BIND, DRYPATH, UNIQUE_ASSIST as UA, SCHOOL_PASSIVE, TEAM_FIGHT, realS, realRate, TIME } from './config.js';
 import { Senses } from './ai_sense.js';
 import { padDist, WATCH_GUARDS } from './ai_techniques.js';
 import { TRADITIONS } from './schools.js'; // 패시브 고유 동작 목록 (10/9 — TRADITIONS[유파].passives)
@@ -49,6 +49,12 @@ import { mordHeadReach } from './mordschlag.js'; // 모르트슐라크 AI (10/24
 const FEAR_TREMOR = 0.03;
 
 const clamp = THREE.MathUtils.clamp;
+/** 2:1 숙련도 몫 0 ~ 1 (config TEAM_FIGHT.lever.prof — 셋 이상 판의 AI 만 읽음) */
+const teamSkill = (p) => clamp(((p ?? 0) - TEAM_FIGHT.lever.prof[0]) / (TEAM_FIGHT.lever.prof[1] - TEAM_FIGHT.lever.prof[0]), 0, 1);
+/** g 가 me 를 겨눠 치는 중인가 (targeting.js isAttacking 과 같은 셈 — 순환 import 를 피해 여기 둠) */
+const foeAttackingMe = (g, me) => g.foe === me && (g.aiCtl ? g.aiCtl.mode === 'attack' || !!g.aiCtl.secretRun : !!g.stamina?.attacking || !!g.skill?.swinging || !!g.skill?.tap);
+/** g 의 칼끝 거리 (targeting.js reachOf 와 같음) */
+const reachOfFoe = (g) => g.aiCtl?.M?.reach ?? g.swordArt?.measure?.reach ?? 1.8;
 const rand = (a, b) => a + Math.random() * (b - a);
 // 표준 시간 (10/25 22:3x — config.js TIME): AI 판단 박자 · 막기 · 물러남 · 걸쇠 · 눈의 기억은 실제 초로 적고 한 번 게임 초로 바꾼다 (realS).
 //  몸 · 칼 움직임 시간(기술 걸음 STEP_T · 따라 지나감 0.3 · 내딛기 늦춤 0.04 · 떨림 박자 · 비기 동작 단계)은 그대로 — 지금 빠르기가 표준.
@@ -78,6 +84,8 @@ export { MEASURED };
 
 // 감정 판정(Emotions)·텀 상수·고유 능력 배율표는 emotions.js 에 (플레이어와 같은 규칙)
 const COVER_LINES = ['highL', 'highR', 'highC', 'lowL', 'lowR']; // coverFor 가 돌려주는 막기 줄 (withdraw — coverLine)
+// 2:2 (10/29 — setFoe): 상대마다 따로 두고 바꿀 때 맞바꾸는 칸 — 눈 · 상대 간격 어림 · 지난 아픔 · 위협 걸쇠(번호 · 읽기 굴림 · 낌새) · 다가옴 · 몰아침 · 고노센 경계 · 늦게 본 모습
+const PER_FOE = ['sense', 'foeM', 'foeReach', 'foeBrokeM', 'prevFoePain', 'threatId', 'threatSeen', 'readRollId', 'readRollOk', 'preArmed', 'preOff', 'noThreat', 'foeClosing', 'foeAggro', 'gnsW', 'lastSeen'];
 
 export class AI {
   /**
@@ -118,7 +126,10 @@ export class AI {
     //  숙련도 (10/13): 손에 든 유파의 고유 동작은 단계 ≤ 숙련도인 것만 꾸러미에 (sword_art.js applySchoolArt) · 비기는 숙련도 5 에서만 (아래 this.secret)
     const art = resolveSwordArt(me.weapon, this.persona, { proficiency: this.persona.proficiency ?? AI_PROFICIENCY.ofLevel[levelName] ?? AI_PROFICIENCY.ofLevel.normal });
     this.art = art;
-    this.proficiency = art.proficiency;
+    this.proficiency = art.proficiency; // 유파 몫: 손에 든 무기 유파의 숙련도 (고유 동작 · 비기 · schoolK · 패시브 · 흘림 문턱 · 마른 길 세기)
+    // 사람 몫 (사장님 10/29 15:5x '반응은 본 유파 숙련도를 따르도록 해'): 인물의 본 유파 숙련도(characters.js aiAtProficiency → persona.mainProficiency) — 반응 시간(setLevel).
+    //  인물이 아닌 AI(숫자 숙련도 · 난이도 이름만)는 지금처럼 위 값 — 그때는 둘이 같다
+    this.mainProficiency = this.persona.mainProficiency ?? this.proficiency;
     me.wristK = schoolPassiveOn('iberian') && art.tradition === 'iberian' && this.proficiency >= SCHOOL_PASSIVE.at ? SCHOOL_PASSIVE.iberian.wrist : 1; // 유파 패시브 손목 힘 (10/21 — 4급 책 = 숙련도 at 이상)
     me.schoolPassive?.set(this.proficiency >= SCHOOL_PASSIVE.at ? art.tradition : null, { ai: true }); // 나머지 넷 (10/21 — 이탈리아 · 일본 · 독일 · 동방, school_passive.js · AI 몫 aiK)
     this.school = art.school;
@@ -173,6 +184,7 @@ export class AI {
       fearful: P.fearful ?? 0,
       angry: P.angry ?? 0, // 분노에 얼마나 잘 빠지는가 (연달아 막히면, 이기다 맞으면)
       dogged: P.dogged ?? 0, // 집념 (상대가 피 흘리면, 방금 맞혔으면 물고 늘어진다)
+      spinHold: P.spinHold ?? true, // 싱지르 무장 동안 먼저 치지 않고 기다리나 (10/29 — 기본 true = 전 그대로 · 굴림 없음)
       guardPref,
       techPref,
     };
@@ -300,12 +312,145 @@ export class AI {
     // persona.level: 반응 시간·막기 확률·읽는 눈·힘 같은 "실력 숫자"를 난이도 기본값 위에 캐릭터별로 덮어쓴다
     const PL = this.persona?.level;
     this.level = PL ? { ...base, ...PL } : base;
-    const RX = AI_PROFICIENCY.reaction; // AI 반응 시간은 숙련도로 (10/21 — 인물 시트 · 이름 값보다 이김)
-    if (RX) this.level = { ...this.level, reaction: RX[Math.max(0, Math.min(RX.length - 1, Math.round(this.proficiency ?? 2)))] };
+    const RX = AI_PROFICIENCY.reaction; // AI 반응 시간은 숙련도로 (10/21 — 인물 시트 · 이름 값보다 이김) · 10/29 15:5x 부터 본 유파 숙련도(사람 몫 — 다른 유파 무기를 들어도 그대로)
+    if (RX) this.level = { ...this.level, reaction: RX[Math.max(0, Math.min(RX.length - 1, Math.round(this.mainProficiency ?? this.proficiency ?? 2)))] };
     this.me.strength = this.level.strength;
     this.me.skill.level = this.level.skill;
     this.me.skill.corr = SKILL.corrAI; // AI 보정 방식 (사장님 9/30 23:40: 사람이 먼저, AI 는 옛 보정)
     this.me.skill.corrTip = false; // AI 는 끝점 겨눔 ② 없음 (손 뗌 사건이 없고 속임을 망친다, 설계 AI 절)
+  }
+
+  // ── 겨눌 상대 바꾸기 (2:2 동시 대전 10/29 — docs/strike/team_fight_2026-10-29.md · src/match.js · src/targeting.js) ──
+  //  상대마다 따로 두는 몫 = PER_FOE (눈 · 상대 간격 어림 · 지난 아픔 · 위협 걸쇠 · 다가옴 · 몰아침 · 고노센 경계 · 늦게 본 모습).
+  //  지금 겨눈 상대의 몫은 this 위 칸 그대로(아래 코드가 읽는 자리) — 바꿀 때만 기록(foeRecs)과 맞바꾼다. 눈은 모두 매 스텝 함께 적어(recordSenses)
+  //  시계(sense.t — 공격 · 비기 시간 셈)가 하나다. 그 상대와만의 셈(이어 벤 수 combo · 맺힘 셈 binds · 붙음 걸쇠 · 맞댐 막기)은 바꿀 때 0 으로.
+  //  자세 무장(발도 대기 · 길목 · 싱지르)과 감정은 내 몸의 것이라 그대로. addFoe 를 한 번도 안 부르면(1:1) foeRecs 가 없고 아래는 예전 한 줄(this.sense.record)과 같다
+  /** 겨눌 수 있는 상대를 하나 더 적는다 (판 시작에 — 그 뒤로 매 스텝 그 상대도 본다). 이미 있으면 아무 일 없음 */
+  addFoe(f) {
+    if (!f || f === this.me) return;
+    if (!this.foeRecs) this.foeRecs = [{ foe: this.foe }]; // 지금 상대 몫은 this 위에 있다 (맞바꿀 때 적는다)
+    if (this.foeRecs.some((r) => r.foe === f)) return;
+    const sense = new Senses(this.me, f);
+    sense.t = this.sense.t; // 같은 시계
+    const foeM = this.art.measureFor(f.weapon);
+    // 처음 값 = 생성자의 처음 값과 같은 칸 (위협 번호 0 · 본 번호 −1 · 낌새 걸쇠 열림 · 조용한 시간 1 s)
+    this.foeRecs.push({ foe: f, sense, foeM, foeReach: foeM.reach + 0.05, foeBrokeM: undefined, prevFoePain: f.pain, threatId: 0, threatSeen: -1, readRollId: -1, readRollOk: false, preArmed: true, preOff: 1, noThreat: 1, foeClosing: 0, foeAggro: 0, gnsW: undefined, lastSeen: undefined });
+  }
+
+  /** 겨눌 상대를 f 로 (지금 상대와 같으면 아무 일 없음 — 1:1 은 늘 그렇다). 처음 보는 상대면 addFoe 부터 */
+  setFoe(f) {
+    if (!f || f === this.foe) return;
+    this.addFoe(f);
+    const cur = this.foeRecs.find((r) => r.foe === this.foe);
+    if (cur) for (const k of PER_FOE) cur[k] = this[k];
+    const nx = this.foeRecs.find((r) => r.foe === f);
+    this.foe = f;
+    for (const k of PER_FOE) this[k] = nx[k];
+    // 그 상대와만의 셈은 0 으로 (붙잡힘 — 공격 · 비기 · 맞댐 · 밀치기 — 동안엔 targeting 이 바꾸지 않는다)
+    this.combo = 0;
+    this.binds?.reset();
+    this.closeWant = this.closeBind = this.closeIn = this.closeInside = false;
+    this.natDef = null;
+    this.switches = (this.switches ?? 0) + 1;
+  }
+
+  /** 매 스텝 눈: 지금 상대 + (2:2) 기록해 둔 다른 상대들. 다른 상대의 지난 아픔도 따라 적는다 (바꾼 첫 스텝에 '맞혔다'로 잘못 읽지 않게) */
+  recordSenses(dt) {
+    this.sense.record(dt);
+    if (!this.foeRecs) return;
+    for (const r of this.foeRecs) {
+      if (r.foe === this.foe) continue;
+      r.sense.record(dt);
+      r.prevFoePain = r.foe.pain;
+      r.noThreat += dt; // 안 보는 동안은 '조용함'으로 센다 (돌아왔을 때 새 공격은 새 번호 · 낌새 걸쇠는 다시 열림 — threat · preThreat 의 같은 셈)
+      r.preOff += dt;
+      if (r.preOff > EV_REARM) r.preArmed = true;
+    }
+  }
+
+  /**
+   * 2:2 발 (10/29 — moveFeet 끝, 셋 이상 판에서만 · config TEAM_FIGHT): 스틱 (fwd 앞 · side 오른쪽) 을 고쳐 돌려준다
+   *  ① 둘러싸임: 간 보기 · 물러남 동안 다른 상대가 flank.range 안에서 지금 상대와 flank.angle 넘게 벌어져 있으면 그 반대 옆으로 비킨다 (지금 상대를 축으로 돌아 둘을 한 줄로)
+   *  ② 막힘: 지금 상대가 아닌 상대 몸이 내 붙은 거리(M.clinch) 안이면 그쪽으로는 못 밀고 가까울수록 block 몫까지 밀려난다 (붙는 판정은 지금 상대 — 이 몸은 벽처럼)
+   *  ③ 같은 편 비킴: 같은 편이 mateSep.dist 안이면 가까울수록 mateSep.k 몫까지 비킨다 (같은 편은 물리로 지나가서 — 베는 동안은 안 비킴)
+   */
+  teamFeet(fwd, side) {
+    const me = this.me;
+    const TF = TEAM_FIGHT;
+    const c = me.bodies.chest.translation();
+    const F = me.forward(_v2);
+    const R = me.right(_v1);
+    const near = [];
+    for (const g of me.foes) {
+      if (!g.alive || g.revival) continue;
+      const p = g.bodies.chest.translation();
+      const x = p.x - c.x;
+      const z = p.z - c.z;
+      near.push({ g, x, z, d: Math.hypot(x, z) });
+    }
+    const t = near.find((o) => o.g === this.foe);
+    if (t && (this.mode === 'watch' || this.mode === 'withdraw')) {
+      let fl = null;
+      for (const o of near) {
+        if (o === t || o.d > TF.flank.range || o.d < 1e-6) continue;
+        const cos = (o.x * t.x + o.z * t.z) / (o.d * (t.d || 1));
+        if (Math.acos(clamp(cos, -1, 1)) > (TF.flank.angle * Math.PI) / 180 && (!fl || o.d < fl.d)) fl = o;
+      }
+      if (fl) side = -Math.sign(fl.x * R.x + fl.z * R.z || 1) * TF.flank.side; // 다른 상대가 오른쪽이면 왼쪽으로
+    }
+    // 2:1 숙련도 몫 (10/29 20:4x 사장님 '높은 숙련도가 똑똑해지도록' — TEAM_FIGHT.lever): 상대가 둘 이상이고 베는 중이 아닐 때 숙련도가 높을수록
+    //  ① 줄 세우기: 가장 가까운 다른 상대가 지금 상대 뒤로 가게 지금 상대를 축으로 돈다 (벌어진 각만큼) · 집게(각 > backFrom°)면 물러나 둘을 앞에 둔다
+    //  ② 피하기: 지금 상대가 아닌 상대가 나를 치러 제 칼끝 거리 + gap 안에 들면 그 몸에서 비킨다 (모든 상대의 위협을 읽음 — 겨눈 상대를 바꾸지 않고)
+    const LV = TF.lever;
+    const sk = (LV.lineUp.on || LV.evade.on) && near.length >= 2 ? teamSkill(this.proficiency) : 0;
+    if (sk > 0 && t && this.mode !== 'secret' && !(this.mode === 'attack' && (this.phase === 'strike' || this.phase === 'follow'))) {
+      if (LV.lineUp.on) {
+        let o = null;
+        for (const q of near) if (q !== t && q.d <= LV.lineUp.range && q.d > 1e-6 && (!o || q.d < o.d)) o = q;
+        if (o) {
+          const at = Math.atan2(t.x * R.x + t.z * R.z, t.x * F.x + t.z * F.z); // 내 눈 기준 각 (오른쪽 +)
+          let da = Math.atan2(o.x * R.x + o.z * R.z, o.x * F.x + o.z * F.z) - at;
+          if (da > Math.PI) da -= 2 * Math.PI;
+          if (da < -Math.PI) da += 2 * Math.PI;
+          const a = Math.abs(da);
+          side -= Math.sign(da || 1) * LV.lineUp.side * sk * Math.min(1, a / LV.lineUp.full); // o 가 t 보다 오른쪽이면 왼쪽으로 돌아 o 를 t 뒤로
+          const from = (LV.lineUp.backFrom * Math.PI) / 180;
+          if (a > from) fwd -= LV.lineUp.back * sk * ((a - from) / (Math.PI - from)); // 집게: 물러나 둘을 앞으로
+        }
+      }
+      if (LV.evade.on) {
+        for (const q of near) {
+          if (q === t || q.d < 1e-6 || q.d > reachOfFoe(q.g) + LV.evade.gap || !foeAttackingMe(q.g, me)) continue;
+          const k = LV.evade.k * sk;
+          fwd -= (k * (q.x * F.x + q.z * F.z)) / q.d;
+          side -= (k * (q.x * R.x + q.z * R.z)) / q.d;
+        }
+      }
+    }
+    for (const o of near) {
+      if (o === t || o.d >= this.M.clinch || o.d < 1e-6) continue;
+      const uf = (o.x * F.x + o.z * F.z) / o.d;
+      const ur = (o.x * R.x + o.z * R.z) / o.d;
+      const toward = fwd * uf + side * ur;
+      if (toward > 0) (fwd -= toward * uf), (side -= toward * ur);
+      const k = TF.block * (1 - o.d / this.M.clinch);
+      fwd -= k * uf;
+      side -= k * ur;
+    }
+    if (!(this.mode === 'attack' && (this.phase === 'strike' || this.phase === 'follow')) && this.mode !== 'secret') {
+      for (const m of me.mates) {
+        if (!m.alive) continue;
+        const p = m.bodies.chest.translation();
+        const x = p.x - c.x;
+        const z = p.z - c.z;
+        const dm = Math.hypot(x, z);
+        if (dm >= TF.mateSep.dist || dm < 1e-6) continue;
+        const k = TF.mateSep.k * (1 - dm / TF.mateSep.dist);
+        fwd -= (k * (x * F.x + z * F.z)) / dm;
+        side -= (k * (x * R.x + z * R.z)) / dm;
+      }
+    }
+    return [clamp(fwd, -1, 1), clamp(side, -1, 1)];
   }
 
   /** 상대가 칼을 놓쳤다(또는 붙어 싸울 수 없는 권총을 들었다): 간격을 지킬 까닭이 없다 → 쫓아가 끝낸다 (도망치는 상대를 놓치지 않게) */
@@ -362,7 +507,7 @@ export class AI {
   updateCombat(dt) {
     const me = this.me;
     const foe = this.foe;
-    this.sense.record(dt);
+    this.recordSenses(dt); // 1:1 = this.sense.record(dt) 그대로 (2:2 는 기록해 둔 다른 상대의 눈도)
     me.secretActing = !!this.secretRun && this.secretRun.stage !== 'stiff' && this.secretRun.stage !== 'spin' && this.secretRun.stage !== 'mord'; // 비기 실행 중(경직 빼고) — fighter.secretReaching: 그동안 칼 팔이 끝까지 펴짐 (SECRET.secretReach, 10/12) · 싱지르 · 모르트슐라크는 사람과 같게(검술 층이 팔을 쥠 — 10/24)
     this.coverLine = null; // 물러나며 가리는 줄 (withdraw 가 그 스텝에 정함 — frames.js installCover 의 watch 덮개가 읽음, 10/12 왕관)
     const L = this.level;
@@ -702,6 +847,9 @@ export class AI {
     if (this.gilArm?.armed) return;
     // 싱지르 무장 (10/24): 같은 걸쇠 — 무장된 동안은 먼저 치지 않고 간을 보며(발은 holdDist 그대로 다가섬) 상대가 칼끝 거리 + aiFire 안에 들면 spinTick 이 한 바퀴.
     //  걸쇠가 없으면 롤랑이 무장한 뒤 상대가 칼끝 거리 + 0.6 m 에 오자마자 보통 공격을 열어 무장이 풀렸다(첫 시험 — 낸 수 0). 들어오는 칼(위 respond)은 그대로 받는다
+    //  인물 손잡이 pers.spinHold (10/29 15:5x — 사장님 '롤랑과 베르나르도의 … 싸움 스타일도 바꾸도록 해'): 걸쇠는 둘 다 같고, 발만 다르다 —
+    //   true(기본 · 롤랑) = 칼끝 거리에서 서서 상대가 들어오기를 기다림(전 그대로) · false = 내가 걸어 들어가 상대를 칼끝 거리 안에 넣음(holdDist — 15:5x ~ 21:0x 베르나르도.
+    //   21:0x '롤랑의 상극' 부터 베르나르도도 true — 쓰는 인물 없음 · 둘이 함께 내는 맞냄에서 걸어 들어간 쪽이 졌다: docs/characters/temperament_2026-10-29.md §7-5)
     if (this.spinArm?.armed) return;
     // 모르트슐라크 몸 붙이기 (10/24): 같은 걸쇠 — 미는 동안은 먼저 치지 않는다(누르기가 베기로 끊기지 않게 — fighter.closeStep 'swing'). 들어오는 칼(위 respond)은 그대로 받는다.
     //  붙으러 걸어 들어가는 동안은 칠 때가 오면 친다(10/24 13:3x 사장님 '걸어가며 치기도 같이 넣어' — SECRET.mordWalkStrike · 0 이면 걸어가는 동안도 걸쇠 — 12:0x 판). 치면 붙이기는 끝(mordTick — 간 보기를 벗어남)
@@ -760,6 +908,8 @@ export class AI {
   /** 간을 볼 거리: 상대 칼이 닿는 거리 + 여유. 인내심이 줄수록 여유를 줄여 간격 끝에 선다 */
   holdDist() {
     if (this.drillOut) return this.drill.dist(this); // 시험: 헛스윙 연습 — 드릴 거리 (물러남이 거기서 끝난다)
+    // 싱지르 무장 + 기다리지 않는 인물(pers.spinHold false — 10/29 15:5x ~ 21:0x 베르나르도 · 지금 쓰는 인물 없음): 내기 거리(칼끝 거리 + aiFire)의 절반 안쪽까지 걸어 들어가 상대를 넣는다 — 들어서면 spinTick 이 낸다
+    if (this.spinArm?.armed && !this.pers.spinHold && !this.chasing) return this.M.reach + SECRET.ibSpin.aiFire * 0.5;
     const L = this.level;
     let m = this.pers.margin * (0.3 + 0.7 * this.patience) * (0.6 + 0.4 * L.discipline * (1 - 0.3 * this.anger)); // 화나면 규율이 흐트러진다
     if (this.guard?.name === 'alber') m -= 0.12; // 바보 자세: 머리를 비워 두고 조금 더 다가가 유인한다
@@ -3394,6 +3544,7 @@ export class AI {
       fwd = me.barge ? (this.closeWant ? 1 : 0) : me.closeArmed ? 1 : 0; // 밀치는 중엔 closeWant 동안만 누른다 (풀리면 release)
       side = 0;
     }
+    if (me.foes && !me.barge) [fwd, side] = this.teamFeet(fwd, side); // 2:2 (10/29): 둘러싸임 · 다른 상대 몸 막힘 · 같은 편 비킴 — 1:1 은 me.foes 가 없어 안 탐
     if (!this.foe.alive) fwd = side = 0;
     if (this.secretRun?.stage === 'stiff' || this.secretRun?.stage === 'spin' || (this.secretRun?.stage === 'mord' && me.skill.sec?.stage === 'stiff')) fwd = side = 0; // 비기 경직: 걸음 없음 — 울타리 빠짐·근접 밀치기 스틱도 (10/10 20:5x) · 싱지르(10/24 — 검술 층 skill.sec 이 대본 · 굳음까지 몸을 쥔다) · 모르트슐라크(10/24 — 사람과 같게 굳음 동안만)
     me.stickX = side; // 스틱 원값 (감정 배수 전): 근접 밀치기 걸쇠가 읽는다 (fighter.closeStep)

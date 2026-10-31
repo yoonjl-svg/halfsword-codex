@@ -46,7 +46,7 @@ for(const [size,width,height,phone] of SIZES){
  await tap('button[data-armor=kettle]');await p.locator('button[data-armor=kettle] img').evaluate(img=>img.decode()); // 같은 아이템 칸 (10/18 04:1x — 전 방어구 탭)
  assert.equal(await p.locator('#itemName').textContent(),'케틀 햇');if(flows)await p.locator('#itemDetail').scrollIntoViewIfNeeded();await p.waitForTimeout(200);await shot('armor-card');
  for(const [tab,name] of [['#tabShop','shop'],['#tabSkills','skills'],['#tabEvent','event']]){await p.locator(tab).scrollIntoViewIfNeeded();await tap(tab);await p.waitForTimeout(150);if(flows)await p.locator('.contents-panel').scrollIntoViewIfNeeded();await shot(name);}
- assert.equal(await p.locator('#panelEvent .empty-panel').textContent(),'아직 진행 중인 이벤트가 없습니다.');
+ assert.equal(await p.locator('#saengsaEnter').textContent(),'생사전 입장'); // 10/29 이벤트 → 생사전 칸 (saengsa_panel.js)
  await p.locator('#tabItems').scrollIntoViewIfNeeded();await tap('#tabItems');
  await p.locator('#lobbyDepart').scrollIntoViewIfNeeded();await tap('#lobbyDepart');
  await p.waitForFunction(()=>game.state==='draw'&&game.draw.t>.6,null,{timeout:60000});await p.waitForTimeout(300);await shot('draw');

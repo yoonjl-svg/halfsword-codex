@@ -26,7 +26,7 @@ const STEEL = new THREE.Color(0xc4cad2); // 칼날 색을 못 읽을 때의 강�
 export function trailFor(weapon) {
   return !!weapon && weapon.material === 'steel' && !weapon.gun && weapon.tier !== 'trash' && weapon.edged !== false;
 }
-const MAX_FIGHTERS = 2;
+const MAX_FIGHTERS = 4; // 동시 대전 2:2 넷까지 (10/29 — 1:1 은 둘째 뒤 칸이 비어 그리는 것이 그대로)
 const _a = new THREE.Vector3();
 const _b = new THREE.Vector3();
 
@@ -147,7 +147,7 @@ export function createSwordTrails(scene) {
     }
     for (const s of slots) {
       const f = s.f;
-      if (!s.on || !f || !f.sword || !f.armed) {
+      if (!s.on || !f || !f.sword || !f.armed || f.settled) { // settled: 쉬는 죽은 몸 (2:2 — match.js settleDead)
         s.n = 0;
         continue;
       }

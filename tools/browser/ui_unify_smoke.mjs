@@ -183,21 +183,20 @@ try {
     assert.deepEqual(tabs[1], { sel: 'false', border: 'rgba(243, 233, 216, 0.18)', color: 'rgb(184, 168, 142)', bg: 'rgba(0, 0, 0, 0)', radius: '8px', w: '1px' });
     // 메뉴 2 × 2 차례 (사장님 10/18 04:1x '(윗칸에) 아이템 상점 (아랫칸에) 스킬북 이벤트') — 전 무기 · 방어구 탭 없음
     const menu = await shadow(p, `return [...root.querySelectorAll('.lobby-tabs [role=tab]')].map((e)=>{const r=e.getBoundingClientRect();return {id:e.id,text:e.textContent,x:Math.round(r.x),y:Math.round(r.y),panel:e.getAttribute('aria-controls')};})`);
-    assert.deepEqual(menu.map((m) => [m.id, m.text, m.panel]), [['tabItems', '아이템', 'panelInventory'], ['tabShop', '상점', 'panelShop'], ['tabSkills', '스킬북', 'panelSkills'], ['tabEvent', '이벤트', 'panelEvent']]);
+    assert.deepEqual(menu.map((m) => [m.id, m.text, m.panel]), [['tabItems', '아이템', 'panelInventory'], ['tabShop', '상점', 'panelShop'], ['tabSkills', '스킬', 'panelSkills'], ['tabEvent', '생사전', 'panelEvent']]); // 10/21 스킬북 → 스킬 · 10/29 이벤트 → 생사전
     assert.ok(menu[0].y === menu[1].y && menu[2].y === menu[3].y && menu[2].y > menu[0].y && menu[0].x === menu[2].x && menu[1].x === menu[3].x && menu[1].x > menu[0].x, JSON.stringify(menu));
     assert.equal(await shadow(p, `return root.querySelectorAll('#tabWeapons, #tabArmor').length`), 0);
     // 이벤트 = 상점처럼 아직 비공개: 제목 + 빈 안내 한 줄 — 글 꼴(크기 · 굵기 · 색 · 줄 높이 · 여백)이 상점 줄과 같다
     const emptyLine = (panel) => shadow(p, `const e=root.querySelector('#${panel} .empty-panel'),s=getComputedStyle(e),r=e.getBoundingClientRect(),h=root.querySelector('#${panel} .panel-heading h2');return {text:e.textContent,heading:h.textContent,font:[s.fontSize,s.fontWeight,s.color,s.lineHeight,s.margin].join(' '),x:Math.round(r.x),y:Math.round(r.y),lines:root.querySelectorAll('#${panel} > :not(.panel-heading)').length};`);
     await p.locator('#tabShop').tap(); const shopLine = await emptyLine('panelShop');
-    await p.locator('#tabEvent').tap(); const eventLine = await emptyLine('panelEvent');
+    await p.locator('#tabEvent').tap(); // 10/29 이벤트 → 생사전 칸 (빈 안내 줄 대신 생사전 판 — saengsa_panel.js)
     assert.equal(await shadow(p, `return [root.getElementById('panelEvent').hidden, root.getElementById('panelShop').hidden, root.getElementById('panelInventory').hidden, root.getElementById('tabEvent').getAttribute('aria-selected')].join()`), 'false,true,true,true');
-    assert.deepEqual([eventLine.heading, eventLine.text, eventLine.lines], ['이벤트', '아직 진행 중인 이벤트가 없습니다.', 1]);
+    assert.deepEqual(await shadow(p, `return [root.querySelector('#panelEvent .panel-heading h2').firstChild.textContent, root.getElementById('saengsaEnter').textContent]`), ['생사전', '생사전 입장']);
     assert.deepEqual([shopLine.heading, shopLine.text], ['상점', '아직 판매 중인 물품이 없습니다.']);
-    assert.deepEqual([eventLine.font, eventLine.x, eventLine.y], [shopLine.font, shopLine.x, shopLine.y], 'event line = shop line look and place');
     await p.locator('#tabSkills').tap();
     const schoolTabs = await shadow(p, `return [...root.querySelectorAll('.school-tabs [role=tab]')].slice(0,2).map((e)=>{const s=getComputedStyle(e);return {sel:e.getAttribute('aria-selected'),border:s.borderTopColor,color:s.color,bg:s.backgroundColor,radius:s.borderRadius,w:s.borderTopWidth};})`);
     assert.deepEqual(schoolTabs, tabs.slice(0, 2)); // 메뉴 탭 = 유파 탭 같은 꼴
-    checks.push({ check: 'lobby buttons (Stage 입장 · 첫 화면 · 탭 · 장착/해제 · 이름 창) flat, radius 8, no bevel/shadow; pressing Stage 입장 does not drop; menu 2×2 = [아이템][상점] / [스킬북][이벤트] (no 무기 · 방어구 tabs); 이벤트 = heading + one empty line in the shop line look and place; category tabs = school tabs (outline · selected accent border + text · radius 8)', menu, eventLine });
+    checks.push({ check: 'lobby buttons (Stage 입장 · 첫 화면 · 탭 · 장착/해제 · 이름 창) flat, radius 8, no bevel/shadow; pressing Stage 입장 does not drop; menu 2×2 = [아이템][상점] / [스킬][생사전] (no 무기 · 방어구 tabs); 생사전 = heading + panel with 생사전 입장; category tabs = school tabs (outline · selected accent border + text · radius 8)', menu });
     await c.close();
   }
 

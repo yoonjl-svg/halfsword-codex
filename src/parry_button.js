@@ -29,7 +29,7 @@
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
 import { AI_LEVELS, SKILL, ARENA, realS } from './config.js';
-import { Senses } from './ai_sense.js';
+import { Senses, addFoeSense, setFoeSense, recordFoeSenses } from './ai_sense.js';
 import { threatNow } from './secret.js';
 import { TRADITIONS } from './schools.js';
 import { GUARD_BASE } from './guards.js';
@@ -93,6 +93,15 @@ export class PlayerParryGuard {
     }
   }
 
+  /** 2:2 (동시 대전 3단계 10/29): 상대를 하나 더 · 겨눈 상대 바꾸기 — 눈(Senses)만 상대마다 (ai_sense.js) */
+  addFoe(f) {
+    addFoeSense(this, f);
+  }
+  setFoe(f) {
+    setFoeSense(this, f);
+    if (this.opposition && f) this.opposition.foe = f; // 이탈리아 맞서기도 지금 상대를 본다
+  }
+
   get school() {
     return this.me.swordArt?.school ?? null;
   }
@@ -129,7 +138,7 @@ export class PlayerParryGuard {
     const sk = me.skill;
     this.clock += dt;
     this.opposition.beginGuardStep();
-    this.sense.record(dt);
+    recordFoeSenses(this, dt); // 1:1 = this.sense.record(dt) 그대로 (2:2 는 상대마다 — setFoe)
     sk.guardDrive = 0;
     const can = !me.stamina.exhausted && this.held && !this.broken && me.alive && me.armed && !me.weapon?.gun && !sk.sec && !sk.tap && !sk.pom && (me.state === 'stand' || me.state === 'kneel') && !!this.school;
     // 위협 읽기 (누르지 않아도 센다 — 누르는 순간 이미 오는 칼을 읽게. 번호는 ai.js threat 와 같은 규칙)

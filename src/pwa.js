@@ -90,6 +90,7 @@ async function start() {
   }
   if (!import.meta.env.PROD) return; // 개발 서버에서는 등록하지 않는다 (옛 워커가 개발판을 가리지 않게)
   if (import.meta.env.VITE_SHOP_TEST === '1') return; // 상점 시험판(하위 경로 시험 페이지 /shop/ — 10/30)은 설치 · 오프라인 없이 웹으로만 (config SHOP.testMode)
+  if (import.meta.env.VITE_SAENGSA_TEST === '1') return; // 생사전 시험판(하위 경로 시험 페이지)은 설치 · 오프라인 없이 웹으로만 (config SAENGSA.testMode)
   let registration = null;
   try {
     registration = await navigator.serviceWorker.register(new URL('sw.js', scope).href, { scope, updateViaCache: 'none' });

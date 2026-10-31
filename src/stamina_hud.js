@@ -1,11 +1,13 @@
 import { Vector3 } from 'three';
 import { STAMINA } from './config.js';
 
-/** 두 검객의 머리 위에 붙이는 화면 크기 고정 기력 바. 판마다 DOM을 만들지 않는다. */
+/** 두 검객의 머리 위에 붙이는 화면 크기 고정 기력 바. 판마다 DOM을 만들지 않는다.
+ *  동시 대전(10/29 — 넷까지): 셋째 · 넷째 바는 셋 이상 판이 처음 올 때만 만든다 (1:1 DOM 은 예전 그대로 둘).
+ *   setTeam(true) 인 판(동시 대전 — main.js newTeamRound)은 이름표만 싸움꾼 이름으로. 체력은 왼쪽 위 목록(team_hud.js — 사장님 10/29 22:3x '체력창이 기력바 밑으로 가니까 너무 정신 없다') */
 export function createStaminaHud(root) {
   const point = new Vector3();
   const viewPoint = new Vector3();
-  const bars = ['나', '상대'].map((name) => {
+  const make = (name) => {
     const bar = document.createElement('div');
     bar.className = 'stamina-bar';
     bar.hidden = true;
@@ -16,12 +18,22 @@ export function createStaminaHud(root) {
     const fill = document.createElement('span');
     bar.append(fill);
     root.append(bar);
-    return { bar, fill };
-  });
+    return { bar, fill, name, who: null };
+  };
+  const bars = ['나', '상대'].map(make);
+  const more = ['동료', '상대 2'];
+  let team = false;
   return {
+    /** 동시 대전 판이면 true (이름표 = 싸움꾼 이름) · 1:1 판이면 false (이름표 예전 그대로) */
+    setTeam(on) {
+      team = !!on;
+      for (const b of bars) (b.who = null), b.bar.setAttribute('aria-label', `${b.name} 기력`);
+    },
     update(fighters, camera, visible, width = window.innerWidth, height = window.innerHeight) {
       camera.updateMatrixWorld();
-      bars.forEach(({ bar, fill }, i) => {
+      while (bars.length < Math.min(4, fighters.length)) bars.push(make(more[bars.length - 2]));
+      bars.forEach((b, i) => {
+        const { bar, fill } = b;
         const f = fighters[i];
         bar.hidden = true;
         if (!visible || !STAMINA.on || !f?.alive || f.revival || f.decapitated) return;
@@ -35,6 +47,7 @@ export function createStaminaHud(root) {
         const y = (1 - point.y) * height / 2;
         if (x < 30 || x > width - 30 || y < 8 || y > height - 8) return;
         bar.hidden = false;
+        if (team && b.who !== f) (b.who = f), bar.setAttribute('aria-label', `${f.name} 기력`);
         const dpr = window.devicePixelRatio || 1;
         bar.style.left = `${Math.round(x * dpr) / dpr}px`;
         bar.style.top = `${Math.round(y * dpr) / dpr}px`;

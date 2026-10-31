@@ -67,6 +67,10 @@ import { IAI_READY_STANCE, iaiReadyShown } from './secret_instant.js'; // 고노
 import { PlayerParryGuard } from './parry_button.js'; // 플레이어 막기 버튼 (10/11 — AI 막기와 같은 판단으로 유파 막기 자리로)
 import { PlayerUniqueAssist } from './unique_assist.js'; // 플레이어 고유 동작 강화 (10/13 이어 주기 → 10/14 강화 — docs/strike/unique_player_2026-10-13.md)
 import { TRADITIONS, setChineseGait, setItalianBackCap, setItalianRhythm, setItalianStride, setItalianWalk, setJapaneseGait, traditionOf } from './schools.js';
+import { createMatch, stepMatch, spawnSpots, orderControllers, pairFoe, matchResult } from './match.js'; // 동시 대전 판 (10/29 3단계 — 2:2 · 2:1 · 1:2 · 지켜보기)
+import { createTeamHud, teamFramePull } from './team_hud.js';
+import { shortNameOf } from './short_names.js'; // 체력 목록 짧은 이름 (사장님 10/30 01:0x) // 동시 대전 화면 (위 막대 넷 · 화면 밖 화살표 · 카메라 물러남)
+import { specFromSetup, resultFromMatch, profOfEntry, fallbackInjuries } from './saengsa_match.js'; // 생사전 ↔ 엔진 (game.launchSaengsa)
 import { createTestRoute } from './test_route.js'; // 테스트 전용 경로 (test.html → ?test=1&weapon=&hero=&foe=random&stage=random, docs/test_route_2026-10-10.md)
 import { portraitIdOf, portraitSrc, portraitMode, portraitGrid } from './portraits.js'; // 캐릭터 프로필 그림 (대기실 프로필 칸 · 패배 창 — docs/design/portrait_ui_2026-10-17.md)
 import { WhiffDrill } from './whiff_drill.js'; // 시험: 헛스윙 연습 상대 (?foeWhiff=1 — test.html '상대 헛스윙', docs/strike/german_hold_2026-10-15.md §7)
@@ -87,6 +91,7 @@ CONFIG.SOUND.whipHit = whipHitMode(params, CONFIG.SOUND.whipHit); // 드루이�
 // 레전드 기운 보기 손잡이 (재기 · 견줌 사진용 — 그림만, aura.js AURA_VIEW): `?aura=0` = 기운 끔 · `?auraTune={"durandal":{"gain":1}}` = 판을 세울 때 프로필 일부를 덮어씀 (docs/strike/legend_glow_2026-10-24.md)
 if (params.get('aura') === '0') AURA_VIEW.on = false;
 if (params.has('auraTune')) { try { AURA_VIEW.tune = JSON.parse(params.get('auraTune')); } catch { AURA_VIEW.tune = null; } }
+const teamHud = createTeamHud(); // 동시 대전 위 막대 · 화면 밖 화살표 (1:1 은 숨긴 채 — team_hud.js)
 const staminaHud = createStaminaHud(document.getElementById('staminaHud')); // 두 검객 머리 위 기력 막대 (src/stamina_hud.js)
 const screenTint = createScreenTint(); // 출혈·감정 화면 물들임을 게임 캔버스에 합성 (샛별 저장소 2f593ba6 — 전엔 #vignette · #emotion CSS 층. 기력 스위치와 상관없이 늘 이 길)
 // 주인공은 판마다 무기 카드 세 장 중 하나를 골라 받는다 (아래 "무기 뽑기"). 주소에 ?weapon=을 적으면 뽑기 없이 그 무기로 고정.
@@ -767,6 +772,8 @@ const trail = new InputTrail(canvas); // 방금 조작한 흔적 (반투명 선)
 input.trail = trail;
 
 let world, eventQueue, colliderInfo, player, enemy, ai, combat;
+let fighters = []; // 이번 판 싸움꾼 — 1:1 = [player, enemy] (예전 두 몸 고리와 같은 차례) · 동시 대전 = 자리 차례 넷까지 (newTeamRound)
+let teamRun = null; // 동시 대전 판 상태 (newTeamRound — 판 꼴 spec · match · 사람 몸 · 보는 몸 focus · AI · 생사전 opts) — 1:1 이면 null
 let arenaStone = null; // 무대 고정 장애물 (잠든 습지 석상 — arena_obstacle.js, 다른 무대는 null)
 let arenaGround = null; // 지형 무대의 바닥 { floor, lava, terrain } (화산섬 — etna_ground.js, 평지 무대는 null)
 let bodySounds = [];
@@ -778,9 +785,8 @@ function clearFlying() {
   clearDebris();
   clearGunFx(); // 총구 섬광·연기도 새 판에 남지 않게
   // 벗겨진 투구의 긁힌 자국 재질도 푼다 (clearLoose 가 장면에서 떼고 모양을 푼다)
-  for (const f of [player, enemy]) for (const m of f?.meshes ?? []) if (m.kind === 'loose' && m.group.parent) disposeDecals(m.group);
-  player?.clearLoose();
-  enemy?.clearLoose();
+  for (const f of fighters) for (const m of f?.meshes ?? []) if (m.kind === 'loose' && m.group.parent) disposeDecals(m.group);
+  for (const f of fighters) f?.clearLoose(); // 1:1 = 예전 player · enemy 차례
 }
 const fighterMeshes = [];
 let foeWeaponId = 'longsword'; // 이번 판 상대 무기 (prepareRound 가 정한다)
@@ -816,7 +822,7 @@ function quietly(fn) {
     Math.random = real;
   }
 }
-const fragileOf = () => [player, enemy].filter((f) => f.weapon?.fragile && f.swordGroup);
+const fragileOf = () => fighters.filter((f) => f.weapon?.fragile && f.swordGroup);
 const breakFace = () => new THREE.MeshStandardMaterial({ flatShading: true, side: THREE.DoubleSide }); // weapon_looks.js breakWeaponLook 톱니 면과 같은 설정
 /** 캐릭터에 잠깐 붙일 예열 물체: 상처 자국(겉면) · 부러진 칼의 톱니 면(칼 그룹) */
 function fxWarmers() {
@@ -873,7 +879,8 @@ function warmRoundFx(on) {
  * 싸움판 만들기: prepareRound 가 정한 상대와 주인공 무기(weaponId)로 물리 세계와 두 사람을 새로 세운다.
  *  만들기만 하고 시간은 흐르지 않는다 (게임 루프가 state 'fight' 일 때만 물리를 돌린다).
  */
-function newRound(weaponId) {
+/** 판의 물리 세계 · 바닥 · 벽 · 무대 장애물을 새로 세운다 (지난 판 정리 포함) — 1:1 newRound · 동시 대전 newTeamRound 가 같이 쓴다. 돌려줌: 지형(평지 null) */
+function resetWorld() {
   input.resetTransient(); // 지난 판의 손가락 상태를 물려받지 않는다 (10/8 입력 수명주기)
   // 다리로 체중 받치기: 게임은 늘 gait.js 걸음(다리가 체중 대부분을 받친다). 오너 결정으로 설정 토글을 없애고 기본 적용했다.
   //  CONFIG 기본값도 'hybrid'라 시뮬 도구가 게임과 같은 걸음을 잰다(9/29). 이 줄은 콘솔·도구가 바꿔 둔 값을 판마다 되돌린다
@@ -927,6 +934,11 @@ function newRound(weaponId) {
   DEBRIS.terrain = terrain; // 흩어지는 칼·방어구 조각의 바닥도 땅 높이로 (평지 null — 그대로)
 
   arenaStone = configureStageObstacle(RAPIER, world, stages.id, GROUND_GROUPS); // 잠든 습지: 가운데 석상 충돌체 (다른 무대 null)
+  return terrain;
+}
+
+function newRound(weaponId) {
+  const terrain = resetWorld();
   const startZ = stageStartZ(stages.id); // 잠든 습지: 두 사람을 옆으로 비켜 세워 카메라 → 상대 시선이 석상에 막히지 않게 (다른 무대 0)
   const before = new Set(scene.children);
   const foeWeapon = foeWeaponId;
@@ -971,6 +983,10 @@ function newRound(weaponId) {
     physiology: currentFoe?.physiology, // 몸 규칙 (병마용: 출혈 0 · 머리가 떨어져야만 죽음 · 흙 몸 / 광기의 병마용: 사람 몸 · 흰 피 — fighter.js HUMAN_BODY). 없으면 사람
     vitality: currentFoe?.vitality, // 버티는 힘 (10/24 — 롤랑 · 베르나르도 1.1 · 없으면 1, fighter.js)
   });
+  fighters = [player, enemy]; // 1:1 — 두 몸 고리 · 효과가 읽는다 (예전 [player, enemy] 와 같은 차례)
+  teamRun = null;
+  teamHud.hide();
+  staminaHud.setTeam(false); // 1:1: 기력 막대 이름표 예전 그대로
   if (loadout?.armor === LOBBY_ARMOR.id) player.stamina.setMaxBonus(LOBBY_ARMOR.staminaBonus); // 케틀 햇 '생존술: 기력 +30' — 최대 130에서 시작·회복 (문턱 0 · −35 · −70 그대로 · 기력 끔이면 아무 일 없음)
   //  판 시작 장착으로 정한다: 판 중에 투구가 맞아 벗겨져도(fighter.js knockOffHelmet) 그 판은 130 그대로 — 사장님 결정 10/16 08:1x '아이템은 사라져도 효과는 그대로 둬.'
   if (loadout?.neck === HERO_TEAR.id) player.stamina.setInfinite(true); // 용사의 눈물 '기력 무한' (사장님 10/17) — 플레이어만 · 청구 · 지침 · 탈진 없음 · 머리 위 내 막대 없음(stamina_hud.js) · 몸에 붙이는 것 없음(겉모습 그대로)
@@ -1058,6 +1074,421 @@ function newRound(weaponId) {
   warmRoundFx(fxWarm); // 판 도중 처음 나오는 효과(자국·잔상·입자·칼 조각)의 셰이더 (판의 난수를 다 쓴 뒤 — 그리기 전과 같은 순서)
 }
 
+// ─────────────────────────────────────────────────────────────
+//  동시 대전 판 (2:2 · 2:1 · 1:2 · 지켜보기 — 사장님 10/29 14:2x 생사전 · docs/strike/team_fight_2026-10-29.md §11)
+//  판 꼴 spec = { control 'player'|'watch', mineSide?, matchId?, seed?, fighters: [자리 차례 { index, team(0 = 내 편), human, id(인물 id · 'player' · 'nameless'), weapon,
+//                 name?, look?, cloth?, prof?, school?, snapshot?(fighter.js snapshot 꼴 — 들어올 때 상태), key?, person? }] } — saengsa_match.js specFromSetup 과 같은 꼴
+//   human 이 있으면 그 몸이 나(입력 · 비기 창 · 막기 단추 · 감정 — 1:1 newRound 와 같은 꾸림), 없으면 모두 AI 이고 나는 본다(지켜보기).
+//   물리 스텝 = src/match.js stepMatch (상대 고르기 · 상대마다 눈 · 편 전멸) · 화면 = team_hud.js · 결과 = matchResult / 생사전 resultFromMatch.
+//  1:1 판(newRound · startFight)은 이 길을 하나도 타지 않는다 (teamRun = null)
+// ─────────────────────────────────────────────────────────────
+const TEAM_TEST = ['2v2', '2v1', '1v2', 'watch'].includes(params.get('team')) ? params.get('team') : null; // ?team= 시험 판 (test.html '동시 대전')
+const SAENGSA_RULES = import.meta.glob('./saengsa_rules.js'); // 생사전 가지를 합치면 생기는 모듈 — injuriesFromWounds (없으면 빈 묶음 → saengsa_match.js fallbackInjuries)
+const SAENGSA_NAMELESS = import.meta.glob('./saengsa_nameless.js'); // 무명 검객 겉모습 namelessLook(옷 색 번호) (없으면 LOOKS.enemy)
+/** 생사전 가지 모듈 (있을 때만): { injuriesFromWounds, namelessLook } */
+async function saengsaMods() {
+  const out = {};
+  for (const load of Object.values(SAENGSA_RULES)) out.injuriesFromWounds = (await load()).injuriesFromWounds;
+  for (const load of Object.values(SAENGSA_NAMELESS)) out.namelessLook = (await load()).namelessLook;
+  return out;
+}
+/** 판 꼴 한 칸의 겉모습: 준 것 · 나(케틀 햇) · 인물 시트 · 무명 검객(생사전 가지) · 기본 */
+function teamLook(e, mods) {
+  if (e.look) return e.look;
+  if (e.id === 'player') {
+    const lo = e.human ? journeyLoadout() : null; // 1:1 newRound 와 같은 겉모습: 대기실에서 케틀 햇을 벗었으면 맨머리 (첫 화면에서 연 판만 — 그 밖은 케틀 햇)
+    return lo && lo.armor !== LOBBY_ARMOR.id ? LOOK_BAREHEAD : LOOKS.player;
+  }
+  const ch = CHARACTERS_BY_ID[e.id];
+  if (ch) return ch.look;
+  if (e.id === 'nameless' && mods.namelessLook) return mods.namelessLook(e.cloth ?? 0);
+  return LOOKS.enemy;
+}
+const teamName = (e) => e.name ?? (e.id === 'player' ? '나' : CHARACTERS_BY_ID[e.id]?.name ?? (e.id === 'nameless' ? '무명 검객' : '검객'));
+/** 체력 목록의 짧은 이름 (사장님 10/30 01:0x '이름만 표기되게. 무명 검객도 마찬가지'): 나 · 무명 검객은 붙인 이름(tag)만 · 인물은 short_names.js (얼터 'A.' + 본캐) · 그 밖은 준 이름 */
+const teamShort = (e) => e.short ?? (e.human || e.id === 'player' ? '나' : e.id === 'nameless' ? e.person?.tag || e.tag || '무명' : CHARACTERS_BY_ID[e.id] ? shortNameOf(CHARACTERS_BY_ID[e.id]) : teamName(e));
+/** AI 실력 · 성격: 인물 시트(숙련도를 주면 그 숙련도 — 생사전 사람의 유파별 숙련도 표 그대로) · 시트가 없으면(무명 검객) 숙련도에서. 시트와 다른 무기면 유파 꾸러미는 그 무기 것 (newRound 와 같은 규칙) */
+function teamAiOf(e) {
+  const ch = CHARACTERS_BY_ID[e.id] ?? null;
+  const top = AI_PROFICIENCY.levels.length - 1;
+  const p = e.prof ? Math.max(0, Math.min(top, Math.round(profOfEntry(e)))) : null;
+  const school = getWeapon(e.weapon).id;
+  if (ch) {
+    const base = p != null ? aiAtProficiency(ch, p) : ch.ai;
+    const persona = { ...base.persona, ...(e.prof ? { proficiency: { ...e.prof } } : {}), ...(e.weapon !== ch.weapon && !ch.noSwordsmanship ? { school } : {}) };
+    return { level: base.level, persona };
+  }
+  const q = p ?? AI_PROFICIENCY.ofLevel.normal;
+  return { level: AI_PROFICIENCY.levels[q] ?? 'normal', persona: { proficiency: e.prof ? { ...e.prof } : q, school } };
+}
+
+/** 동시 대전 판 세우기 (시간은 흐르지 않는다 — newRound 와 같음). mods = saengsaMods() */
+function newTeamRound(spec, mods = {}) {
+  const terrain = resetWorld();
+  const before = new Set(scene.children);
+  const E = spec.fighters;
+  const spots = spawnSpots(E.length, { gap: ARENA.startGap, mateGap: CONFIG.TEAM_FIGHT.mateGap, teams: E.map((e) => e.team) });
+  const humanE = E.find((e) => e.human) ?? null;
+  const kitSchool = humanE ? traditionOf(getWeapon(humanE.weapon)) : null;
+  const kit = humanE ? playerKit(kitSchool, readLearned(), { test: testRoute.active, upTo: UNIQUE_STAGE, nodes: skillNodesParam(SKILL_NODES, kitSchool) }) : null;
+  sound.prepareVoices(['player', ...E.map((e) => voiceOf(CHARACTERS_BY_ID[e.id] ?? null))]);
+  fighters = E.map((e, i) => {
+    const s = spots[i];
+    const ch = CHARACTERS_BY_ID[e.id] ?? null;
+    return new Fighter(RAPIER, world, scene, colliderInfo, {
+      index: i,
+      team: e.team,
+      human: !!e.human,
+      name: teamName(e),
+      x: s.x,
+      z: s.z + stageStartZ(stages.id, s.team), // 중정 · 습지는 편마다 비켜 선 자리 (1:1 과 같은 몫)
+      heading: s.heading,
+      terrain,
+      look: teamLook(e, mods),
+      weapon: e.weapon,
+      ffa: E.length > 2, // 셋 이상 판: 같은 편도 적과 똑같이 부딪히고 벤다 (사장님 10/29 22:3x · fighter.js FFA_*)
+      ...(e.human
+        ? { schoolFootwork: kit ? kit.footwork : undefined, schoolParry: kit ? kit.parry : undefined, schoolPassive: kit ? kit.passive : undefined, skillKit: kit ?? undefined, ...(IB_TABLE === 'v2p' ? { guardTables: { iberian: iberianTableV2() } } : {}) }
+        : { revive: ch?.revive, physiology: ch?.physiology, vitality: ch?.vitality }),
+    });
+  });
+  for (const f of fighters) f.applySnapshot(E[f.index].snapshot); // 들어올 때 상태 (생사전 체력 · 부상 — 6단계)
+  for (const f of fighters) f.shortName = teamShort(E[f.index]); // 체력 목록 이름 (team_hud.js)
+  {
+    // 사람 몸의 대기실 장비 — 1:1 newRound 와 똑같이 (사장님 10/29 22:3x '완전 동일해야 함'): 케틀 햇 기력 +30 · 용사의 눈물 기력 무한 (첫 화면에서 연 판만 — journeyLoadout)
+    const H0 = fighters.find((f) => f.human);
+    const lo = H0 ? journeyLoadout() : null;
+    if (lo?.armor === LOBBY_ARMOR.id) H0.stamina.setMaxBonus(LOBBY_ARMOR.staminaBonus);
+    if (lo?.neck === HERO_TEAR.id) H0.stamina.setInfinite(true);
+  }
+  // 생사전 몸 상태 이어받기 (사장님 10/30 08:2x '방랑 · 생사전 둘 다 켜' — 생사전 SAENGSA.resumeState): 그만둔 경기의 넷 몸 사본을 들어올 때 상태 위에 입힌다 (자리 · AI 는 새 판)
+  if (spec.resume) for (const f of fighters) { const RS = spec.resume[E[f.index].key]; if (RS) applyFighterSnapshot(f, RS); }
+  for (const a of fighters) for (const v of fighters) if (a.team !== v.team) applyAweStart(a, v);
+  for (const f of fighters) {
+    configureWetlandMovement(f, stages.id);
+    f.arenaObstacle = arenaStone?.navigation ?? null;
+  }
+  arena?.watchFighters?.(fighters);
+  for (const a of auras) a.dispose();
+  auras = fighters.map(attachAura).filter(Boolean);
+  for (const c of scene.children) if (!before.has(c)) fighterMeshes.push(c);
+  const fxWarm = fxWarmers();
+  if (fighters.some((f) => f.revive)) {
+    withWarmers(fxWarm, () => {
+      fighterLight.update(fighterMeshes);
+      reviveFx.warm();
+    });
+  }
+  for (const f of fighters) {
+    const ch = CHARACTERS_BY_ID[E[f.index].id];
+    const eyes = attachMadEyes(f, ['madGlow', 'clothGlow'].includes(ch?.eyes), { veiled: ch?.eyes === 'clothGlow', sheltered: ch?.look?.alter === 'bran' });
+    if (eyes) auras.push(eyes);
+  }
+  for (const f of fighters) {
+    const h = attachHands(f);
+    if (h) auras.push(h);
+  }
+  swordTrails.attach(fighters);
+  if (fighters.some((f) => f.weapon?.gun)) warmGunFx(renderer, camera);
+  // AI: 사람 아닌 몸마다 — 조종 부르는 차례대로 만든다 (난수 차례 · match.js orderControllers)
+  const M0 = { fighters };
+  const order = orderControllers(fighters.filter((f) => !f.human).map((f) => ({ me: f }))).map((c) => c.me);
+  const ais = new Map();
+  for (const f of order) {
+    const { level, persona } = teamAiOf(E[f.index]);
+    ais.set(f, new AI(f, pairFoe(f, M0), level, persona));
+  }
+  const H = fighters.find((f) => f.human) ?? null;
+  combat = new Combat(colliderInfo, { onWound, onClash });
+  const M = createMatch({ world, eventQueue, combat, fighters, controllers: order.map((f) => ais.get(f)) });
+  player = H ?? fighters[0];
+  enemy = pairFoe(player, M0);
+  ai = ais.get(enemy) ?? null;
+  if (H) {
+    // 사람 몸 (1:1 newRound 와 같은 꾸림): 비기 창 · 막기 단추 · 고유 동작 강화 · 감정 — 상대마다 눈 (addFoe · setFoe — teamHooks)
+    playerSecret = new PlayerSecretWatch(H, enemy, { locked: !kit?.secret });
+    playerGuard = new PlayerParryGuard(H, enemy);
+    H.stamina.controller = playerGuard;
+    playerUnique = new PlayerUniqueAssist(H, { names: kit?.unique ?? new Set() });
+    for (const g of H.foes) {
+      playerSecret.addFoe(g);
+      playerGuard.addFoe(g);
+    }
+    const emoParam = params.get('emo');
+    const emoTh = emoParam === '0' ? 0 : emoParam ? +emoParam || 0.3 : 0.3;
+    playerEmo = new Emotions({ fearful: emoTh, angry: emoTh, dogged: emoTh });
+    playerEv = { hurt: false, parried: false, landed: false };
+    H.emoMods = playerEmo.mods;
+    H.skill.level = +settings.skill;
+    H.skill.corr = CONFIG.SKILL.corr;
+    H.skill.corrTip = CONFIG.SKILL.corrTip;
+    H.skill.autoGuard = true;
+    H.canShove = true;
+  } else {
+    playerSecret = playerGuard = playerUnique = null;
+  }
+  uniqueCueSeen = null;
+  secretSlow = 0;
+  secretBurstsSeen = 0;
+  secretSfx = new SecretSfxWatch(
+    fighters.map((f) => {
+      const A = ais.get(f);
+      return A ? { who: 'ai', fighter: f, count: () => A.secretBursts, run: () => A.secretRun } : { who: 'player', fighter: f, count: () => f.skill.secretBursts, run: () => f.skill.sec };
+    }),
+    (file) => sound.secretSfx(file),
+  );
+  secretOpenSeen = 0;
+  fighters.forEach((f, i) => (secretArcSeen[i] = f.instantArc?.id ?? 0));
+  camSwing.t = -1;
+  camPush.t = -1;
+  camPush.run = null;
+  bodySounds = fighters.map((f) => new BodySounds(sound, f, f.human ? 'player' : voiceOf(CHARACTERS_BY_ID[E[f.index].id] ?? null), !!f.human));
+  sound.resetRound();
+  sound.roundStart();
+  roundOver = false;
+  roundOverTime = 0;
+  teamRun = { spec, M, human: H, focus: H ?? fighters[0], ais, burstSeen: new Map(), burstN: 0, pull: { back: 0, up: 0 }, opts: {}, result: null };
+  resetCamera();
+  hitStop.left = 0;
+  hitStop.spent = 0;
+  hitStop.quiet = CONFIG.IMPACT_FX.chainGap;
+  for (const f of fighters) f.syncMeshes();
+  warmRoundFx(fxWarm);
+  teamHud.show(fighters, stageInfo.classList.contains('show') ? stageInfo : null); // 왼쪽 위 이름 · 체력 목록 (무대 이름이 보이면 그 밑 — 생사전은 무대 이름을 감춰 그 자리)
+  staminaHud.setTeam(true); // 동시 대전: 기력 막대 이름표 = 싸움꾼 이름
+}
+
+/** stepMatch 갈고리 — 1:1 고리의 같은 자리 (사람 몸의 비기 창 · 막기 단추는 AI 조종 뒤 · 몸 스텝 앞) */
+const teamHooks = {
+  afterControl(M, dt) {
+    const H = teamRun.human;
+    if (!H) return;
+    playerSecret.setFoe(H.foe);
+    playerGuard.setFoe(H.foe);
+    playerSecret.update(dt, !!H.skill.sec);
+    if (playerSecret.queued && !H.skill.sec && H.alive) {
+      const o = playerSecret.fire();
+      if (o && H.skill.secret(o)) showPlayerCue(o.S, 'secret');
+    }
+    playerGuard.step(dt);
+  },
+  afterFighters(M, dt) {
+    tickDebris(dt);
+  },
+  afterWorld(M, dt) {
+    if (arenaGround) applyTerrainHazards(arenaGround, colliderInfo, dt);
+    swordTrails.sample(dt);
+  },
+};
+
+/** 프레임마다: 보는 몸 = 사람(살아 있으면) · 아니면 내 편 가운데 가장 작은 자리의 산 몸 (모두 쓰러졌으면 그대로) · enemy = 그 몸의 지금 상대 */
+function teamFocus() {
+  const R = teamRun;
+  R.focus = R.human?.alive ? R.human : fighters.find((f) => f.team === 0 && f.alive) ?? R.focus;
+  enemy = R.focus.foe ?? enemy;
+}
+
+/** 비기 연출 셈 (동시 대전): 보는 몸이 냈거나 보는 몸을 겨눈 몸이 낸 비기 수만 오른다 (그 밖의 비기는 화면을 늦추지 않음) */
+function teamBursts() {
+  const R = teamRun;
+  for (const f of fighters) {
+    const A = R.ais.get(f);
+    const n = A ? A.secretBursts : f.skill.secretBursts;
+    const was = R.burstSeen.get(f) ?? n;
+    if (n !== was && (f === R.focus || f.foe === R.focus)) R.burstN++;
+    R.burstSeen.set(f, n);
+  }
+  return R.burstN;
+}
+
+/** 판 끝 (동시 대전): 한 편 전멸(match.js M.over) → 결과 글자 · 3.5 s 뒤 생사전에 돌려주거나(launchSaengsa) 시험 판 결과 창 */
+function checkTeamEnd(dt) {
+  const R = teamRun;
+  if (!roundOver) {
+    if (!R.M.over) return;
+    roundOver = true;
+    resultShown = false;
+    lastRoundWon = R.M.winner === 0;
+    R.result = matchResult(R.M);
+    // 생사전 결과는 판이 끝난 그 스텝의 몸으로 (결과 글자 3.5 s 동안 피를 더 흘려 이긴 편의 산 몸이 죽은 것으로 적히지 않게)
+    if (R.opts.resolve) R.saengsa = resultFromMatch(R.spec, fighters, R.M.winner, R.opts.injuries ?? fallbackInjuries);
+    showRoundResult();
+    return;
+  }
+  showRoundResult();
+  roundOverTime += dt;
+  if (roundOverTime > 3.5 && state === 'fight') teamFinish();
+}
+function teamFinish() {
+  const R = teamRun;
+  state = 'paused';
+  input.enabled = false;
+  input.resetTransient();
+  document.exitPointerLock?.();
+  toast.classList.remove('show');
+  if (R.opts.resolve) {
+    const res = R.saengsa ?? resultFromMatch(R.spec, fighters, R.M.winner, R.opts.injuries ?? fallbackInjuries);
+    const done = R.opts.resolve;
+    teamLeave();
+    done(res);
+    return;
+  }
+  const win = R.M.winner === 0;
+  $('menuTitle').textContent = win ? '승리' : R.M.winner == null ? '무승부' : '패배';
+  $('menuSub').textContent = fighters.map((f) => `${f.name} ${f.alive ? '생존' : '쓰러짐'}`).join(' · ');
+  $('btnStart').textContent = '재대결';
+  $('btnStart').hidden = false;
+  $('btnStart').classList.remove('wander');
+  $('btnResume').style.display = 'none';
+  $('btnLobby').hidden = true;
+  $('fpsRow').hidden = false;
+  $('menuReward').hidden = true;
+  showDefeatFoe(null);
+  reviveFx.reset();
+  hideFoeIntro();
+  clearEmoMsg();
+  showMenu();
+}
+/** 생사전 판에서 나간다 (판 끝 · 그만두기): 싸움 화면을 걷고 생사전(대기실 덮개)으로 */
+function teamLeave() {
+  const R = teamRun;
+  const overlay = R.opts.overlay;
+  R.opts = {}; // 생사전 표시를 지운다 — 남은 판(덮개 뒤에 멈춘 몸)이 다음 startFight(대기실 여정 · 방랑)를 막지 않게
+  state = 'menu';
+  pauseOpen = false;
+  input.enabled = false;
+  input.resetTransient();
+  document.exitPointerLock?.();
+  menu.classList.remove('show');
+  toast.classList.remove('show');
+  hint.classList.remove('show');
+  clearEmoMsg();
+  hideFoeIntro();
+  topButtons.classList.remove('show');
+  $('rotate').classList.remove('enabled');
+  parryHold.btn = null;
+  parryHold.key = false;
+  applyMoveMode();
+  teamHud.hide();
+  sound.ctx?.suspend?.()?.catch?.(() => {});
+  showEntrance(overlay);
+}
+/** 생사전 판 그만두기 (정지 창 '대기실'): 결과 null — 생사전은 적지 않는다 (saengsa_engine.js) */
+// 생사전 몸 상태 이어받기 (사장님 10/30 08:2x): 싸우는 동안 2 초마다 · 정지 창 '대기실'로 그만둘 때 · 화면을 떠날 때 넷의 몸 사본을 생사전 쪽(setup.resumeSave)에 넘긴다
+let teamSaveT = 0;
+function saveTeamBodies() {
+  const R = teamRun;
+  if (!R?.opts?.resumeSave || roundOver || R.M.over) return false;
+  try { R.opts.resumeSave(Object.fromEntries(fighters.map((f) => [R.spec.fighters[f.index].key, snapshotFighter(f)]))); return true; } catch { return false; }
+}
+function teamQuit() {
+  saveTeamBodies(); // 그만둔 그 몸으로 (생사전 SAENGSA.resumeState — 생사전 쪽이 넘긴 resumeSave 가 없으면 아무 일 없음)
+  const done = teamRun.opts.resolve;
+  teamLeave();
+  done?.(null);
+}
+/** 대기실 덮개(game_entry.js #gameEntrance)가 앞에 있으면 잠깐 걷는다 — 생사전 화면에서 '전투 입장'으로 바로 불렸을 때. 돌려줌: 되돌릴 것 (없으면 null) */
+function hideEntrance() {
+  const host = document.getElementById('gameEntrance');
+  if (!host || !document.documentElement.hasAttribute('data-start-open')) return null;
+  document.documentElement.removeAttribute('data-start-open');
+  host.style.display = 'none';
+  const covered = [...document.body.children].filter((el) => el.inert);
+  for (const el of covered) el.inert = false;
+  return { host, covered };
+}
+function showEntrance(o) {
+  if (!o) return;
+  document.documentElement.setAttribute('data-start-open', '');
+  o.host.style.display = '';
+  for (const el of o.covered) el.inert = true;
+}
+
+/** 동시 대전 판 열기 (startFight 의 앞머리와 같은 화면 정리 → newTeamRound → beginFight). opts = { resolve, injuries, saengsa, overlay } */
+async function teamStart(spec, mods = {}, opts = {}) {
+  sound.unlock();
+  sound.ambience();
+  if (input.isTouchDevice) {
+    try {
+      await document.documentElement.requestFullscreen?.();
+      await screen.orientation?.lock?.('landscape');
+    } catch {
+      /* 무시 */
+    }
+  }
+  $('rotate').classList.add('enabled');
+  menu.classList.remove('show');
+  screenTint.visible = true;
+  topButtons.classList.add('show');
+  closeDraw();
+  toast.classList.remove('show');
+  $('menuReward').hidden = true;
+  if (!opts.saengsa) nextRoundStage(); // 시험 판: 1:1 과 같이 무대를 넘긴다 · 생사전: 지금 무대
+  planOpening();
+  hideFoeIntro();
+  showStageInfo();
+  techClear();
+  guardClear();
+  currentFoe = null; // 동시 대전은 가운데 상대 소개 없음 (판 알림 · 안내만 — showFightCues)
+  if (opts.saengsa) stageInfo.classList.remove('show'); // 생사전: 무대 이름을 감춘다 (사장님 10/29 22:3x — 그 자리에 이름 · 체력 목록 · 다른 판은 그대로 — startFight 가 다시 띄움)
+  newTeamRound(spec, mods);
+  teamRun.opts = opts;
+  teamSaveT = 0;
+  beginFight();
+  return teamRun;
+}
+/** ?team= 시험 판 (test.html '동시 대전'): 나(고른 무기 · 고른 인물 겉모습) + 무작위 동료 대 무작위 상대(고른 상대가 있으면 첫째) — 지켜보기는 넷 모두 AI */
+function teamTestSpec() {
+  const mineN = TEAM_TEST === '1v2' ? 1 : 2;
+  const foeN = TEAM_TEST === '2v1' ? 1 : 2;
+  const used = new Set(testRoute.hero ? [testRoute.hero.id] : []);
+  const pickChar = (pref) => {
+    let c = pref && !used.has(pref.id) ? pref : null;
+    for (let k = 0; !c && k < 40; k++) {
+      const r = randomCharacter();
+      if (!used.has(r.id)) c = r;
+    }
+    used.add(c.id);
+    return c;
+  };
+  const mine = [];
+  const foes = [];
+  if (TEAM_TEST !== 'watch') mine.push({ id: 'player', human: true, weapon: FIXED_WEAPON || 'longsword', ...(testRoute.hero ? { look: testRoute.hero.look, name: testRoute.hero.name } : {}) });
+  while (mine.length < mineN) {
+    const c = pickChar(null);
+    mine.push({ id: c.id, weapon: pickCharacterWeapon(c) });
+  }
+  while (foes.length < foeN) {
+    const c = pickChar(foes.length ? null : CHARACTERS_BY_ID[foeParam] ?? null);
+    foes.push({ id: c.id, weapon: pickCharacterWeapon(c) });
+  }
+  const seq = [];
+  for (let k = 0; k < 2; k++) {
+    if (mine[k]) seq.push({ ...mine[k], team: 0 });
+    if (foes[k]) seq.push({ ...foes[k], team: 1 });
+  }
+  return { control: TEAM_TEST === 'watch' ? 'watch' : 'player', mineSide: 'a', fighters: seq.map((e, index) => ({ human: false, ...e, index })) };
+}
+function startTeamTest() {
+  return teamStart(teamTestSpec(), {}, {});
+}
+
+/**
+ * 생사전 경기 (가지 wk/saengsa — docs/design/saengsa_2026-10-29.md §8 · src/saengsa_engine.js makeEngine(game) 이 부른다).
+ *  setup = { matchId, round, seed, mineSide, entrants, sides, control 'player'|'watch' } → 판을 세워 돌리고, 판이 끝나면
+ *  { winner 'a'|'b', fighters { key: { hp, injuries, alive, weaponBroken } } } 로 풀린다 (그만두면 null). 대기실 덮개가 앞에 있으면 걷었다가 끝에 되돌린다
+ */
+export async function launchSaengsa(setup) {
+  const spec = specFromSetup(setup);
+  spec.resume = setup.resume && typeof setup.resume === 'object' ? setup.resume : null; // 그만둔 경기 넷의 몸 사본 { 열쇠: 사본 } (생사전 SAENGSA.resumeState)
+  if (!spec.fighters.some((e) => e.team === 0) || !spec.fighters.some((e) => e.team === 1)) return null;
+  const mods = await saengsaMods();
+  return new Promise((resolve) => {
+    const overlay = hideEntrance();
+    teamStart(spec, mods, { resolve, injuries: mods.injuriesFromWounds, saengsa: true, overlay, resumeSave: typeof setup.resumeSave === 'function' ? setup.resumeSave : null });
+  });
+}
+
 // ── 타격감 ──
 // 큰 타격 때 아주 잠깐 멈칫하는 연출 — left = 남은 멈칫(실제 초). 멈칫 = 화면 시간 배율만 낮춤(물리 스텝 길이 · 차례 그대로 — 판정 같음).
 //  spent · quiet = 멈칫 묶음(타격감 10/25 — src/impact_fx.js stopGrant · stopTick: 잇달아 오는 멈칫 합 IMPACT_FX.chainCap 까지). 넣는 곳은 addHitStop 하나
@@ -1086,7 +1517,7 @@ let secretBurstsSeen = 0;
 let secretSfx = null; // 비기 소리 걸쇠 (10/25 — 판마다 새로, src/secret_sfx.js)
 let secretOpenSeen = 0;
 // 비기 화면 연출 (10/10 발도 섬광 · 이베리아 카메라): 본 잔상 수 · 카메라 돌림 { t, sign }
-const secretArcSeen = [0, 0];
+const secretArcSeen = [0, 0, 0, 0]; // 자리마다 (동시 대전 넷까지)
 const camSwing = { t: -1, sign: 1 };
 // 런지 카메라 (10/25 14:0x 사장님 '리솔루토 쓰는 순간 비기인 줄 모르겠더라' → 안 1 — SECRET.risoCam): 시계 t · 런지 방향 (dx, dz — 수평 단위) · 본 런지(skill.sec 한 덩이)
 const camPush = { t: -1, dx: 0, dz: 0, run: null };
@@ -1096,7 +1527,7 @@ flashEl.style.cssText = 'position:fixed;inset:0;background:#fff;opacity:0;pointe
 document.body.appendChild(flashEl);
 /** 비기 화면 연출: 새 발도 잔상이면 아주 짧게 화면 번쩍, 새 이베리아 휩쓸기면 카메라를 사이드스텝 쪽으로 (둘 다 늘 켬 — 설정 줄은 10/10 에 지웠다) */
 function watchSecretFx() {
-  [player, enemy].forEach((f, i) => {
+  fighters.forEach((f, i) => {
     const A = f?.instantArc;
     if (!A || A.id === secretArcSeen[i]) return;
     secretArcSeen[i] = A.id;
@@ -1134,6 +1565,9 @@ const stats = { hits: [], clashes: 0, simTime: 0, passes: 0 };
 function onWound(att, vic, r, point, pr) {
   if (vic === player) playerEv.hurt = true; // 감정 사건: 베였다
   if (att === player) playerEv.landed = true; // 감정 사건: 맞혔다
+  // 동시 대전 (10/29 3단계): 화면 연출의 '나' = 보는 몸(사람이 있으면 사람) · 멈칫 · 카메라 · 진동 · 슬로모션은 보는 몸이 낀 타격이나 판을 끝내는 죽음만 (1:1 = 늘 켬 · 나 = player — 예전 그대로)
+  const me = teamRun ? teamRun.focus : player;
+  const fxOn = !teamRun || att === me || vic === me || (!vic.alive && !fighters.some((g) => g.team === vic.team && g.alive));
   const tag = `${att.name}->${r.zone}:${r.type}${r.pass ? '(관통)' : ''} ${r.energy.toFixed(0)}J 심각도${r.severity.toFixed(2)}`;
   stats.hits.push(tag);
   if (r.pass) stats.passes++;
@@ -1211,50 +1645,56 @@ function onWound(att, vic, r, point, pr) {
   // 타격감 (10/25 — config IMPACT_FX · src/impact_fx.js): 맞는 순간의 무게(판정 에너지 × 때린 무기 무게 배율) 하나로 멈칫 · 카메라 밀림 · 무게 소리 — 모든 무기 같은 식 · 무거운 칼일수록 크게.
   //  내가 맞음 · 내가 침 둘 다 (카메라는 내가 맞을 때 더 크게). `?impactFx=0` 이면 아래 옛 식 그대로
   //  총알(r.gun)은 무게 배율 없이 판정 에너지만 (총 무게는 맞은 몸에 실리지 않는다)
-  const fx = CONFIG.IMPACT_FX.on ? woundImpact({ energy: e, mass: r.gun ? 0 : att.swordProps?.m, pass: !!r.pass, hard: !!(r.stuck || bone || r.helmet || r.plate), taken: vic === player }, CONFIG.IMPACT_FX) : null;
+  const fx = CONFIG.IMPACT_FX.on ? woundImpact({ energy: e, mass: r.gun ? 0 : att.swordProps?.m, pass: !!r.pass, hard: !!(r.stuck || bone || r.helmet || r.plate), taken: vic === me }, CONFIG.IMPACT_FX) : null;
   if (fx) {
     // 무게 소리 한 겹 (기존 타격음 위에 — 빛의 칼 · 고무 닭은 몸통 '쿵'이 어울리지 않아 뺌 · 드루이드의 채찍은 녹음 맞음 소리 그대로)
     if (mat !== 'plasma' && mat !== 'rubber' && !whipHit) sound.heft(fx.sound, fx.x, { metal: !!(r.helmet || r.plate) && !opened });
   }
   const stopT = fx ? fx.stop : r.pass ? Math.min(0.06, e / 2000) : r.stuck || bone || r.helmet || r.plate ? Math.min(0.1, e / 900) : Math.min(0.08, e / 1200);
-  addHitStop(stopT);
+  if (fxOn) addHitStop(stopT);
   // 손맛: 칼의 타격 중심(스위트 스팟, 코등이에서 약 58cm)에 맞으면 손이 울리지 않고, 칼끝·칼 밑동에 맞으면 손이 찌릿하다
   //  (손을 축으로 도는 강체에서 한 점을 치면 축(손)이 받는 충격 = 1 − a·b/k²)
   const sting = att.swordSting(r.t);
   // 카메라가 칼이 지나간 방향으로 밀린다 (내가 맞으면 더 크게, 내가 칠 땐 손이 받은 충격만큼 — 옛 식. 타격감 켬이면 무게대로 + 무거울수록 아래로)
-  if (fx) impactKick(r.dir, fx.cam, fx.down);
-  else kickCamera(r.dir, Math.min(1.6, e / 120) * (vic === player ? 1.4 : 0.4 + 0.4 * sting));
-  if (vic === player) haptic(e / 120);
-  else if (att === player) haptic((e / 120) * (0.4 + 0.6 * sting));
-  if (!vic.alive) slowMo = 1.6;
+  if (fxOn) {
+    if (fx) impactKick(r.dir, fx.cam, fx.down);
+    else kickCamera(r.dir, Math.min(1.6, e / 120) * (vic === me ? 1.4 : 0.4 + 0.4 * sting));
+  }
+  if (vic === me) haptic(e / 120);
+  else if (att === me) haptic((e / 120) * (0.4 + 0.6 * sting));
+  if (!vic.alive && fxOn) slowMo = 1.6;
   arena.excite(vic.alive ? Math.min(0.6, e / 250) : 1); // 떠다니던 먼지가 흩날린다
   sound.gust(vic.alive ? Math.min(0.6, e / 250) : 1); // 산사: 단풍잎 바스락 + 솔바람 + 풍경
 }
 
 function onClash(point, speed, touch) {
-  if (touch?.fresh && touch.vn > 3 && player?.alive && player.tipVel.length() > 6) playerEv.parried = true; // 감정 사건: 내 베기가 막혔다
+  // 동시 대전 (10/29): 부딪힌 두 싸움꾼(touch.a · b — combat.js) · 보는 몸이 낀 부딪힘만 멈칫 · 카메라 · 진동. 1:1 = player · enemy · 늘 켬 (예전 그대로)
+  const A = teamRun && touch?.a ? touch.a : player;
+  const B = teamRun && touch?.b ? touch.b : enemy;
+  const fxOn = !teamRun || A === teamRun.focus || B === teamRun.focus;
+  if (touch?.fresh && touch.vn > 3 && player?.alive && player.tipVel.length() > 6 && (!teamRun || A === player || B === player)) playerEv.parried = true; // 감정 사건: 내 베기가 막혔다
   // 흘려 받기(우케나가시 — combat.js nagashi) 한 번 (사장님 10/18 23:4x '흘림을 보이고 들리게. 지친 표시는 X'): 긴 "스르르릉" · 미끄러진 쪽으로 흐르는 불꽃 줄 · 짧은 멈칫.
   //  사람 · AI 누가 흘려도 같다. 보통 부딪힘 연출(아래)은 이 순간 건너뛴다 — 흘림은 '쨍' 대신 미끄러짐으로 읽히게
   if (touch?.nagashi) {
     sound.flow(Math.max(touch.vn ?? 0, 3));
     particles.flowSparks(point, combat?.lastNagashi?.dir);
-    addHitStop(0.035);
+    if (fxOn) addHitStop(0.035);
     clashCooldown = Math.max(clashCooldown, CLASH_GAP);
-    haptic(0.5);
+    if (fxOn) haptic(0.5);
     return;
   }
   // 소리: 새로 부딪힌 순간(또는 맞댄 채 다시 세게 친 순간)에만 "쨍". 맞댄 채 미끄러지는 동안은 긁히는 소리(updateBindSound)
   //  touch.vn = 부딪히기 직전 맞닿는 방향 속도(부딪히는 세기), touch.vt = 칼날을 따라 스치는 속도 (combat.js bladeClash)
   if (touch && (touch.fresh || touch.vn > 3)) {
     // 두 무기의 재질이 둘 다 강철이면 칼끼리 "쨍", 아니면 재질에 맞는 소리 (나뭇가지 "딱", 광검 "파직", 고무 닭 "삑", 언 참치 "텅")
-    const ma = player?.weapon?.material || 'steel';
-    const mb = enemy?.weapon?.material || 'steel';
-    if (player?.weapon?.flexible || enemy?.weapon?.flexible) sound.whip('clash', touch.vn); // 드루이드의 채찍이 칼에 감기며 부딪힘 (녹음 — 10/23)
+    const ma = A?.weapon?.material || 'steel';
+    const mb = B?.weapon?.material || 'steel';
+    if (A?.weapon?.flexible || B?.weapon?.flexible) sound.whip('clash', touch.vn); // 드루이드의 채찍이 칼에 감기며 부딪힘 (녹음 — 10/23)
     else if (ma === 'steel' && mb === 'steel') {
       sound.clash(touch.vn, touch.vt);
       // 타격감 (10/25): 쇠 칼끼리면 부딪힌 무게만큼 낮은 '쿵' 한 겹 (맞음보다 순하게 — IMPACT_FX.sound.clash)
       if (CONFIG.IMPACT_FX.on) {
-        const cs = clashImpact({ vn: touch.vn, m1: player?.swordProps?.m, m2: enemy?.swordProps?.m, energyScale: CONFIG.STRIKE.energyScale }, CONFIG.IMPACT_FX);
+        const cs = clashImpact({ vn: touch.vn, m1: A?.swordProps?.m, m2: B?.swordProps?.m, energyScale: CONFIG.STRIKE.energyScale }, CONFIG.IMPACT_FX);
         sound.heft(cs.sound, cs.x, { metal: true });
       }
     } else sound.impact({ a: ma, b: mb, energy: 12 * touch.vn });
@@ -1274,8 +1714,9 @@ function onClash(point, speed, touch) {
   stats.clashes++;
   particles.sparks(point, impact);
   // 타격감 (10/25 — IMPACT_FX): 부딪힌 무게(두 칼 무게 · 맞닿는 빠르기)로 멈칫 · 카메라 — 맞음과 같은 곡선을 순하게. 문턱(6 m/s) · 간격(0.5 s)은 그대로. 끔이면 옛 식
-  const cfx = CONFIG.IMPACT_FX.on ? clashImpact({ vn: impact, m1: player?.swordProps?.m, m2: enemy?.swordProps?.m, energyScale: CONFIG.STRIKE.energyScale }, CONFIG.IMPACT_FX) : null;
+  const cfx = CONFIG.IMPACT_FX.on ? clashImpact({ vn: impact, m1: A?.swordProps?.m, m2: B?.swordProps?.m, energyScale: CONFIG.STRIKE.energyScale }, CONFIG.IMPACT_FX) : null;
   // 세게 부딪힐 때만 잠깐 멈칫 (칼끼리 맞대고 밀 때마다 멈추면 끊겨 보인다)
+  if (!fxOn) return; // 동시 대전: 보는 몸이 안 낀 부딪힘은 불꽃 · 소리만
   if (impact > 6 && clashStopCooldown <= 0) {
     addHitStop(cfx ? cfx.stop : Math.min(0.08, impact / 200));
     clashStopCooldown = CONFIG.realS(0.5);
@@ -1818,6 +2259,8 @@ function applyWanderBody(run) {
   return true;
 }
 async function startFight() {
+  if (teamRun?.opts?.saengsa) return; // 생사전 판은 다시 굴리지 않는다 (결과 · 그만두기만 — launchSaengsa)
+  if (TEAM_TEST) return startTeamTest(); // ?team= 시험 판 (동시 대전 — test.html '동시 대전')
   if (wanderMode && !openWanderRound()) return; // 방랑: 지금 판의 무대를 짓고 pendingJourney 에 넣는다 (버린 판을 패배로 셈했으면 결과 창 — 판을 열지 않음)
   $('btnStart').hidden = false; // 방랑 진 판 결과 창이 숨긴 단추
   const savedRound = pendingJourney; // 이어하기로 연 판이면 저장된 무대 시작 지점 (launchJourney 가 넣는다 — 한 번만 쓴다)
@@ -2076,7 +2519,8 @@ function showFightCues() {
   else showFoeIntro(null);
   introShownFor = introKey;
   showToast(FIGHT_START_TEXT, 900);
-  showHint(input.isTouchDevice ? '조이스틱으로 걷기 · 끌어서 휘두르기 · 톡 쳐서 찌르기' : '클릭해서 마우스 잠그기 · WASD로 걷기 · 클릭으로 찌르기');
+  if (teamRun && !teamRun.human) showHint('지켜보기 — 동료들이 싸웁니다'); // 동시 대전 지켜보기: 조작 안내 대신 (내 몸 없음)
+  else showHint(input.isTouchDevice ? '조이스틱으로 걷기 · 끌어서 휘두르기 · 톡 쳐서 찌르기' : '클릭해서 마우스 잠그기 · WASD로 걷기 · 클릭으로 찌르기');
 }
 
 let pausedFrom = 'fight'; // 싸움 중에 멈췄나, 무기 뽑기 중에 멈췄나 (계속하기가 돌아갈 곳)
@@ -2101,7 +2545,8 @@ function pause() {
   $('btnStart').hidden = noRestart; // 방랑은 재대결 없음 (10/30 01:1x)
   $('btnStart').classList.remove('wander'); // 방랑 승리 창의 '다음 방랑' 색을 정지 창에 남기지 않는다 (금색 주 단추)
   $('btnResume').style.display = '';
-  $('btnLobby').hidden = !lobbyMenu(); // 첫 화면·대기실 여정만 — 판을 떠나 대기실로 (아래 toLobby)
+  $('btnLobby').hidden = !lobbyMenu() && !teamRun?.opts?.saengsa; // 첫 화면·대기실 여정만 — 판을 떠나 대기실로 (아래 toLobby) · 생사전 판은 그만두고 생사전으로
+  if (teamRun?.opts?.saengsa) $('btnStart').hidden = true; // 생사전: 재대결 없음 (결과를 다시 굴리지 않게)
   $('fpsRow').hidden = false;
   showMenu();
 }
@@ -2133,6 +2578,7 @@ export function setLobbyReturn(fn) {
 }
 const lobbyMenu = () => careerSaves() && !!lobbyReturn; // 방랑도 같다
 function toLobby() {
+  if (teamRun?.opts?.saengsa) return teamQuit(); // 생사전 판을 그만두고 생사전 화면으로 (결과 null — 적지 않음)
   if (!lobbyMenu()) return;
   if (pausedFrom === 'fight' && !roundOver) saveWanderBody(); // 방랑 몸 상태 이어받기 (WANDER.resumeState) — 싸우던 몸을 적고 떠난다
   const back = lobbyReturn;
@@ -2189,7 +2635,7 @@ for (const ev of ['touchend', 'pointerup', 'keydown']) {
   window.addEventListener(ev, () => sound.ctx && !document.documentElement.hasAttribute('data-start-open') && sound.unlock(), { passive: true }); // 첫 화면·대기실이 앞이면 안 켬 (싸움 → 대기실 동안 소리 멈춤)
 }
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden && state === 'fight') saveWanderBody(); // 방랑 몸 상태 이어받기 — 앱을 닫거나 새로고침해도 그 몸으로 (WANDER.resumeState)
+  if (document.hidden && state === 'fight') { saveWanderBody(); saveTeamBodies(); } // 방랑 · 생사전 몸 상태 이어받기 — 앱을 닫거나 새로고침해도 그 몸으로
   if (document.hidden) pause(); // 화면을 떠나면(전화·앱 전환) 멈춘다 — 돌아와서 첫 손가락이 지난 획을 잇지 않게 (10/8)
   if (!document.hidden && sound.ctx && !document.documentElement.hasAttribute('data-start-open')) sound.unlock(); // (손을 대지 않아도 되는 브라우저는 여기서 바로 다시 켜진다)
 });
@@ -2358,6 +2804,7 @@ function updatePlayerEmotion(dt) {
 
 // 체력 게이지 대신: 피를 흘리거나 아프면 화면 가장자리가 붉게 물든다 (하프 소드처럼 숫자 없음)
 function updateHud() {
+  if (teamRun && !teamRun.human) return void screenTint.setBlood(0); // 동시 대전 지켜보기: 내 몸이 없으니 출혈 물들임 없음
   const lost = THREE.MathUtils.clamp((1 - player.blood) / 0.5, 0, 1);
   const pulse = player.bleed > 0.002 ? 0.15 * (0.5 + 0.5 * Math.sin(performance.now() / 180)) : 0;
   const v = Math.min(1, lost * 0.85 + Math.min(1, player.pain) * 0.35 + pulse);
@@ -2599,21 +3046,40 @@ function watchOpening() {
   }
 }
 /** 새 판(newRound): 따라가기를 새 몸 자리에 바로 맞춘다 */
+/** 카메라가 따르는 몸 · 바라보는 상대: 1:1 = player · enemy (예전 그대로) · 동시 대전 = 보는 몸(focus) · 그 몸의 지금 상대 */
+function camPair() {
+  return teamRun ? [teamRun.focus, teamRun.focus.foe ?? enemy] : [player, enemy];
+}
+/** 동시 대전 카메라 값: 보는 몸에서 TEAM_FIGHT.cam.radius 안의 산 싸움꾼이 담기게 뒤로 · 위로 (시간 상수 tau 로 거름 — team_hud.js teamFramePull) */
+const _teamCamC = { ...CAMERA };
+function teamCam(dt, P) {
+  const R = teamRun;
+  const want = teamFramePull(P, fighters, camDir, camera.aspect);
+  const k = 1 - Math.exp(-dt / CONFIG.TEAM_FIGHT.cam.tau);
+  R.pull.back += (want.back - R.pull.back) * k;
+  R.pull.up += (want.up - R.pull.up) * k;
+  Object.assign(_teamCamC, CAMERA);
+  _teamCamC.back = CAMERA.back + R.pull.back;
+  _teamCamC.height = CAMERA.height + R.pull.up;
+  return _teamCamC;
+}
 function resetCamera() {
-  followReset(camRig, player.pelvisPos);
+  const [P, E] = camPair();
+  followReset(camRig, P.pelvisPos);
   camSteps = 0;
-  const e = enemy.pelvisPos;
+  const e = E.pelvisPos;
   _cd.set(e.x - camFollow.x, 0, e.z - camFollow.z);
   if (_cd.length() > 0.3) camDir.copy(_cd.normalize()); // 지난 판 끝 방향에서 돌아오지 않게 (판 시작 자리가 이 방향으로 정해진다)
 }
 function updateCamera(dt) {
   if (!player || window.game?.freeCam) return; // freeCam: 디버그용으로 카메라를 직접 조종
+  const [P, E] = camPair(); // 1:1 = player · enemy
   // 흔들리는 골반 대신 몸 전체 무게중심을 따라간다 (참수된 몸은 무게중심에 날아가는 머리가 섞이니 골반을 따른다)
-  const src = (!player.decapitated && player.com) || player.pelvisPos;
-  const standing = player.state === 'stand';
+  const src = (!P.decapitated && P.com) || P.pelvisPos;
+  const standing = P.state === 'stand';
   // 따라가는 점: 지금 몸 자리를 물리 스텝 사이 남은 시간(acc)만큼 지난 빠르기로 앞으로 민 자리를 CAMERA.followTau 로 한 번만 거른다 (서 있지 않으면 followTauDown) — camera_rig.followStep
   const a = CAM_OLD ? camFollow.lerp(src, 1 - Math.exp(-dt * CAMERA.follow)) : followStep(camRig, src, camSteps, acc, dt, standing, CAMERA, PHYSICS.timestep);
-  const b = (!enemy.decapitated && enemy.com) || enemy.pelvisPos;
+  const b = (!E.decapitated && E.com) || E.pelvisPos;
   // 나 → 상대 방향 (너무 붙어 있으면 이전 방향 유지) — 도는 것은 지금처럼 부드럽게(3/s)
   _cd.set(b.x - a.x, 0, b.z - a.z);
   if (_cd.length() > 0.3) camDir.lerp(_cd.normalize(), 1 - Math.exp(-dt * 3)).normalize();
@@ -2621,9 +3087,9 @@ function updateCamera(dt) {
   // 물러나는 동안 카메라를 조금 올린다 (CAMERA.retreatLift — 가까이 따라붙은 상대를 내 몸이 덜 가리게): 지난 화면 몸 빠르기의 카메라 방향 반대 몫으로 — camera_rig.retreatStep
   const lift = CAM_OLD ? 0 : retreatStep(camRig, camDir.x, camDir.z, dt, standing, CAMERA);
   // 지형 무대(화산섬): 카메라 높이·바라보는 높이·해와 그림자 과녁을 내 무게중심 밑 땅 높이만큼 올린다 (평지 무대는 0 — 그대로)
-  const terrainY = player.terrain ? player.terrain.heightAt(a.x, a.z) : 0;
-  const camH = CAMERA.height + CAMERA.retreatLift * lift + terrainY;
-  basePose(a, camDir.x, camDir.z, lift, terrainY, CAMERA, camTarget); // 어깨 너머: a 에서 뒤로 back · 오른쪽 shoulder · 높이 camH
+  const terrainY = P.terrain ? P.terrain.heightAt(a.x, a.z) : 0;
+  const camH = (teamRun ? CAMERA.height + teamRun.pull.up : CAMERA.height) + CAMERA.retreatLift * lift + terrainY; // 동시 대전: 물러남 몫만큼 위로 (1:1 은 예전 식)
+  basePose(a, camDir.x, camDir.z, lift, terrainY, teamRun ? teamCam(dt, P) : CAMERA, camTarget); // 어깨 너머: a 에서 뒤로 back · 오른쪽 shoulder · 높이 camH
   // 비기 카메라 연출 (10/10 이베리아 사이드스텝 사선 베기): 내 쪽 무게중심을 축으로 SECRET.camSwing ° 를 camSwingIn 초에 돌렸다가 camSwingOut 초에 되돌림 (부드럽게)
   if (camSwing.t >= 0) {
     camSwing.t += dt;
@@ -2668,7 +3134,7 @@ function updateCamera(dt) {
   // 판 시작: 무대 훑기(그 무대 첫 판) · 내려앉기(다시 겨루기 · `?openSweep=0`) — 끝(u = 1)에서 평소 자리와 같아 이어 붙는 곳에서 튀지 않는다 (src/camera_rig.js)
   const u = openProgress();
   if (u < 1) {
-    if (camOpen.mode === 'sweep') sweepPose(u, camTarget, look, camOpen.centre, player.terrain ? player.terrain.heightAt(camOpen.centre.x, camOpen.centre.z) : 0, camOpen.params, _co, look);
+    if (camOpen.mode === 'sweep') sweepPose(u, camTarget, look, camOpen.centre, P.terrain ? P.terrain.heightAt(camOpen.centre.x, camOpen.centre.z) : 0, camOpen.params, _co, look);
     else settlePose(u, camTarget, look, camDir.x, camDir.z, CAMERA.openBack, CAMERA.openUp, _co, look);
     camera.position.copy(_co);
     camLook.copy(look);
@@ -2681,11 +3147,11 @@ function updateCamera(dt) {
     camera.position.copy(camTarget);
     camLook.copy(look);
   }
-  if (player.terrain) camera.position.y = Math.max(camera.position.y, player.terrain.heightAt(camera.position.x, camera.position.z) + 0.45); // 비탈 위쪽으로 돈 카메라가 땅에 묻히지 않게 (샛별 값 0.45 m)
+  if (P.terrain) camera.position.y = Math.max(camera.position.y, P.terrain.heightAt(camera.position.x, camera.position.z) + 0.45); // 비탈 위쪽으로 돈 카메라가 땅에 묻히지 않게 (샛별 값 0.45 m)
   // 발걸음: 디딜 때 살짝 내려앉음
-  if (player.footstep > 0) {
-    camShake.v.y -= CAMERA.stepBob * 12 * player.footstep;
-    player.footstep = 0;
+  if (P.footstep > 0) {
+    camShake.v.y -= CAMERA.stepBob * 12 * P.footstep;
+    P.footstep = 0;
   }
   // 스프링 흔들림 적분 (단단함 170, 감쇠 13)
   const h = Math.min(dt, 1 / 30);
@@ -2768,7 +3234,7 @@ function updateGuardName() {
 }
 /** 매 프레임: ① 은 싸움 화면에서 내가 살아 있고 그릴 이름이 있을 때만 보인다 */
 function guardVisible() {
-  guardName.classList.toggle('show', state === 'fight' && !!player?.alive && guardShown !== -1);
+  guardName.classList.toggle('show', state === 'fight' && !!player?.alive && guardShown !== -1 && (!teamRun || !!teamRun.human)); // 동시 대전 지켜보기: 내 자세 칸 없음
 }
 /** 새 판: ① 을 비운다 */
 function guardClear() {
@@ -2954,6 +3420,96 @@ let acc = 0;
 //  물리 스텝·입력·소리·카메라 따라가기는 rAF 마다 예전 그대로. 거르는 건 renderer.render 와 그 직전의 겉모습 갱신뿐
 const renderCap = createRenderCap();
 
+/** 프레임마다 사람 몸의 입력 (손 · 탭 · 비기 창 · 막기 단추 · 고유 동작 · 감정 · 걸음) — 게임 루프에서 옮김 (줄 그대로) */
+function playerInputFrame(dt, now) {
+  // 손 목표 갱신 (입력 → 플레이어)
+  const d = input.consumeHandDelta();
+  const exhausted = player.stamina.exhausted;
+  if (exhausted) { d.x = 0; d.y = 0; }
+  // 멈칫하는 동안엔 손가락 움직임도 느리게 반영한다 (멈칫이 끝나는 순간 손이 휙 튀지 않게)
+  const inScale = hitStop.left > 0 ? 0.25 : 1;
+  // 칼 쪽 화면을 톡 치면(마우스는 끌지 않고 클릭) 찌른다 (skill.js thrust). 권총은 손가락이 닿는 순간 쏜다 (쏘는 타이밍이 실력이라 뗄 때까지 늦추지 않는다)
+  input.tapOnDown = !!player.weapon?.gun;
+  let taps = input.consumeTaps();
+  if (exhausted) taps = 0;
+  // 플레이어 비기 (10/9 23:5x): 창이 열려 있을 때 공격 입력(톡 = 찌르기, 휘두르기만큼 빠른 끌기 = 베기)이 오면 그 입력 대신 비기 완벽 실행.
+  //  실행·경직 동안은 칼 입력(끌기·톡)을 무시한다 — 발(스틱)은 실행 동안 내 것, 경직 동안은 안 듣는다 (사장님 10/10 20:5x '잠깐 아예 못 움직이게' — 칼은 skill.js holdStiff 가 멈춰 둔다)
+  const swipe = Math.hypot(d.x, d.y) / Math.max(dt, 1e-3) >= CONFIG.SKILL.swingSpeed;
+  let secBusy = exhausted || !!player.skill.secretPhase;
+  // 이베리아 길목 (사장님 결정 10/11 13:2x): 준비(armed)가 켜져 있으면 창을 기다리지 않고 공격 입력 하나가 곧 길목 한 칼 (secret.js fireArmed — 플레이어만)
+  const gilReady = !!playerSecret?.S?.do?.gilmok && !!playerSecret.gilArm?.armed;
+  const secSwipe = swipe && !playerSecret?.S?.do?.tapOnly; // tapOnly(이탈리아 안다레 리솔루토 전 판 — `?risoTap=1`)면 찌르기 입력(톡)만 · 10/25 21:0x 사장님 '공격하면 발동' 뒤 기본은 끌기도 비기 (schools.js tapOnly = SECRET.risolutoTap)
+  // 이베리아 휘감아 돌기 스틱 판 (10/23 사장님 '공격 버튼 대신 이동 버튼을 360도 돌린다거나' · '반 바퀴 이상으로' — SECRET.ibSpin.input 'stick'): 무장 창은 공격 입력으로 나가지 않고
+  //  (무장 동안의 톡 · 끌기는 보통 공격) 이동 스틱을 stickTime 초 안에 stickTurn° 돌리면 같은 길(fire → skill.secret → showPlayerCue)로 낸다. 몸짓 셈 = 실제 프레임 시간 (secret.js spinStick)
+  //  10/24 공격 원 판 (사장님 02:5x '공격 동작 360도 원형 입력으로 변경' — 기본 'attackCircle'): 무장 창은 톡 · 끌기 하나로 나가지 않고(원이 아닌 공격은 보통 공격) 공격 손 움직임 d 로
+  //  circleTime 초 안에 원 한 바퀴를 그리면 같은 길로 낸다 (secret.js spinCircle · src/attack_circle.js). 손가락이 닿아 있나 = 터치 손가락 · 잠긴 마우스(늘 — 멈춤으로 획을 가름)
+  const atkWin = !!playerSecret?.open && !playerSecret.stickOwns() && !playerSecret.circleOwns();
+  const stickGo = !!playerSecret?.spinStick(dt, input.move, !secBusy && player.alive);
+  const handDown = input.activeTouch !== null || document.pointerLockElement === canvas;
+  const circleGo = !!playerSecret?.spinCircle(dt, d, handDown, !secBusy && player.alive);
+  // 창 지킴 (10/25 21:0x — SECRET.secretHold): 보통 탭 찌르기 · 손잡이 찍기가 아직 도는 동안은 비기를 못 낸다(skill.secret 이 받지 않음) — 그 입력으로 창을 써 버리지 않고 남겨 둠 (`?secretHold=0` = 전: 창을 쓰고 비기 없음)
+  const secArm = !(CONFIG.SECRET.secretHold && (player.skill.tap || player.skill.pom));
+  if (((atkWin || gilReady) && (taps > 0 || secSwipe) || stickGo || circleGo) && !secBusy && player.alive && secArm) {
+    const o = playerSecret.open ? playerSecret.fire() : playerSecret.fireArmed();
+    if (o) o.dir = [d.x, d.y]; // 비기를 낸 끌기의 방향 — 이베리아 흐름(10/11)이 이 칼의 흐름을 이어받는다 (톡이면 0 → 걸러진 손 목표 속도)
+    if (player.skill.secret(o)) {
+      secBusy = true;
+      showPlayerCue(o.S, 'secret');
+    }
+  }
+  // 중국 막기 연환 미리 받기 (10/12 — SECRET.cnBuffer, secret.js canBuffer): 정한 자세로 막아 칼이 맞닿은 동안 온 공격 입력을 받아 두고(칼이 떨어지는 스텝에 곧장 연환),
+  //  받아 둔 동안은 칼 입력(끌기·톡)을 삼킨다 — 보통 공격·막기 풀림으로 새지 않게 (한 번 끈 손가락의 남은 움직임까지)
+  if (!secBusy && player.alive && (taps > 0 || swipe) && playerSecret?.canBuffer()) playerSecret.buffer([d.x, d.y]);
+  const bufHold = !secBusy && !!playerSecret?.bufferHold;
+  if (secBusy || bufHold) taps = 0;
+  // 막기 버튼 (10/11): 누르는 동안 손은 막기가 쥔다 (느린 끌기는 버림). 누른 채 휘두르거나(swipe — 비기 입력과 같은 문턱) 톡 치면 그 공격이 끝날 때까지 놓는다 —
+  //  공격이 끝남 = 검술 층의 휘두르기·찌르기가 꺼짐 (지난 스텝 값). 막기 연환 창이 열려 있었으면 위에서 이미 비기로 나갔다
+  let guardHold = false;
+  if (playerGuard) {
+    const G = playerGuard;
+    G.held = (parryHold.btn != null || parryHold.key) && !roundOver;
+    if (G.broken && (!G.held || (!player.skill.swinging && !player.skill.tap && !swipe && taps === 0))) G.broken = false;
+    if (G.held && !bufHold && (swipe || taps > 0)) G.broken = true;
+    guardHold = G.held && !G.broken && !secBusy;
+  }
+  // 고유 동작 강화 (10/14 — 10/13 이어 주기를 다시 만듦): 손가락 움직임을 알린다(긋기 읽기 · 다른 동작이 손을 쥐는지). 손 목표는 쥐지 않는다 — 손가락은 늘 그대로 더한다
+  //  (사장님 결정 10/14 01:5x '궤적은 끝까지 내 손가락, 고유 동작은 손가락으로는 못 하는 몫만 더한다')
+  //  둘째 값 = 손이 정말 쥐여 있나(막기가 손을 쥠 · 미리 받기) — 막기 단추를 쥔 채 친 탭은 막기가 놓아 주는 공격(위 G.broken)이라 칼끝 돌려 빼기 탭은 이것만 봄 (10/30 — UNIQUE_ASSIST.cavHeld)
+  player.skill.uniq?.feed(d.x, d.y, dt, guardHold || bufHold || !!playerGuard?.held, guardHold || bufHold);
+  // 풍차 베기 (이베리아 B4 — 10/29 · unique_assist.js holdTick): 탭 입력을 끌지 않고 길게 누르면 감기 · 떼면 내려침 — 누름 상태를 알린다(비기 창이 열려 있으면 감지 않음 — 싱지르가 먼저).
+  //  감는 동안은 손가락 움직임을 손 목표에 더하지 않는다(손은 감기가 쥔다)
+  if (player.skill.uniq?.holdE) {
+    const hs = input.holdState();
+    player.skill.uniq.holdInput(hs.down && !exhausted, hs.still, !!playerSecret?.open);
+  }
+  const winding = !!player.skill.uniq?.winding;
+  // 권총: 자동 조준이라 끌기는 손을 움직이지 않는다 (빠른 끌기가 내딛기·자세 복귀를 부르지 않게)
+  if (player.alive && !player.weapon?.gun && !secBusy && !guardHold && !bufHold && !winding) {
+    player.handOffset.x += d.x * inScale;
+    player.handOffset.y += d.y * inScale;
+  }
+  // 검술 층의 "자세로 돌아가기"가 알아야 할 것: 손가락이 화면에 닿아 있는지, 지금 움직였는지
+  player.handHeld = input.activeTouch !== null;
+  player.inputActive = !secBusy && !bufHold && !winding && Math.abs(d.x) + Math.abs(d.y) > 1e-5;
+  // 칼을 쥐었나 (고노센 허리 대기 — SECRET.gnsReadyHip · secret.js): 손가락은 닿은 자리에서 길게 누름 한도(INPUT.holdPx — 엄지 떠돎)를 넘게 끌었을 때부터 뗄 때까지 · 마우스는 움직임 그대로(inputActive)
+  const pr = input.press;
+  player.handGrip = pr && !pr.mouse ? pr.moved >= (CONFIG.INPUT.holdPx ?? CONFIG.INPUT.tapPx) : player.inputActive;
+  if (taps > 0 && player.alive && !(pommelTap && player.foeDistance() <= CONFIG.CLOSE.pommelDist && player.skill.pommel())) player.skill.thrust();
+  updatePlayerEmotion(dt);
+  watchEmotions();
+  watchMudNotice(); // 잠든 습지: 진흙을 처음 밟으면 알림 줄 한 번 (다른 무대는 배율 1 이라 안 뜬다)
+  const m = input.move;
+  const emv = player.emoMods?.move ?? 1; // 감정 고유 능력: 집념이면 발이 묶이고 공포면 빨라진다
+  const feet = player.alive && !exhausted && player.skill.secretPhase !== 'stiff'; // 비기 경직: 스틱이 안 듣는다 (걸음·근접 밀치기 없음 — 몸은 물리대로)
+  player.move.set(feet ? m.x * emv : 0, feet ? m.y * emv : 0);
+  player.stickX = feet ? m.x : 0; // 스틱 원값 (감정 배수 전): 근접 밀치기 걸쇠가 읽는다 (fighter.closeStep)
+  player.stickY = feet ? m.y : 0;
+  updateGuardName();
+  // 마우스로 조작할 땐 손가락 흔적 대신 오른쪽 아래 원판에 손 위치의 흔적을 그린다
+  const mouseMode = !input.isTouchDevice;
+  if (mouseMode && player.alive) trail.addPad(player.skill.aim.x, player.skill.aim.y, now / 1000);
+}
+
 function frame(now) {
   requestAnimationFrame(frame);
   // 첫 화면·대기실이 앞에 있는 동안(game_entry.js — html[data-start-open])에는 뒤의 3D 그리기·물리 시간을 멈춘다 (화면이 가려져 있다)
@@ -2966,92 +3522,9 @@ function frame(now) {
   const paint = renderCap.tick(dt, settings.fpsCap ? CONFIG.RENDER.fpsCap : 0); // 이번 프레임을 그리나
 
   if (state === 'fight' && player) {
-    // 손 목표 갱신 (입력 → 플레이어)
-    const d = input.consumeHandDelta();
-    const exhausted = player.stamina.exhausted;
-    if (exhausted) { d.x = 0; d.y = 0; }
-    // 멈칫하는 동안엔 손가락 움직임도 느리게 반영한다 (멈칫이 끝나는 순간 손이 휙 튀지 않게)
-    const inScale = hitStop.left > 0 ? 0.25 : 1;
-    // 칼 쪽 화면을 톡 치면(마우스는 끌지 않고 클릭) 찌른다 (skill.js thrust). 권총은 손가락이 닿는 순간 쏜다 (쏘는 타이밍이 실력이라 뗄 때까지 늦추지 않는다)
-    input.tapOnDown = !!player.weapon?.gun;
-    let taps = input.consumeTaps();
-    if (exhausted) taps = 0;
-    // 플레이어 비기 (10/9 23:5x): 창이 열려 있을 때 공격 입력(톡 = 찌르기, 휘두르기만큼 빠른 끌기 = 베기)이 오면 그 입력 대신 비기 완벽 실행.
-    //  실행·경직 동안은 칼 입력(끌기·톡)을 무시한다 — 발(스틱)은 실행 동안 내 것, 경직 동안은 안 듣는다 (사장님 10/10 20:5x '잠깐 아예 못 움직이게' — 칼은 skill.js holdStiff 가 멈춰 둔다)
-    const swipe = Math.hypot(d.x, d.y) / Math.max(dt, 1e-3) >= CONFIG.SKILL.swingSpeed;
-    let secBusy = exhausted || !!player.skill.secretPhase;
-    // 이베리아 길목 (사장님 결정 10/11 13:2x): 준비(armed)가 켜져 있으면 창을 기다리지 않고 공격 입력 하나가 곧 길목 한 칼 (secret.js fireArmed — 플레이어만)
-    const gilReady = !!playerSecret?.S?.do?.gilmok && !!playerSecret.gilArm?.armed;
-    const secSwipe = swipe && !playerSecret?.S?.do?.tapOnly; // tapOnly(이탈리아 안다레 리솔루토 전 판 — `?risoTap=1`)면 찌르기 입력(톡)만 · 10/25 21:0x 사장님 '공격하면 발동' 뒤 기본은 끌기도 비기 (schools.js tapOnly = SECRET.risolutoTap)
-    // 이베리아 휘감아 돌기 스틱 판 (10/23 사장님 '공격 버튼 대신 이동 버튼을 360도 돌린다거나' · '반 바퀴 이상으로' — SECRET.ibSpin.input 'stick'): 무장 창은 공격 입력으로 나가지 않고
-    //  (무장 동안의 톡 · 끌기는 보통 공격) 이동 스틱을 stickTime 초 안에 stickTurn° 돌리면 같은 길(fire → skill.secret → showPlayerCue)로 낸다. 몸짓 셈 = 실제 프레임 시간 (secret.js spinStick)
-    //  10/24 공격 원 판 (사장님 02:5x '공격 동작 360도 원형 입력으로 변경' — 기본 'attackCircle'): 무장 창은 톡 · 끌기 하나로 나가지 않고(원이 아닌 공격은 보통 공격) 공격 손 움직임 d 로
-    //  circleTime 초 안에 원 한 바퀴를 그리면 같은 길로 낸다 (secret.js spinCircle · src/attack_circle.js). 손가락이 닿아 있나 = 터치 손가락 · 잠긴 마우스(늘 — 멈춤으로 획을 가름)
-    const atkWin = !!playerSecret?.open && !playerSecret.stickOwns() && !playerSecret.circleOwns();
-    const stickGo = !!playerSecret?.spinStick(dt, input.move, !secBusy && player.alive);
-    const handDown = input.activeTouch !== null || document.pointerLockElement === canvas;
-    const circleGo = !!playerSecret?.spinCircle(dt, d, handDown, !secBusy && player.alive);
-    // 창 지킴 (10/25 21:0x — SECRET.secretHold): 보통 탭 찌르기 · 손잡이 찍기가 아직 도는 동안은 비기를 못 낸다(skill.secret 이 받지 않음) — 그 입력으로 창을 써 버리지 않고 남겨 둠 (`?secretHold=0` = 전: 창을 쓰고 비기 없음)
-    const secArm = !(CONFIG.SECRET.secretHold && (player.skill.tap || player.skill.pom));
-    if (((atkWin || gilReady) && (taps > 0 || secSwipe) || stickGo || circleGo) && !secBusy && player.alive && secArm) {
-      const o = playerSecret.open ? playerSecret.fire() : playerSecret.fireArmed();
-      if (o) o.dir = [d.x, d.y]; // 비기를 낸 끌기의 방향 — 이베리아 흐름(10/11)이 이 칼의 흐름을 이어받는다 (톡이면 0 → 걸러진 손 목표 속도)
-      if (player.skill.secret(o)) {
-        secBusy = true;
-        showPlayerCue(o.S, 'secret');
-      }
-    }
-    // 중국 막기 연환 미리 받기 (10/12 — SECRET.cnBuffer, secret.js canBuffer): 정한 자세로 막아 칼이 맞닿은 동안 온 공격 입력을 받아 두고(칼이 떨어지는 스텝에 곧장 연환),
-    //  받아 둔 동안은 칼 입력(끌기·톡)을 삼킨다 — 보통 공격·막기 풀림으로 새지 않게 (한 번 끈 손가락의 남은 움직임까지)
-    if (!secBusy && player.alive && (taps > 0 || swipe) && playerSecret?.canBuffer()) playerSecret.buffer([d.x, d.y]);
-    const bufHold = !secBusy && !!playerSecret?.bufferHold;
-    if (secBusy || bufHold) taps = 0;
-    // 막기 버튼 (10/11): 누르는 동안 손은 막기가 쥔다 (느린 끌기는 버림). 누른 채 휘두르거나(swipe — 비기 입력과 같은 문턱) 톡 치면 그 공격이 끝날 때까지 놓는다 —
-    //  공격이 끝남 = 검술 층의 휘두르기·찌르기가 꺼짐 (지난 스텝 값). 막기 연환 창이 열려 있었으면 위에서 이미 비기로 나갔다
-    let guardHold = false;
-    if (playerGuard) {
-      const G = playerGuard;
-      G.held = (parryHold.btn != null || parryHold.key) && !roundOver;
-      if (G.broken && (!G.held || (!player.skill.swinging && !player.skill.tap && !swipe && taps === 0))) G.broken = false;
-      if (G.held && !bufHold && (swipe || taps > 0)) G.broken = true;
-      guardHold = G.held && !G.broken && !secBusy;
-    }
-    // 고유 동작 강화 (10/14 — 10/13 이어 주기를 다시 만듦): 손가락 움직임을 알린다(긋기 읽기 · 다른 동작이 손을 쥐는지). 손 목표는 쥐지 않는다 — 손가락은 늘 그대로 더한다
-    //  (사장님 결정 10/14 01:5x '궤적은 끝까지 내 손가락, 고유 동작은 손가락으로는 못 하는 몫만 더한다')
-    //  둘째 값 = 손이 정말 쥐여 있나(막기가 손을 쥠 · 미리 받기) — 막기 단추를 쥔 채 친 탭은 막기가 놓아 주는 공격(위 G.broken)이라 칼끝 돌려 빼기 탭은 이것만 봄 (10/30 — UNIQUE_ASSIST.cavHeld)
-    player.skill.uniq?.feed(d.x, d.y, dt, guardHold || bufHold || !!playerGuard?.held, guardHold || bufHold);
-    // 풍차 베기 (이베리아 B4 — 10/29 · unique_assist.js holdTick): 탭 입력을 끌지 않고 길게 누르면 감기 · 떼면 내려침 — 누름 상태를 알린다(비기 창이 열려 있으면 감지 않음 — 싱지르가 먼저).
-    //  감는 동안은 손가락 움직임을 손 목표에 더하지 않는다(손은 감기가 쥔다)
-    if (player.skill.uniq?.holdE) {
-      const hs = input.holdState();
-      player.skill.uniq.holdInput(hs.down && !exhausted, hs.still, !!playerSecret?.open);
-    }
-    const winding = !!player.skill.uniq?.winding;
-    // 권총: 자동 조준이라 끌기는 손을 움직이지 않는다 (빠른 끌기가 내딛기·자세 복귀를 부르지 않게)
-    if (player.alive && !player.weapon?.gun && !secBusy && !guardHold && !bufHold && !winding) {
-      player.handOffset.x += d.x * inScale;
-      player.handOffset.y += d.y * inScale;
-    }
-    // 검술 층의 "자세로 돌아가기"가 알아야 할 것: 손가락이 화면에 닿아 있는지, 지금 움직였는지
-    player.handHeld = input.activeTouch !== null;
-    player.inputActive = !secBusy && !bufHold && !winding && Math.abs(d.x) + Math.abs(d.y) > 1e-5;
-    // 칼을 쥐었나 (고노센 허리 대기 — SECRET.gnsReadyHip · secret.js): 손가락은 닿은 자리에서 길게 누름 한도(INPUT.holdPx — 엄지 떠돎)를 넘게 끌었을 때부터 뗄 때까지 · 마우스는 움직임 그대로(inputActive)
-    const pr = input.press;
-    player.handGrip = pr && !pr.mouse ? pr.moved >= (CONFIG.INPUT.holdPx ?? CONFIG.INPUT.tapPx) : player.inputActive;
-    if (taps > 0 && player.alive && !(pommelTap && player.foeDistance() <= CONFIG.CLOSE.pommelDist && player.skill.pommel())) player.skill.thrust();
-    updatePlayerEmotion(dt);
-    watchEmotions();
-    watchMudNotice(); // 잠든 습지: 진흙을 처음 밟으면 알림 줄 한 번 (다른 무대는 배율 1 이라 안 뜬다)
-    const m = input.move;
-    const emv = player.emoMods?.move ?? 1; // 감정 고유 능력: 집념이면 발이 묶이고 공포면 빨라진다
-    const feet = player.alive && !exhausted && player.skill.secretPhase !== 'stiff'; // 비기 경직: 스틱이 안 듣는다 (걸음·근접 밀치기 없음 — 몸은 물리대로)
-    player.move.set(feet ? m.x * emv : 0, feet ? m.y * emv : 0);
-    player.stickX = feet ? m.x : 0; // 스틱 원값 (감정 배수 전): 근접 밀치기 걸쇠가 읽는다 (fighter.closeStep)
-    player.stickY = feet ? m.y : 0;
-    updateGuardName();
-    // 마우스로 조작할 땐 손가락 흔적 대신 오른쪽 아래 원판에 손 위치의 흔적을 그린다
-    const mouseMode = !input.isTouchDevice;
-    if (mouseMode && player.alive) trail.addPad(player.skill.aim.x, player.skill.aim.y, now / 1000);
+    if (teamRun) teamFocus(); // 동시 대전: 보는 몸 · 그 상대 (enemy) 를 이 프레임 것으로
+    if (!teamRun || teamRun.human) playerInputFrame(dt, now); // 사람 몸의 입력 (1:1 은 늘 — 예전 그대로 · 동시 대전 지켜보기는 입력을 버린다)
+    else input.consumeHandDelta(), input.consumeTaps();
 
     // 타격 순간 살짝 멈칫 + 판이 끝나면 슬로모션
     let scale = 1;
@@ -3062,7 +3535,7 @@ function frame(now) {
       scale = 0.12;
     }
     // 결정타 연출 (10/9 23:5x — CONFIG.SECRET.slowMo): AI·플레이어 비기가 터뜨려진 순간(터뜨림 수가 바뀜) 화면 시간을 잠깐 늦춘다 — 물리 스텝 dt 는 그대로, 스텝 수만 준다
-    const bursts = (ai?.secretBursts ?? 0) + player.skill.secretBursts;
+    const bursts = teamRun ? teamBursts() : (ai?.secretBursts ?? 0) + player.skill.secretBursts; // 동시 대전: 보는 몸이 낸 · 받은 비기만 (teamBursts)
     if (bursts !== secretBurstsSeen) {
       secretBurstsSeen = bursts;
       if (SECRET_SLOWMO) secretSlow = CONFIG.SECRET.slowMo.dur;
@@ -3080,27 +3553,30 @@ function frame(now) {
     const physT0 = perf ? performance.now() : 0;
     let steps = 0;
     while (acc >= PHYSICS.timestep && steps < PHYSICS.maxStepsPerFrame) {
-      player.foe = enemy;
-      enemy.foe = player;
-      player.faceTarget = enemy.bodies.pelvis.translation();
-      enemy.faceTarget = player.bodies.pelvis.translation();
-      ai.update(PHYSICS.timestep);
-      playerSecret?.update(PHYSICS.timestep, !!player.skill.sec); // 플레이어 비기 창: 조건(AI 와 같은 함수)이 차면 창을 연다
-      if (playerSecret?.queued && !player.skill.sec && player.alive) {
-        // 미리 받은 입력 (중국 막기 연환 — 10/12): 칼이 떨어져 창이 열린 이 스텝에 곧장 (위 프레임 입력 길과 같은 함수)
-        const o = playerSecret.fire();
-        if (o && player.skill.secret(o)) showPlayerCue(o.S, 'secret');
+      if (teamRun) stepMatch(teamRun.M, PHYSICS.timestep, teamHooks); // 동시 대전: 공용 스텝 차례 (src/match.js — 상대 고르기 · 편 전멸)
+      else {
+        player.foe = enemy;
+        enemy.foe = player;
+        player.faceTarget = enemy.bodies.pelvis.translation();
+        enemy.faceTarget = player.bodies.pelvis.translation();
+        ai.update(PHYSICS.timestep);
+        playerSecret?.update(PHYSICS.timestep, !!player.skill.sec); // 플레이어 비기 창: 조건(AI 와 같은 함수)이 차면 창을 연다
+        if (playerSecret?.queued && !player.skill.sec && player.alive) {
+          // 미리 받은 입력 (중국 막기 연환 — 10/12): 칼이 떨어져 창이 열린 이 스텝에 곧장 (위 프레임 입력 길과 같은 함수)
+          const o = playerSecret.fire();
+          if (o && player.skill.secret(o)) showPlayerCue(o.S, 'secret');
+        }
+        playerGuard?.step(PHYSICS.timestep); // 막기 버튼: 누르는 동안 AI 막기와 같은 판단·빠르기로 손 목표를 유파 막기 자리로
+        player.step(PHYSICS.timestep);
+        enemy.step(PHYSICS.timestep);
+        tickDebris(PHYSICS.timestep); // 흩어지는 칼·방어구 조각 (겉모습만, 게임 시간 — 멈칫·슬로모션을 따른다)
+        player.cacheState();
+        enemy.cacheState();
+        world.step(eventQueue, combat.physicsHooks);
+        combat.afterStep(world, eventQueue);
+        if (arenaGround) applyTerrainHazards(arenaGround, colliderInfo, PHYSICS.timestep); // 화산섬 용암 화상: 물리 스텝마다 닿은 몸 부위만 (평지 무대는 부르지 않는다)
+        swordTrails.sample(PHYSICS.timestep); // 칼 잔상 띠: 이 스텝의 칼 자세를 기록 (읽기만)
       }
-      playerGuard?.step(PHYSICS.timestep); // 막기 버튼: 누르는 동안 AI 막기와 같은 판단·빠르기로 손 목표를 유파 막기 자리로
-      player.step(PHYSICS.timestep);
-      enemy.step(PHYSICS.timestep);
-      tickDebris(PHYSICS.timestep); // 흩어지는 칼·방어구 조각 (겉모습만, 게임 시간 — 멈칫·슬로모션을 따른다)
-      player.cacheState();
-      enemy.cacheState();
-      world.step(eventQueue, combat.physicsHooks);
-      combat.afterStep(world, eventQueue);
-      if (arenaGround) applyTerrainHazards(arenaGround, colliderInfo, PHYSICS.timestep); // 화산섬 용암 화상: 물리 스텝마다 닿은 몸 부위만 (평지 무대는 부르지 않는다)
-      swordTrails.sample(PHYSICS.timestep); // 칼 잔상 띠: 이 스텝의 칼 자세를 기록 (읽기만)
       clashCooldown -= PHYSICS.timestep;
       clashStopCooldown -= PHYSICS.timestep;
       stats.simTime += PHYSICS.timestep;
@@ -3117,18 +3593,18 @@ function frame(now) {
       capped = steps === PHYSICS.maxStepsPerFrame;
       simGot = steps * PHYSICS.timestep;
     }
-    player.syncMeshes();
-    enemy.syncMeshes();
-    for (const f of [player, enemy]) {
+    for (const f of fighters) f.syncMeshes(); // 1:1 = player · enemy 차례
+    for (const f of fighters) {
       updateCapeSway(f, steps * PHYSICS.timestep); // 긴 망토 흔들림 (10/24 — 겉모습만, 이번 프레임에 흐른 게임 시간 · 가슴 그림 그룹만 읽음)
-      updateWhoosh(f, dt * scale);
+      if (f.settled) whooshState.get(f.index)?.loop?.set(0); // 쉬는 죽은 몸 (2:2 — match.js settleDead): 바람 소리 쉼
+      else updateWhoosh(f, dt * scale);
       updateDrips(f, dt * scale);
     }
-    decapFx.update([player, enemy], dt * scale); // 참수: 목 단면·피 분출
-    limbFx.update([player, enemy], dt * scale); // 팔·다리 절단: 단면·피
+    decapFx.update(fighters, dt * scale); // 참수: 목 단면·피 분출
+    limbFx.update(fighters, dt * scale); // 팔·다리 절단: 단면·피
     updateBindSound();
     for (const b of bodySounds) b.update(dt * scale);
-    reviveFx.update(enemy, dt * scale);
+    reviveFx.update(teamRun ? fighters.find((f) => f.revival) ?? enemy : enemy, dt * scale); // 동시 대전: 부활하는 몸 (없으면 지금 상대)
     particles.update(dt * scale);
     if (paint) {
       // 겉모습만 (시계로 도는 빛·안광, 칼 잔상 꼭짓점): 그리는 프레임에만
@@ -3137,8 +3613,10 @@ function frame(now) {
     }
     arena.update(dt);
     updateHud();
-    checkRoundEnd(dt);
-    if (wanderResumeOn() && !roundOver && (resumeSaveT += dt) >= 2) { resumeSaveT = 0; saveWanderBody(); } // 방랑 몸 상태 2 초마다 (새로고침 · 앱 꺼짐 대비 — WANDER.resumeState)
+    if (teamRun) checkTeamEnd(dt); // 동시 대전: 한 편 전멸 = 판 끝 (match.js M.over)
+    else checkRoundEnd(dt);
+    if (!teamRun && wanderResumeOn() && !roundOver && (resumeSaveT += dt) >= 2) { resumeSaveT = 0; saveWanderBody(); } // 방랑 몸 상태 2 초마다 (새로고침 · 앱 꺼짐 대비 — WANDER.resumeState)
+    if (teamRun?.opts?.resumeSave && !roundOver && (teamSaveT += dt) >= 2) { teamSaveT = 0; saveTeamBodies(); } // 생사전 넷의 몸 2 초마다 (새로고침 · 앱 꺼짐 대비)
   } else {
     muteWhoosh();
     camSteps = 0;
@@ -3151,8 +3629,9 @@ function frame(now) {
     if (roundOver) tickDebris(dt * 0.5);
   }
   updateCamera(dt); // 거르는 프레임에도: 흔들림 스프링·발걸음(player.footstep 소비)·소리 자리(sound.listener)가 여기 달려 있다
-  staminaHud.update([player, enemy], camera, state === 'fight' && !roundOver);
-  strikeCue.update(dt, camera, state === 'fight' && !roundOver, player, enemy, playerUnique, playerSecret); // 칠 때 알림: 카메라가 정해진 뒤 · 그리기 전
+  staminaHud.update(fighters, camera, state === 'fight' && !roundOver);
+  if (teamRun) teamHud.update(camera, teamRun.focus, state === 'fight' && !roundOver, teamRun.human); // 동시 대전 화면 밖 화살표 · 상대 머리 위 붉은 세모 (체력 막대는 staminaHud)
+  strikeCue.update(dt, camera, state === 'fight' && !roundOver && (!teamRun || !!teamRun.human), player, enemy, playerUnique, playerSecret); // 칠 때 알림: 카메라가 정해진 뒤 · 그리기 전
   screenTint.update(dt);
   let renderMs = 0;
   if (paint) {
@@ -3192,6 +3671,14 @@ window.game = {
   get ai() {
     return ai;
   },
+  get fighters() {
+    return fighters; // 이번 판 싸움꾼 (1:1 = [player, enemy] · 동시 대전 넷까지)
+  },
+  get teamRun() {
+    return teamRun; // 동시 대전 판 (spec · M · human · focus · result) — tools/browser/team_smoke.mjs 가 읽는다
+  },
+  launchSaengsa, // 생사전 경기 (saengsa_match.js · 생사전 가지 src/saengsa_engine.js makeEngine 이 부른다)
+  launchTeam: (spec) => teamStart(spec, {}, {}), // 시험: 판 꼴을 바로 (tools/browser/team_smoke.mjs)
   tempo: TEMPO, // 전체 빠르기 손잡이 (?tempo)
   get playerGuard() {
     return playerGuard; // 막기 버튼 (held · active · mode · line · stats) — 브라우저 탐침(tools/browser/parry_button_probe.mjs)이 읽는다
@@ -3211,7 +3698,7 @@ window.game = {
   },
   // 와신상담 (월왕구천검 특수 능력, combat.js woundRageMult): 두 싸움꾼의 다친 정도 d 와 지금 공격력 배율 — 그 능력이 없는 칼은 늘 1
   get woundRage() {
-    return [player, enemy].map((f) => f && { name: f.name, weapon: f.weapon?.id, d: +woundDegree(f).toFixed(3), mult: +woundRageMult(f).toFixed(3) });
+    return fighters.map((f) => f && { name: f.name, weapon: f.weapon?.id, d: +woundDegree(f).toFixed(3), mult: +woundRageMult(f).toFixed(3) });
   },
   // 흩어지는 조각 수 (칼·방어구, debris.js): game.debris.count() 전부, game.debris.count('armor') 방어구만
   debris: { count: debrisCount },
@@ -3283,12 +3770,12 @@ window.game = {
     }
     // 판 도중에 무대를 바꾸면 석상 충돌체·진흙도 지금 세계에 맞춘다 (시작 자리는 다음 판부터)
     if (world) arenaStone = configureStageObstacle(RAPIER, world, stages.id, GROUND_GROUPS, arenaStone);
-    for (const f of [player, enemy]) {
+    for (const f of fighters) {
       if (!f) continue;
       configureWetlandMovement(f, stages.id);
       f.arenaObstacle = arenaStone?.navigation ?? null;
     }
-    arena?.watchFighters?.([player, enemy]);
+    arena?.watchFighters?.(fighters);
   },
   AI,
   settings,

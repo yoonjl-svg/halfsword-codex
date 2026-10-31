@@ -23,7 +23,7 @@ import { WANDER_EXCLUSIVE } from './wander_rules.js'; // 방랑에서만 나오�
 import { WEAPONS, WEAPON_LIST } from './weapons.js';
 import { getLook, CHARACTER_LOOK_VERSION } from './looks.js';
 import { AI_LEVELS, AI_PROFICIENCY, PROF6_VITALITY } from './config.js'; // 변형의 실력 숫자를 원본 실효값에서 계산 · 숙련도 → 실력 숫자 이름 (config.js는 아무것도 import하지 않아 순환이 없다)
-import { traditionOf } from './schools.js'; // 인물의 유파 = 시트 무기의 유파 (숙련도 표 열쇠 — 10/13)
+import { traditionOf, schoolOf } from './schools.js'; // 인물의 유파 = AI 가 실제로 싸우는 유파 — 꾸러미 persona.school 이 있으면 그 유파, 없으면 시트 무기의 유파 (숙련도 표 열쇠 — 10/13 · 10/29 15:5x)
 
 export const CHARACTERS = [
   // ───────────────────────────────────────────── 1. 쉬움 : 촌뜨기 난동꾼 ─────────────────────────────────────────────
@@ -578,9 +578,16 @@ const HEINRICH = CHARACTERS.find((c) => c.id === 'heinrich');
 //   10/16 22:3x 사장님 "모든 얼터에 숙련도+1을 잊지 말고 적용해 두도록 해" → appearanceOnly 도 숙련도 +1(madVariantAI)은 받는다 — 빼는 것은 실력 숫자 +20% 뿐.
 //    새 얼터가 들어와도 아래 '얼터 숙련도 맞춤'이 원본 +1(상한 AI_PROFICIENCY.max 6 — 사장님 10/29 22:4x '상한 6으로 올려' · 전 5)로 맞춘다. 미나미(5)의 얼터는 6(전 상한 5 에서 5) — 낮의 미나미도 고노센(사장님 '마음에 든다')
 const VARIANT_PLUS = 1;
+//  본 유파 숙련도 mainProficiency (사장님 10/29 15:5x '반응은 본 유파 숙련도를 따르도록 해'): 사람 몫(반응 — ai.js setLevel)은 손에 든 무기가 아니라 이 값을 읽는다.
+//   유파 몫(고유 동작 · 비기 · schoolK · 패시브 · 흘림 문턱)은 그대로 손에 든 유파의 숙련도 — 가름은 docs/characters/temperament_2026-10-29.md §7-1
+//  표 열쇠 (사장님 10/29 15:5x '광기의 브론 버그 고쳐'): AI 가 실제로 싸우는 유파 = sword_art.js resolveSwordArt 와 같은 규칙(꾸러미 persona.school 의 유파 → 없으면 시트 무기의 유파).
+//   전엔 늘 시트 무기의 유파라, 팔쉬온을 들되 나뭇가지(무유파) 꾸러미로 싸우는 광기의 브론이 { german: 2 } 를 받고 AI 는 무유파 칸 0 을 읽었다(반응 0.35 s — 낮의 브론보다 느림).
+//   다른 인물은 꾸러미 유파 = 시트 무기 유파(시험 character_school_pack)라 표가 그대로다
 export function aiAtProficiency(c, p) {
   const level = AI_PROFICIENCY.levels[p] ?? 'normal';
-  const persona = { ...c.ai.persona, proficiency: { [traditionOf(WEAPONS[c.weapon])]: p } };
+  const pack = c.ai.persona?.school;
+  const tradition = pack != null ? schoolOf(pack).tradition : traditionOf(WEAPONS[c.weapon]);
+  const persona = { ...c.ai.persona, proficiency: { [tradition]: p }, mainProficiency: p };
   if (c.mad && !c.appearanceOnly && !c.retainBaseStats) {
     const base = CHARACTERS.find((x) => x.id === c.variantOf);
     persona.level = scaledLevel({ level, persona: base.ai.persona }, MAD_SCALE);
@@ -903,14 +910,12 @@ export const CHARACTER_GUESTS = [
     },
   },
 ];
-// 10/23 손님 인물 셋 (샛별 저장소 전달본 977c2a43 — 마지막 모습만): 롤랑 · 베르나르도는 아르토리아의 실력 숫자(persona.level)를 빌려 이베리아 유파로 · 백린의 전사는 일본 유파.
-//  (아르토리아 숙련도가 5 로 올라도(10/24) 롤랑 시트가 숙련도를 6 으로 따로 적어 빌리는 것은 실력 숫자뿐)
+// 10/23 손님 인물 셋 (샛별 저장소 전달본 977c2a43 — 마지막 모습만): 롤랑 · 베르나르도는 이베리아 유파 · 백린의 전사는 일본 유파.
+//  롤랑 · 베르나르도의 기질은 10/29 15:5x 부터 저마다 제 것(사장님 '롤랑과 베르나르도의 성향과 캐릭터를 분화해서 싸움 스타일도 바꾸도록 해' — 전: 아르토리아의 실력 숫자 · 성격을 빌림 ·
+//   아르토리아 시트는 그대로 · docs/characters/temperament_2026-10-29.md §7-3)
 //  숙련도 (사장님 10/24 01:1x '백린 전사는 5 롤랑과 베르나르도는 6'): 롤랑 · 베르나르도 6 (전 4 — config AI_PROFICIENCY 의 6 칸) · 백린의 전사 5 (전 3).
 //  셋 다 방랑에서만 나온다(wander_rules.js WANDER_EXCLUSIVE — 베르나르도는 사장님 10/23 저녁 결정) · 시험 경로 고르기 · ?foe=<id> 로도 부른다
-{
-  const artoria = CHARACTERS.find((c) => c.id === 'artoria');
-  CHARACTER_GUESTS.push(createRoland(artoria), createWhiteScaleWarrior(), createBernardo(artoria));
-}
+CHARACTER_GUESTS.push(createRoland(), createWhiteScaleWarrior(), createBernardo());
 // 10/30 쥘리아 크리스테바 (샛별 저장소 전달 C-JULIA-20261030): 이탈리아 숙련도 4 · 전용 무기 초안 달타냥 · 목소리 maya 묶음 · 전투 성향 · 대사 (모두 사장님 확인 · 검수 전 — 시트 주석).
 //  손님 인물 — 무작위 회전 · 여정 무대에는 없다. 방랑 전용(wander_rules.js WANDER_EXCLUSIVE — 사장님 10/30 22:1x '상점주인이자 방랑과 생사전에 나오게 해' · 두 모습 다) ·
 //  상점 · 생사전은 다른 가지 · 시험 경로 고르기 · ?foe=julia · ?hero=julia

@@ -11,6 +11,11 @@
 //  소리 (사장님 10/17 — docs/import/ui_sound_2026-10-17.md · ui_sound.js): 덮개 안 확인 류 단추 = 짧은 딸깍 · 첫 화면 = 바람(첫 누름에 스며들고 싸움 · 대기실로 가면 잦아들어 꺼짐)
 //  상점 시험판 빌드(`VITE_SHOP_TEST=1` — 사장님 10/30 상점을 본판 전에 해 보는 /shop/): 저장을 가른 뒤(shop_test.js — 맨 첫 들여오기) 게임이 뜨면 곧바로 대기실 상점 칸
 import { SHOP_TEST } from './shop_test.js';
+//  생사전 (10/29 — docs/design/saengsa_2026-10-29.md): 대기실 '생사전' 칸의 '생사전 입장' → showSaengsa(같은 덮개 안 · 대진표 화면 saengsa_page.js) · '대기실' 단추 → 대기실 생사전 칸.
+//   시험 주소 `?saengsaNow=2026-10-30T09:59` = 생사전 시계를 그 현지 시각에서 출발(saengsa_clock.js — 게임 인자로 세지 않아 첫 화면이 뜬다)
+//   생사전 시험판 빌드(config SAENGSA.testMode — 사장님 10/29 17:5x 시험 페이지): 저장을 가른 뒤(test_storage.js — 맨 첫 들여오기) 게임이 뜨면 곧바로 대기실 생사전 칸
+import './test_storage.js';
+import { SAENGSA } from './config.js';
 import baseStyle from './start_screen.css?inline';
 import pixelStyle from './start_pixel.css?inline';
 import uiStyle from './entrance_ui.css?inline';
@@ -46,9 +51,10 @@ if (skipsTitle(params)) {
   }
   openHost();
   const loaded = import('./main.js');
-  let screen = null, lobby = null;
+  let screen = null, lobby = null, saengsa = null;
   function showTitle() {
     lobby?.destroy(); lobby = null;
+    saengsa?.destroy(); saengsa = null;
     const style = document.createElement('style');
     // 빌드가 속성 선택자의 따옴표를 뺄 수 있어 따옴표가 있든 없든 바꾼다 (샛별 쪽에서 찾은 문제)
     style.textContent = (baseStyle + pixelStyle)
@@ -108,11 +114,18 @@ if (skipsTitle(params)) {
     const { mountLobby } = await import('./lobby.js'); // 대기실 묶음은 열 때 받는다 — 첫 화면을 늦추지 않게 (10/17 3D 미리보기를 프로필 그림으로 바꿔 묶음이 가벼워짐)
     titleWind(false);
     screen?.destroy(); screen = null;
+    saengsa?.destroy(); saengsa = null;
     const leave = async (how) => {
       const gone = lobby;
       await depart(game, how, () => { gone.destroy(); if (lobby === gone) lobby = null; }, root.querySelector('.lobby'));
     };
-    lobby = mountLobby({ root, game, choice, tab, onBack: showTitle, onDepart: () => leave(game.canContinueJourney() ? 'continue' : 'new'), onWander: () => leave('wander') });
+    lobby = mountLobby({ root, game, choice, tab, onBack: showTitle, onDepart: () => leave(game.canContinueJourney() ? 'continue' : 'new'), onWander: () => leave('wander'), onSaengsa: () => showSaengsa(game) });
+  }
+  // 생사전 화면 (대기실 '생사전 입장') — 같은 덮개 안. '대기실'로 돌아가면 생사전 칸이 열린 대기실
+  async function showSaengsa(game) {
+    const { mountSaengsa } = await import('./saengsa_page.js');
+    lobby?.destroy(); lobby = null;
+    saengsa = mountSaengsa({ root, game, onBack: () => showLobby(game, 'continue', 'Event') });
   }
   // 싸움 → 대기실 (main.js toLobby 가 부른다): 이어하기 지점은 지금 무대 시작(이긴 판이면 다음 무대)
   async function backToLobby() {
@@ -124,4 +137,5 @@ if (skipsTitle(params)) {
   showTitle();
   loaded.catch(() => screen?.setStatus('게임을 준비하지 못했습니다. 새로고침해 주십시오.'));
   if (SHOP_TEST) loaded.then((game) => { if (screen && !lobby) return showLobby(game, game.canContinueJourney() ? 'continue' : 'new', 'Shop'); }).catch(() => {}); // 상점 시험판: 첫 화면을 건너 상점 칸
+  if (SAENGSA.testMode) loaded.then((game) => { if (screen && !lobby && !saengsa) return showLobby(game, game.canContinueJourney() ? 'continue' : 'new', 'Event'); }).catch(() => {}); // 시험판: 첫 화면을 건너 생사전 칸
 }
