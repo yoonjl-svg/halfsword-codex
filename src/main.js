@@ -354,6 +354,7 @@ if (params.has('cavArmSlowAi')) CONFIG.UNIQUE_ASSIST.cavArmSlowAi = +params.get(
 if (params.has('imbroDown') && +params.get('imbroDown') >= 0) CONFIG.UNIQUE_ASSIST.imbroDown = +params.get('imbroDown'); // 이탈리아 위에서 내려 찌르기 — 아래로 가는 긋기 각 (10/31 사장님 · 기본 67.5 · 0 = 황소 찌르기 긋기만)
 if (params.has('cavSide')) CONFIG.UNIQUE_ASSIST.cavSide = params.get('cavSide') === 'free' ? 'free' : 'contact'; // 칼끝 돌려 빼기 비킨 쪽 (10/31 — 'contact' 닿았을 때 상대 칼 쪽 · 'free' 10/28 판)
 if (params.has('cavSelfFree')) CONFIG.UNIQUE_ASSIST.cavSelfFree = +params.get('cavSelfFree') || 0; // 칼끝 돌려 빼기 넘어짐 고침 (10/31 — 1 칼 어깨 면 밧줄 뗌 · 0 전 판)
+if (params.has('rdDrainCut')) CONFIG.UNIQUE_ASSIST.rdDrainCut = +params.get('rdDrainCut') ? 1 : 0; // 정수리 가르기 메는 동안 기력 = 초당 베기 한 번 값 (11/01 사장님 · 0 = 초당 10)
 if (params.has('cavSpeedMul')) CONFIG.UNIQUE_ASSIST.cavSpeedMul = +params.get('cavSpeedMul') || 1; // 칼끝 돌려 빼기 시제품 A (10/31 — 칼끝 빠르기 배 · 1 = 끔)
 if (params.has('cavGap')) CONFIG.UNIQUE_ASSIST.cavGap = +params.get('cavGap') || 0; // 시제품 B (틈 파고들기 · 0 = 끔)
 if (params.has('cavParryLock')) CONFIG.UNIQUE_ASSIST.cavParryLock = CONFIG.realS(+params.get('cavParryLock') || 0); // 시제품 C (상대 반응 묶음 실제 초 · 0 = 끔)

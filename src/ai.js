@@ -1278,7 +1278,7 @@ export class AI {
   }
   /** 감기 한 번 몫 기력: 감는 동안(rdDrain × '감음'까지 게임 초 windWoundT) + 내려침 베기(cutCost) — 츠바이핸더 안 B 12 + 12 = 24 */
   rdWindCost() {
-    return UA.rdDrain * windWoundT(windSpec(this.me)) + STAMINA.cutCost;
+    return (UA.rdDrainCut ? realRate(STAMINA.cutCost) * this.me.stamina.weight : UA.rdDrain) * windWoundT(windSpec(this.me)) + STAMINA.cutCost; // 11/01 rdDrainCut — 메는 동안 초당 베기 한 번 값
   }
   /** 머리 위 돌려 베기를 감기 대신 바탕 동작으로 바꿀 까닭 — 'quick'(a) · 'low'(c) · null (감기 길 rdAiWind 일 때만 · 비기 칼 · 속임은 아님)
    *  (a) 빠른 틈 = this.quick 과 같은 셈(SLOW_WHY 밖의 why — 상대 헛친 뒤 recover · 들어옴 stepin · 맞받기 counter · stop · 이어 치기 follow · 패시브 …) 또는 이어 치기(opt.chain) — 감기 1.2 ~ 1.4 s 가 못 끝나는 틈
@@ -1581,7 +1581,7 @@ export class AI {
     }
     const S = me.stamina;
     S.spent.wind ??= 0;
-    S.spend('wind', UA.rdDrain * dt);
+    S.spend('wind', (UA.rdDrainCut ? realRate(STAMINA.cutCost) * S.weight : UA.rdDrain) * dt); // 11/01 rdDrainCut — 사람과 같게
     if (STAMINA.on && !S.infinite && S.value <= 0) return this.rdFire('empty');
     const t = this.tech;
     this.need = this.M.contact + (t?.reach ?? 0) * this.reachScale + 0.05;
