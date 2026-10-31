@@ -2573,7 +2573,8 @@ function comboPlanDupLine(f, I, m, A) {
   let fit = null;
   if (sl && m.step?.fit && (m.step?.sync ?? 1) === 1) {
     // 박차기 길이 맞춤 (사장님 11/01 00:xx — 독일 박차기 ② 간격 잡기처럼 '가장 잘 드는 거리'까지): 걸음 s 를 바꿔 가며 짠 얼굴 베기가 얼굴을 칼날 fit.point 자리에서 지나게 —
-    //  어긋남 = (지나는 칼날 자리 − point) × 칼날 길이 ± 못 닿는 몫(칼날 ↔ 얼굴 3 cm 넘음 — 칼끝 너머 + · 코등이 안쪽 −) → 그만큼 더(덜) 들어감 (칼이 얼굴을 지날 때 몸이 간 몫 k 로 나눔 · 양쪽이 잡히면 할선 / 가운데) · 3 cm 안이면 멈춤 · 여섯까지
+    //  맞추는 자리 = 몸이 다 들어가 선 자리(그 자리에서 얼굴을 칼날 point 자리로 침 = 가장 가까운 잘 드는 자리 · 모르트슐라크로 이어 갈 자리) · 칼은 박찬 걸음 디딤에 출발해 몸이 그 자리로 마저 들어가는 동안 얼굴을 지남
+    //  어긋남 = (지나는 칼날 자리 − point) × 칼날 길이 ± 못 닿는 몫(칼날 ↔ 얼굴 3 cm 넘음 — 칼끝 너머 + · 코등이 안쪽 −) → 그만큼 더(덜) 들어감 (양쪽이 잡히면 할선 / 가운데) · 3 cm 안이면 멈춤 · 여섯까지
     const dir = sl.clone().normalize();
     const sMax = I.slide.slide; // 몸통이 맞닿는 거리까지 (comboMoveStart — st.stop = fit.floor · 사장님 11/01 00:xx '들어가도 돼. 제한 없이')
     const Lb = f.weaponCfg.bladeLength;
@@ -2583,11 +2584,8 @@ function comboPlanDupLine(f, I, m, A) {
     let lo = null; // 덜 들어간 쪽 (어긋남 > 0 — 더 들어가야 함)
     let hi = null; // 더 들어간 쪽 (어긋남 < 0)
     for (let it = 0; it < 6; it++) {
-      I.slide.slide = Math.max(1e-3, sv);
-      const pr = dupBurstProfile(f, I, m, GAIT.burstT);
-      const Tf = Math.max(pr.T, 0.1); // 앞발은 몸이 다 들어가 설 때 디딤 (아래 sync 1 과 같은 규칙)
-      const kk = clamp(pr.pos(Tf + (z?.tFace ?? 0.05)) / I.slide.slide, 0, 1);
-      z = build(P0.clone().addScaledVector(dir, -kk * sv));
+      const kk = 1; // 맞추는 것은 몸이 다 들어가 선 자리 (칼은 박찬 걸음 디딤에 출발해 그보다 조금 앞에서 얼굴을 지남 — 아래 sync 1 이 그 때 자리로 다시 짬)
+      z = build(P0.clone().addScaledVector(dir, -sv));
       const err = (z.tB - pt) * Lb + (z.tB >= 0.99 ? 1 : z.tB <= 0.01 ? -1 : 0) * Math.max(0, z.dFace - 0.03); // 못 닿는 몫: 얼굴이 칼끝 너머면 더 들어감 · 코등이 안쪽(너무 가까움)이면 덜
       if (!best || Math.abs(err) < Math.abs(best.err)) best = { s: sv, z, k: kk, err, it };
       if (Math.abs(err) < 0.03) break;
@@ -2602,7 +2600,7 @@ function comboPlanDupLine(f, I, m, A) {
       if (Math.abs(sN - sv) < 0.01) break;
       sv = sN;
     }
-    fit = { s: +best.s.toFixed(3), sMax: +sMax.toFixed(3), tB: +best.z.tB.toFixed(2), err: +best.err.toFixed(3), it: best.it };
+    fit = { s: +best.s.toFixed(3), sMax: +sMax.toFixed(3), tB: +best.z.tB.toFixed(2), err: +best.err.toFixed(3), it: best.it }; // tB = 선 자리에서 얼굴을 지나는 칼날 자리
     if (best.s < (m.step.fit.min ?? 0.05)) {
       // 이미 그 거리거나 안: 걸음 없이 곧장 (칼은 몫 빠르기로 바로)
       I.slide = null;
@@ -2612,8 +2610,8 @@ function comboPlanDupLine(f, I, m, A) {
     } else {
       I.slide.slide = best.s;
       sl = dir.multiplyScalar(best.s);
-      z = best.z;
-      k = best.k;
+      z = best.z; // 선 자리 판 — sync 1 이 칼이 얼굴을 지날 때 몸이 간 몫 k 로 다시 짬
+      k = 1;
     }
   }
   if (!z) z = build(sl ? P0.clone().addScaledVector(sl, -k) : P0);
@@ -2640,7 +2638,7 @@ function comboPlanDupLine(f, I, m, A) {
     if (sync === 1) {
       Tfoot = m.step?.burstT > 0 ? m.step.burstT : GAIT.burstT;
       prof = dupBurstProfile(f, I, m, Tfoot);
-      if (m.step?.fit && prof.mode > 0) Tfoot = Math.max(prof.T, 0.1); // 길이 맞춤: 앞발은 몸이 그 거리에 다 들어가 설 때 디딤 → 칼은 그 자리에서 출발 (박찬 걸음 0.22 s 로 디디면 긴 걸음은 몸이 아직 가는 중에 칼이 얼굴을 지나 맞춘 거리가 소용없음 — 11/01 재기)
+      if (m.step?.fit && prof.mode > 0) Tfoot = Math.min(Tfoot, Math.max(prof.T, 0.1)); // 길이 맞춤: 앞발은 박찬 걸음 그대로(GAIT.burstT) · 짧은 걸음은 몸이 서는 때 — 몸이 다 들어가 설 때 디디면(11/01 재기) 칼이 0.35 ~ 0.4 s 에야 나가 헛침 · 받은 것이 늘고 디딤 앞 멈칫이 생김
       for (let it = 0; it < 2; it++) {
         const k2 = clamp(prof.pos(Tfoot + z.tFace) / I.slide.slide, 0, 1);
         if (Math.abs(k2 - k) < 0.02) break;

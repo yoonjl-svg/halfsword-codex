@@ -238,7 +238,7 @@ test('박차기 길이 맞춤(dupBurstFit 1 — 사장님 11/01 00:xx): 낸 자�
         assert.ok(S.slide >= UA.dupFitMin - 1e-9 && S.slide <= F.sMax + 1e-9, `걸음 ${S.slide}`);
         assert.equal(first.dup.match, 1, '첫 걸음 박차기 물리');
         assert.ok(Math.abs(F.err) < 0.1 || S.slide >= F.sMax - 1e-3, `어긋남 ${F.err} · 걸음 ${S.slide}`);
-        assert.ok(Math.abs(first.burst.Tf - Math.max(0.1, first.dup.Tstep)) < 1e-3, `앞발 ${first.burst.Tf} · 몸 ${first.dup.Tstep} (몸이 설 때 디딤)`);
+        assert.ok(Math.abs(first.burst.Tf - Math.min(CONFIG.GAIT.burstT, Math.max(0.1, first.dup.Tstep))) < 1e-3, `앞발 ${first.burst.Tf} · 몸 ${first.dup.Tstep} (박찬 걸음 · 짧으면 몸이 설 때)`);
       } else assert.equal(F.s, 0, '짧으면 걸음 없음');
     } finally {
       B.free();
