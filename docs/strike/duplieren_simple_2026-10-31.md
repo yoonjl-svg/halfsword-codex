@@ -185,4 +185,4 @@
 
 ### 7-1. 관문 숫자
 - 시험 `node --test tools/sim/*.test.mjs` **634 / 634 (실패 0)** (22:xx 판 · 6e468412 위).
-- 관문(새 기준 — 자연 바인드 본판): 이름 0 · fights12 **ee193a89** · live **e8127a92** · finish_thrust 1 --stand **9630b5d3** · corr **12 / 12** · weapon_smoke **34 / 34** · 빌드 0 · name_policy 0 — **모두 새 기준 그대로**. 까닭: 다섯 장면 모두 사람 독일 G7 강화(`PlayerUniqueAssist`)가 없어 겹치기가 안 나감 · 바뀐 `gait.js` 칸(`takeStep` · `minT` · `force`)은 겹치기 박차기만 씀 · AI 겹치기(`schools.js`)는 안 바뀜.
+- 관문(새 기준 — 자연 바인드 본판 · 22:xx 판 ba237fc9 에서 다시 돌림): 이름 0 · fights12 **ee193a89** · live **e8127a92** · finish_thrust 1 --stand **9630b5d3** · corr **12 / 12** · weapon_smoke **34 / 34** · 빌드 0 · name_policy 0 — **모두 새 기준 그대로**. 까닭: 다섯 장면 모두 사람 독일 G7 강화(`PlayerUniqueAssist`)가 없어 겹치기가 안 나감 · 바뀐 `gait.js` 칸(`takeStep` · `minT` · `force`)은 겹치기 박차기만 씀 · AI 겹치기(`schools.js`)는 안 바뀜.
