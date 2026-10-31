@@ -18,7 +18,7 @@ const { realS, SECRET } = CONFIG;
 test('기본값 — 겹치기 탭 켬 · 고노센 칼끝 × 0.5(10/29 02:0x) · 실제 0.2 s · 긴 날 · 긋기 조건 없음 (탭으로만)', () => {
   assert.equal(UA.dupTap, 1);
   assert.equal(UA.specialShare.duplieren, 0.5); // 10/29 02:0x 사장님 '두플리렌 50%' (전 모르트슐라크 × 0.6 = 고노센 × 0.18)
-  assert.ok(Math.abs(UA.dupSnapTime - realS(0.2)) < 1e-12);
+  assert.equal(UA.dupSnapTime, 0); // 11/01 00:xx 사장님 '공격이 몇 초 안에 끝나야한다 이런 기준 없애라고 햇지' — 상한 없음(0)
   assert.equal(UA.dupEdge, 1);
   const e = PLAYER_UNIQUE.german.find((x) => x.name === 'duplieren');
   assert.deepEqual(e.on, []);

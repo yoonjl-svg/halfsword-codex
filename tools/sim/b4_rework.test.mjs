@@ -41,9 +41,9 @@ test('멘 어깨에서 내려침 — 벰 면이 땅과 60°(사장님 결정) ·
     assert.ok(S.plane.rms < 0.02, `${w} 면에서 벗어남 RMS ${S.plane.rms} m`);
     assert.ok(S.tip0[2] - S.tip1[2] > 0.3, `${w} 오른 → 왼 — 칼끝 옆 ${S.tip0[2]} → ${S.tip1[2]}`);
     assert.ok(S.tip0[1] - S.tip1[1] > 1.5, `${w} 위 → 아래 — 칼끝 높이 ${S.tip0[1]} → ${S.tip1[1]}`);
-    // 11/01 00:xx 빠르기 0.3 → 0.2(사장님 '고노센의 20%로 바꿔') — 츠바이핸더 뗌 → 벰 0.18 → 0.27 s · 첫 상처 0.38 → 0.58 s (드는 몫 · 벰이 같은 빠르기라 함께 늦음)
-    assert.ok(S.tLead != null && S.tLead < 0.32, `${w} 뗌 → 벰 ${S.tLead} s`);
-    assert.ok(S.tHit != null && S.tHit < 0.66, `${w} 뗌 → 첫 상처 ${S.tHit} s`);
+    // 시간 기준 없음 (11/01 00:xx 사장님 '공격이 몇 초 안에 끝나야한다 이런 기준 없애라고 햇지 내가 그딴건 필요없어') — 벰이 나가고 상처가 나는지만 봄
+    assert.ok(S.tLead != null, `${w} 뗌 → 벰 없음`);
+    assert.ok(S.tHit != null, `${w} 상처 없음`);
     assert.match(S.first ?? '', /^(head|neck)\//, `${w} 첫 상처 ${S.first}`); // 11/01 빠르기 0.2 — 티소나는 머리에 닿은 힘이 상처 문턱(30 J) 아래라 첫 상처가 목(49 J)
     assert.ok(S.armHead >= 0 && S.armNeck >= 0, `${w} 팔 ↔ 머리 ${S.armHead} · 목 ${S.armNeck} m`);
     assert.ok(S.selfBlade > 0.02, `${w} 칼날 ↔ 몸통 ${S.selfBlade} m`);
