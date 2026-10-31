@@ -335,15 +335,16 @@ if (params.has('schielPlayer')) CONFIG.UNIQUE_ASSIST.schielPlayer = +params.get(
 if (params.has('schielPlayerK') && Number.isFinite(+params.get('schielPlayerK'))) CONFIG.UNIQUE_ASSIST.schielPlayerK = +params.get('schielPlayerK'); // 사람 곁눈 베기 세기 손잡이 (사장님 10/25 20:2x 결정 — 기본 1 = 세기 100 % · `?schielPlayerK=0.5` = 시험용 50 % · combat.js analyze)
 if (params.has('schielPlayerTip')) CONFIG.UNIQUE_ASSIST.schielPlayerTip = +params.get('schielPlayerTip') ? 1 : 0; // 사람 곁눈 베기 칼끝 들기 (사장님 10/25 20:2x 결정 '칼끝 들기 빼지 마' — 기본 1 = AI 와 같은 덧칸 셋 · `?schielPlayerTip=0` = 시험용 칼끝 들기 없음 · unique_assist.js planStep)
 for (const k of ['tsuRuler', 'tsuSnap', 'tsuAim', 'tsuBand', 'tsuHook']) if (params.has(k)) CONFIG.UNIQUE_ASSIST[k] = +params.get(k) ? 1 : 0; // 사람 제비 베기 세 해법 (사장님 10/25 21:1x '해법 1~3 좋아' — 기본 1 · 0 = 그 해법만 끔 · unique_assist.js) · tsuHook (사장님 10/31 16:xx '곧은 길로' — 기본 0 = 곧은 길 · `?tsuHook=1` = 10/25 갈고리 길)
-// 겹치기 단순 길 · 앞 박차기 (사장님 10/31 19:xx — 확인표 3301 ~ 3309): `?dupOld=1` = 10/28 길 그대로 견줌(감기 · 밀어 넣기 · 박차기 없음 · 몫 전 0.5 — 아래 specialShare 를 함께 주면 그 몫) · `?dupBurst=` m · `?dupBurstFree=1` · `?dupBurstSync=0|1|2` · `?dupBurstT=` · `?dupStrikeLag=` (실제 초)
+// 겹치기 단순 길 · 앞 박차기 (사장님 10/31 19:xx — 확인표 3301 ~ 3309): `?dupOld=1` = 10/28 길 그대로 견줌(감기 · 밀어 넣기 · 박차기 없음 · 몫 전 0.5 — 아래 specialShare 를 함께 주면 그 몫) · `?dupBurst=` m · `?dupBurstFree=1` · `?dupBurstSync=0|1|2` · `?dupBurstT=` (실제 초) · `?dupBurstMatch=0|1|2`
 if (params.has('dupOld') && +params.get('dupOld')) {
   CONFIG.UNIQUE_ASSIST.dupOld = 1;
   CONFIG.UNIQUE_ASSIST.specialShare.duplieren = CONFIG.UNIQUE_ASSIST.dupOldShare;
 }
 if (params.has('dupBurst')) CONFIG.UNIQUE_ASSIST.dupBurst = Math.max(0, +params.get('dupBurst') || 0);
 if (params.has('dupBurstFree')) CONFIG.UNIQUE_ASSIST.dupBurstFree = +params.get('dupBurstFree') ? 1 : 0;
-if (params.has('dupBurstSync')) CONFIG.UNIQUE_ASSIST.dupBurstSync = [0, 1, 2].includes(+params.get('dupBurstSync')) ? +params.get('dupBurstSync') : 1; // 0 끔 · 1 빨라지는 꼴 · 2 고르게 늦춤
-for (const k of ['dupBurstT', 'dupStrikeLag']) if (params.has(k) && +params.get(k) >= 0) CONFIG.UNIQUE_ASSIST[k] = CONFIG.realS(+params.get(k)); // 겹치기 박차기 시간 · 칼 늦음 (실제 초)
+if (params.has('dupBurstSync')) CONFIG.UNIQUE_ASSIST.dupBurstSync = [0, 1, 2].includes(+params.get('dupBurstSync')) ? +params.get('dupBurstSync') : 1; // 0 끔 · 1 몸 · 발 먼저 · 칼은 디딤에 출발 · 2 고르게 늦춤
+if (params.has('dupBurstT') && +params.get('dupBurstT') >= 0) CONFIG.UNIQUE_ASSIST.dupBurstT = CONFIG.realS(+params.get('dupBurstT')); // 겹치기 박차기 시간 (실제 초)
+if (params.has('dupBurstMatch')) CONFIG.UNIQUE_ASSIST.dupBurstMatch = [0, 1, 2].includes(+params.get('dupBurstMatch')) ? +params.get('dupBurstMatch') : 0; // 박차기 몸 꼴: 0 고르게 · 1 첫 걸음 박차기 물리(빨라짐 · 세게 멈춤) · 2 빨라짐만
 // 특수 공격 칼끝 빠르기 몫 (사장님 10/29 02:0x — 같은 칼 고노센 칼끝 × 몫 · config UNIQUE_ASSIST.specialShare 한 곳): `?specialShare=redondo:0.5,lianchi:0.5` · 옛 이름 `?tsuSnapShare=` · `?cavSnapShare=` · `?lianSnapShare=` · `?dupSnapShare=` · `?rdSnapShare=` 도 그 칸(값 = 고노센 몫)
 {
   const SPK = { tsuSnapShare: 'tsubameGaeshi', cavSnapShare: 'cavazione', lianSnapShare: 'lianchi', dupSnapShare: 'duplieren', rdSnapShare: 'redondo', inqSnapShare: 'inquartata' }; // inqSnapShare: 비껴서며 찌르기 (10/31 — 이탈리아 특수 공격) · cavSnapShare 는 칸만 남음(칼끝 돌려 빼기는 10/31 부터 특수 공격 아님 — cavSpeed)

@@ -11,22 +11,23 @@ const UA = CONFIG.UNIQUE_ASSIST;
 const { realS, SECRET, STAMINA } = CONFIG;
 const LADDER = [0.3, 0.45, 0.6, 0.9];
 
-test('기본값 — 단순 길(dupOld 0) · 앞 박차기 걸음 사다리 칸 · 기력 안 냄(dupBurstFree 1 — 사장님) · 손발 순서(dupBurstSync 1 — 몸 · 발 먼저 · 손 바로 뒤) · 몫 0.3 · 견줌 몫 0.5 · 끄는 시간 상한 실제 0.2 s 그대로', () => {
+test('기본값 — 단순 길(dupOld 0) · 앞 박차기 걸음 사다리 칸 · 기력 안 냄(dupBurstFree 1 — 사장님) · 손발 순서(dupBurstSync 1 — 몸 · 발 먼저 · 칼은 디딤에 출발 · 정해 둔 칼 늦음 없음) · 몸 꼴 고르게(dupBurstMatch 0 — 사장님 확인 전) · 몫 0.3 · 견줌 몫 0.5 · 끄는 시간 상한 실제 0.2 s 그대로', () => {
   assert.equal(UA.dupOld, 0);
   assert.ok(LADDER.includes(UA.dupBurst), `dupBurst ${UA.dupBurst}`);
   assert.equal(UA.dupBurstFree, 1, '사장님 10/31 22:xx — 겹치기 중 박차기 기력 0');
   assert.equal(UA.dupBurstT, 0, '박차기 시간 = 박찬 걸음 GAIT.burstT');
-  assert.ok(Math.abs(UA.dupStrikeLag - realS(0.033)) < 1e-9, `칼 늦음 ${UA.dupStrikeLag}`);
+  assert.equal(UA.dupStrikeLag, undefined, '사장님 10/31 00:xx — 칼이 닿는 때는 정해 두지 않음(길 ÷ 몫 빠르기)');
+  assert.equal(UA.dupBurstMatch, 0, '몸 꼴 고르게 (첫 걸음 박차기 물리는 `?dupBurstMatch=1` — 사장님 확인 전)');
   assert.equal(UA.dupOldShare, 0.5);
   assert.equal(UA.specialShare.duplieren, 0.3, `몫 ${UA.specialShare.duplieren}`); // 사장님 확인 전 (말씀은 '10% 정도?')
-  assert.equal(UA.dupBurstSync, 1, '몸 · 발 먼저 · 칼은 디딤 바로 뒤');
+  assert.equal(UA.dupBurstSync, 1, '몸 · 발 먼저 · 칼은 디딤에 출발');
   assert.ok(Math.abs(UA.dupSnapTime - realS(0.2)) < 1e-12);
   assert.equal(UA.dupEdge, 1);
 });
 
 /** 사람 롱소드 몸 + 겹치기 (판을 돌리지 않음 — 가슴 사이를 d 로 두고 겹치기를 바로 냄) */
 function body(set = {}, gap = 1.25) {
-  const keys = ['dupOld', 'dupBurst', 'dupBurstFree', 'dupBurstSync', 'dupBurstT', 'dupStrikeLag', 'specialCooldown'];
+  const keys = ['dupOld', 'dupBurst', 'dupBurstFree', 'dupBurstSync', 'dupBurstT', 'dupBurstMatch', 'specialCooldown'];
   const save = Object.fromEntries(keys.map((k) => [k, UA[k]]));
   const share0 = UA.specialShare.duplieren;
   Object.assign(UA, { specialCooldown: 0, ...set });
@@ -82,15 +83,22 @@ test('단순 길 — 맞물린 패드에서 얼굴로 가는 패드 곧은 줄 �
     // 박차기: 고르게 · 칼 시간에 맞춤 (상한 안)
     const S = first.slide;
     assert.ok(S && S.slide > 0.3 && S.slide <= 0.45 + 1e-9, `미끄러짐 ${S?.slide}`);
-    assert.equal(S.ease, 'line');
-    // 손발 순서: 미끄러짐 시간 = 앞발 발 뜬 시간 = 박차기 시간(박찬 걸음 GAIT.burstT) · 칼날이 얼굴을 지나는 때 = 디딤 + dupStrikeLag (얼굴까지 칼 시간이 더 길면 그 시간 — 곧장 출발)
+    // 고르게 (몸 꼴 0): 지난 시간 → 미끄러진 거리가 한 줄
+    assert.equal(typeof S.pos, 'function');
     const Tstep = first.dup.Tstep;
+    assert.ok(Math.abs(S.pos(Tstep / 2) - S.slide / 2) < 1e-6, '고르게');
+    // 손발 순서: 미끄러짐 시간 = 앞발 발 뜬 시간 = 박찬 걸음 GAIT.burstT · 칼은 맞물린 채 실려 가다가(hold = 발 뜬 시간) 디딤에 출발 → 얼굴 = 출발 + 길 ÷ 몫 빠르기(t0) — 정해 둔 늦음 없음
     assert.ok(Math.abs(Tstep - CONFIG.GAIT.burstT) < 1e-6, `박차기 시간 ${Tstep}`);
     assert.ok(Math.abs(S.span - Tstep) < 1e-3, `미끄러짐 시간 ${S.span} · 박차기 ${Tstep}`);
-    assert.ok(Math.abs(first.burst.T - Tstep) < 1e-3, `앞발 ${first.burst.T}`);
-    if (first.dup.hold > 0) assert.ok(Math.abs(first.dup.tFace - (Tstep + UA.dupStrikeLag)) < 2e-3, `얼굴 ${first.dup.tFace} · 디딤 + 늦음 ${Tstep + UA.dupStrikeLag}`);
-    else assert.ok(first.dup.tFace >= Tstep + UA.dupStrikeLag - 1e-6, `얼굴 ${first.dup.tFace}`);
+    assert.ok(Math.abs(first.burst.Tf - CONFIG.GAIT.burstT) < 1e-3, `앞발 ${first.burst.Tf}`);
+    assert.ok(Math.abs(first.dup.hold - CONFIG.GAIT.burstT) < 1e-6, `실려 감 ${first.dup.hold}`);
+    assert.ok(Math.abs(first.dup.tFace - (first.dup.hold + first.dup.t0)) < 2e-3, `얼굴 ${first.dup.tFace} · 디딤 + 칼 시간 ${first.dup.hold + first.dup.t0}`);
     assert.ok(first.burst?.asked, '앞발 걸음을 받음');
+    // 칼 출발 = 앞발이 디딘 스텝 (디딤을 못 보면 발 뜬 시간 + 0.1 s)
+    const b = R.steps[R.steps.length - 1].burst ?? first.burst;
+    assert.ok(b.launchT != null, '칼 출발');
+    if (b.plantT != null) assert.ok(Math.abs(b.launchT - b.plantT) <= DT + 1e-6, `출발 ${b.launchT} · 디딤 ${b.plantT}`);
+    else assert.ok(Math.abs(b.launchT - (b.Tf + 0.1)) <= 2 * DT, `출발 ${b.launchT}`);
     // 앞발: 칼이 시작한 뒤 두 스텝 안에 뜸 (걷던 앞발이 떠 있었으면 그 걸음을 이어받음 — 'req')
     const i0 = R.steps.indexOf(first);
     const lifted = R.steps.slice(i0, i0 + 3).some((s) => s.legs && ((!s.legs.F && s.legs.kF === 'req') || (!s.legs.B && s.legs.kB === 'req')));
@@ -170,5 +178,39 @@ test('고르게 늦춤(dupBurstSync 2 — 10/31 첫 판 · 견줌) = 칼날이 �
     assert.ok(Math.abs(first.dup.tFace - first.dup.Tstep) < 2e-3 || first.dup.tFace > first.dup.Tstep, `얼굴 ${first.dup.tFace} · 박차기 ${first.dup.Tstep}`);
   } finally {
     B.free();
+  }
+});
+
+test('몸 꼴 첫 걸음 박차기 물리(dupBurstMatch 1 · 2 — 감독 10/31 23:xx): 골반 꼴 빠르기 ≤ GAIT.burstBackV · 가속 ≤ maxAccel × burstAccel · 0.45 m 를 다 감 · 박찬 걸음보다 오래 · 앞발 발 뜬 시간은 박찬 걸음 그대로 · 1 은 같은 한도로 줄여 섬', () => {
+  const a = CONFIG.GAIT.maxAccel * CONFIG.GAIT.burstAccel;
+  for (const match of [1, 2]) {
+    const B = body({ dupBurst: 0.45, dupBurstMatch: match, share: 0.3 });
+    try {
+      const R = B.fire();
+      const first = R.steps.find((s) => s.on);
+      assert.ok(first?.slide?.pos, '꼴');
+      const S = first.slide;
+      const T = first.dup.Tstep;
+      assert.equal(first.dup.match, match);
+      assert.ok(Math.abs(first.burst.Tf - CONFIG.GAIT.burstT) < 1e-3, `앞발 ${first.burst.Tf}`);
+      assert.ok(T > CONFIG.GAIT.burstT, `몸 ${T}`);
+      assert.ok(Math.abs(S.pos(T) - S.slide) < 1e-6 && Math.abs(S.pos(T + 0.1) - S.slide) < 1e-6, '다 감');
+      const h = 1 / 240;
+      let vPrev = first.dup.v0 ?? 0;
+      let vEnd = 0;
+      for (let t = h; t <= T + 1e-9; t += h) {
+        const v = (S.pos(t) - S.pos(t - h)) / h;
+        assert.ok(v <= CONFIG.GAIT.burstBackV + 1e-6, `빠르기 ${v} @ ${t}`);
+        assert.ok(Math.abs(v - vPrev) / h <= a * 1.05 + 1e-6, `가속 ${(v - vPrev) / h} @ ${t}`);
+        vPrev = v;
+        vEnd = v;
+      }
+      if (match === 1) assert.ok(vEnd < 0.2, `줄여 섬 ${vEnd}`);
+      // 몸이 칼보다 오래 가면 끝 자세 그대로 몸이 설 때까지 (맞힘 없음)
+      const segT = first.segs.reduce((x, sg) => x + sg.T, 0);
+      assert.ok(segT >= T - 1e-3, `토막 ${segT} · 몸 ${T}`);
+    } finally {
+      B.free();
+    }
   }
 });

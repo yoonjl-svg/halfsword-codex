@@ -6,7 +6,7 @@
 //    칼끝 · 손(칼자루) · 골반 · 가슴(세계 — 낸 때 몸 틀: x 상대 쪽 · y 위 · z 칼 든 쪽 옆) · 발(딛음 · 디딘 자리 · 걸음 갈래) · 운동학 칼(끄는 중 · 베는 토막) · 손목(wrist_audit) · 날 앞장 cos ·
 //    상대 칼 지나감(duplieren_check sample far) · 넘어짐 · 기울기 · 맞음(때 · 곳 · 에너지 · 심각도)
 //   잼: 휨(tsubame_trace bendOf — 칼끝 길의 곧은 줄 대비 몫 · 꺾임 · 몸 틀(가슴 따라)과 세계 둘) · 때 맞춤(칼 시작 · 첫 맞음 · 칼 끝 ↔ 앞발 뜸 · 디딤) · 손 ↔ 골반 빠르기(앞 몫 상관 · 늦음)
-//  갈래: old = 10/28 길 · 몫 0.5 · 박차기 없음 (`?dupOld=1`) · new:<몫>:<박차기 m>[:<손발 순서 1|2|0>[:<박차기 시간 실제 초>[:<칼 늦음 실제 초>]]] (예 new:0.3:0.45 · new:0.5:0 = 단순 길만 · new:0.3:0.45:0 = 칼은 몫 빠르기 그대로 · new:0.3:0.45:1:0.2)
+//  갈래: old = 10/28 길 · 몫 0.5 · 박차기 없음 (`?dupOld=1`) · new:<몫>:<박차기 m>[:<손발 순서 1|2|0>[:<박차기 시간 실제 초 — 0 = GAIT.burstT>[:<몸 꼴 dupBurstMatch 0|1|2>]]] (예 new:0.3:0.45 · new:0.5:0 = 단순 길만 · new:0.3:0.45:0 = 칼은 몫 빠르기 그대로 · new:0.3:0.45:1:0:1 = 첫 걸음 박차기 물리)
 //  node tools/sim/duplieren_simple.mjs [--variants=old,new:0.1:0.45] [--weapons=longsword,sabre,kriegsmesser] [--opps=longsword,uchigatana,zweihander,rapier] [--seeds=901,902,903,904] [--dur=30] [--json=파일] [--v]
 // ─────────────────────────────────────────────────────────────
 import { writeFileSync } from 'node:fs';
@@ -20,14 +20,14 @@ import { isMain } from './is_main.mjs';
 
 const UA = CONFIG.UNIQUE_ASSIST;
 const r3 = (x) => (x == null || !Number.isFinite(x) ? null : +x.toFixed(3));
-const KEYS = ['dupOld', 'dupBurst', 'dupBurstFree', 'dupBurstT', 'dupBurstSync', 'dupStrikeLag'];
+const KEYS = ['dupOld', 'dupBurst', 'dupBurstFree', 'dupBurstT', 'dupBurstSync', 'dupBurstMatch'];
 
 /** 갈래 → 게임 값 (old · new:몫:박차기) */
 export function parseVariant(v) {
   if (typeof v === 'object') return v;
   if (v === 'old') return { key: v, dupOld: 1, share: UA.dupOldShare ?? 0.5, dupBurst: 0 };
-  const [, s, b, sy, bt, lag] = String(v).split(':');
-  return { key: v, dupOld: 0, share: s != null && s !== '' ? +s : UA.specialShare.duplieren, dupBurst: b != null && b !== '' ? +b : UA.dupBurst, ...(sy != null && sy !== '' ? { dupBurstSync: +sy } : {}), ...(bt ? { dupBurstT: CONFIG.realS(+bt) } : {}), ...(lag ? { dupStrikeLag: CONFIG.realS(+lag) } : {}) };
+  const [, s, b, sy, bt, mt] = String(v).split(':');
+  return { key: v, dupOld: 0, share: s != null && s !== '' ? +s : UA.specialShare.duplieren, dupBurst: b != null && b !== '' ? +b : UA.dupBurst, ...(sy != null && sy !== '' ? { dupBurstSync: +sy } : {}), ...(bt && +bt > 0 ? { dupBurstT: CONFIG.realS(+bt) } : {}), ...(mt != null && mt !== '' ? { dupBurstMatch: +mt } : {}) };
 }
 function apply(v) {
   const save = { ...Object.fromEntries(KEYS.map((k) => [k, UA[k]])), share: UA.specialShare.duplieren };
@@ -36,7 +36,7 @@ function apply(v) {
   UA.dupBurst = p.dupBurst;
   if (p.dupBurstFree != null) UA.dupBurstFree = p.dupBurstFree;
   if (p.dupBurstT != null) UA.dupBurstT = p.dupBurstT;
-  if (p.dupStrikeLag != null) UA.dupStrikeLag = p.dupStrikeLag;
+  if (p.dupBurstMatch != null) UA.dupBurstMatch = p.dupBurstMatch;
   if (p.dupBurstSync != null) UA.dupBurstSync = p.dupBurstSync;
   UA.specialShare.duplieren = p.share;
   return () => {
@@ -213,6 +213,26 @@ export function measure(tr) {
   const k = CONFIG.STRIKE.edgeAlign;
   const E = K.map((s) => s.edge).filter((x) => x != null);
   const one = S.filter((s) => s.t <= 1.0 * CONFIG.TIME.k);
+  // 몸 빠르기 (골반 앞 몫 — 낸 때 몸 틀 x · 4 스텝 창) · 칼끝 빠르기 (몸 틀 — 가슴 따라) · 멈칫(둘 다 거의 서 있는 가장 긴 틈 — 끄는 동안)
+  const bu = tr.res?.burst ?? tr.burst ?? null;
+  const vPel = S.map((s2, i) => (i >= 2 && i + 2 < S.length ? (S[i + 2].pel[0] - S[i - 2].pel[0]) / Math.max(1e-6, S[i + 2].t - S[i - 2].t) : null));
+  const at = (t) => S.reduce((b2, s2) => (Math.abs(s2.t - t) < Math.abs(b2.t - t) ? s2 : b2), S[0]);
+  const ix = (t) => S.indexOf(at(t));
+  const pelD = (t) => (S.length ? at(t).pel[0] - S[0].pel[0] : null);
+  const Tb = bu?.T ?? null;
+  const curve = [];
+  for (let b2 = 0; b2 <= 15; b2++) curve.push(S.length ? r3(vPel[ix(b2 / 30)]) : null);
+  const vTip = K.map((s2, i) => (i ? Math.hypot(tipR[i][1] - tipR[i - 1][1], tipR[i][2] - tipR[i - 1][2], tipR[i][3] - tipR[i - 1][3]) / Math.max(1e-6, tipR[i][0] - tipR[i - 1][0]) : null));
+  let still = 0;
+  let run = 0;
+  const tW = bu?.launchT != null ? bu.launchT + 0.02 : Infinity; // 멈칫은 칼이 출발할 때까지 (디딤 ↔ 칼 출발 사이)
+  K.forEach((s2, i) => {
+    if (s2.t > tW) return;
+    const vp = vPel[S.indexOf(s2)];
+    const ok = i > 0 && vp != null && Math.abs(vp) < 0.3 && vTip[i] != null && vTip[i] < 1.0;
+    run = ok ? run + (s2.t - K[i - 1].t) : 0;
+    still = Math.max(still, run);
+  });
   return {
     fired: true,
     d0: tr.d0,
@@ -254,6 +274,10 @@ export function measure(tr) {
     knock: tr.knock.filter((x) => x.t >= tr.tF && x.t <= tr.tF + 1.0 * CONFIG.TIME.k).length,
     zoneAll: tr.hits.map((x) => x.zone),
     tiltMax: one.length ? Math.max(...one.map((s) => s.tilt ?? 0)) : null,
+    v0: bu?.v0 ?? null, match: bu?.match ?? null, Tb, Tf: bu?.Tf ?? null, plantT: bu?.plantT ?? null, launchT: bu?.launchT ?? null,
+    pelPeak: r3(Math.max(...vPel.filter((x, i) => x != null && S[i].t <= 0.6))), pelMean: Tb ? r3(pelD(Tb) / Tb) : null, pel22: r3(pelD(0.22)), pel30: r3(pelD(0.3)), pelAtTb: Tb ? r3(pelD(Tb)) : null, pelCurve: curve,
+    still: r3(still), tipPeak: r3(Math.max(0, ...vTip.filter((x) => x != null))),
+    travel: tr.dup?.t0 ?? null, faceAfterLaunch: near && bu?.launchT != null ? r3(near.t - bu.launchT) : null, stopToLaunch: Tb != null && bu?.launchT != null ? r3(bu.launchT - Tb) : null,
   };
 }
 
@@ -287,6 +311,12 @@ export function summary(ms) {
     oorStep: p50(F.map((m) => m.oorStep)), roll78: p50(F.map((m) => m.roll78)), rollMax: mx(F.map((m) => m.rollMax)),
     edgeLead: p50(F.map((m) => m.edgeLead)), backLead: p50(F.map((m) => m.backLead)), farTouch: F.reduce((a, m) => a + m.farTouch, 0),
     falls: F.reduce((a, m) => a + m.fall, 0), knock: F.reduce((a, m) => a + m.knock, 0), tiltMax: mx(F.map((m) => m.tiltMax)),
+    v0: p50(F.map((m) => m.v0)), v0Max: mx(F.map((m) => m.v0)), Tb: p50(F.map((m) => m.Tb)), plantT: p50(F.map((m) => m.plantT)), launchT: p50(F.map((m) => m.launchT)),
+    launchMinusPlant: p50(F.map((m) => (m.launchT != null && m.foot?.plant != null ? m.launchT - m.foot.plant : null))),
+    pelPeak: p50(F.map((m) => m.pelPeak)), pelPeakMax: mx(F.map((m) => m.pelPeak)), pelMean: p50(F.map((m) => m.pelMean)), pel22: p50(F.map((m) => m.pel22)), pel30: p50(F.map((m) => m.pel30)), pelAtTb: p50(F.map((m) => m.pelAtTb)),
+    pelCurve: Array.from({ length: 16 }, (_, b) => p50(F.map((m) => m.pelCurve?.[b]))),
+    still: p50(F.map((m) => m.still)), stillMax: mx(F.map((m) => m.still)), still50: F.filter((m) => m.still >= 0.05).length,
+    travel: p50(F.map((m) => m.travel)), faceAfterLaunch: p50(F.map((m) => m.faceAfterLaunch)), stopToLaunch: p50(F.map((m) => m.stopToLaunch)), stopToLaunchMax: mx(F.map((m) => m.stopToLaunch)),
   };
 }
 
