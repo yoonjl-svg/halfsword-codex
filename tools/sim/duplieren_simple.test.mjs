@@ -11,7 +11,7 @@ const UA = CONFIG.UNIQUE_ASSIST;
 const { realS, SECRET, STAMINA } = CONFIG;
 const LADDER = [0.3, 0.45, 0.6, 0.9];
 
-test('기본값 — 단순 길(dupOld 0) · 앞 박차기 걸음 사다리 칸 · 기력 안 냄(dupBurstFree 1 — 사장님) · 손발 순서(dupBurstSync 1 — 몸 · 발 먼저 · 칼은 디딤에 출발 · 정해 둔 칼 늦음 없음) · 몸 꼴 고르게(dupBurstMatch 0 — 사장님 확인 전) · 몫 0.3 · 견줌 몫 0.5 · 끄는 시간 상한 실제 0.2 s 그대로', () => {
+test('기본값 — 단순 길(dupOld 0) · 앞 박차기 걸음 사다리 칸 · 기력 안 냄(dupBurstFree 1 — 사장님) · 손발 순서(dupBurstSync 1 — 몸 · 발 먼저 · 칼은 디딤에 출발 · 정해 둔 칼 늦음 없음) · 몸 꼴 고르게(dupBurstMatch 0 — 사장님 확인 전) · 몫 0.3 · 견줌 몫 0.5 · 시간 상한 없음', () => {
   assert.equal(UA.dupOld, 0);
   assert.ok(LADDER.includes(UA.dupBurst), `dupBurst ${UA.dupBurst}`);
   assert.equal(UA.dupBurstFree, 1, '사장님 10/31 22:xx — 겹치기 중 박차기 기력 0');
@@ -24,7 +24,7 @@ test('기본값 — 단순 길(dupOld 0) · 앞 박차기 걸음 사다리 칸 �
   assert.equal(UA.dupOldShare, 0.5);
   assert.equal(UA.specialShare.duplieren, 0.3, `몫 ${UA.specialShare.duplieren}`); // 사장님 확인 전 (말씀은 '10% 정도?')
   assert.equal(UA.dupBurstSync, 1, '몸 · 발 먼저 · 칼은 디딤에 출발');
-  assert.ok(Math.abs(UA.dupSnapTime - realS(0.2)) < 1e-12);
+  assert.equal(UA.dupSnapTime, 0, '시간 상한 없음 (사장님 11/01 00:xx)');
   assert.equal(UA.dupEdge, 1);
 });
 
@@ -51,7 +51,7 @@ function body(set = {}, gap = 1.25) {
     for (let i = 0; i < 60; i++) {
       G.step();
       const I = P.iai;
-      out.steps.push({ t: G.t, on: !!(I && I.tech === 'duplieren'), slide: I?.slide ? { ...I.slide } : null, dup: I?.dup ?? null, burst: I?.burst ?? null,  segs: I?.segs ? I.segs.map((s) => ({ D: s.B.D.clone(), T: s.T, pad: s.B.pad })) : null, cut: I?.segs ? I.segs.map((s) => s.cut) : null, legs: P.gait?.legs ? { F: !!P.gait.legs.F.stance, B: !!P.gait.legs.B.stance, kF: P.gait.legs.F.kind, kB: P.gait.legs.B.kind } : null, d: P.foeDistance(), req: P.gait?.req ? { ...P.gait.req } : null });
+      out.steps.push({ t: G.t, on: !!(I && I.tech === 'duplieren'), slide: I?.slide ? { ...I.slide } : null, dup: I?.dup ?? null, burst: I?.burst ?? null, maxT: I?.maxT ?? null, segs: I?.segs ? I.segs.map((s) => ({ D: s.B.D.clone(), T: s.T, pad: s.B.pad })) : null, cut: I?.segs ? I.segs.map((s) => s.cut) : null, legs: P.gait?.legs ? { F: !!P.gait.legs.F.stance, B: !!P.gait.legs.B.stance, kF: P.gait.legs.F.kind, kB: P.gait.legs.B.kind } : null, d: P.foeDistance(), req: P.gait?.req ? { ...P.gait.req } : null });
     }
     return out;
   };
@@ -97,11 +97,12 @@ test('단순 길 — 맞물린 패드에서 얼굴로 가는 패드 곧은 줄 �
     assert.ok(Math.abs(first.dup.hold - CONFIG.GAIT.burstT) < 1e-6, `실려 감 ${first.dup.hold}`);
     assert.ok(Math.abs(first.dup.tFace - (first.dup.hold + first.dup.t0)) < 2e-3, `얼굴 ${first.dup.tFace} · 디딤 + 칼 시간 ${first.dup.hold + first.dup.t0}`);
     assert.ok(first.burst?.asked, '앞발 걸음을 받음');
-    // 칼 출발 = 앞발이 디딘 스텝 (디딤을 못 보면 발 뜬 시간 + 0.1 s)
+    // 칼 출발 = 앞발이 디딘 스텝 (걸음이 없어지면 곧장 — 시간 한도 없음)
     const b = R.steps[R.steps.length - 1].burst ?? first.burst;
     assert.ok(b.launchT != null, '칼 출발');
     if (b.plantT != null) assert.ok(Math.abs(b.launchT - b.plantT) <= DT + 1e-6, `출발 ${b.launchT} · 디딤 ${b.plantT}`);
-    else assert.ok(Math.abs(b.launchT - (b.Tf + 0.1)) <= 2 * DT, `출발 ${b.launchT}`);
+    // 시간 상한 없음: 운동학 칼은 길 끝까지 (끄는 시간 상한 maxT 0)
+    assert.equal(first.maxT ?? 0, 0, '상한 없음');
     // 앞발: 칼이 시작한 뒤 두 스텝 안에 뜸 (걷던 앞발이 떠 있었으면 그 걸음을 이어받음 — 'req')
     const i0 = R.steps.indexOf(first);
     const lifted = R.steps.slice(i0, i0 + 3).some((s) => s.legs && ((!s.legs.F && s.legs.kF === 'req') || (!s.legs.B && s.legs.kB === 'req')));

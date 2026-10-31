@@ -22,7 +22,7 @@ const r2 = (x) => (x == null || !isFinite(x) ? null : +x.toFixed(2));
 const V = (p) => new THREE.Vector3(p.x, p.y, p.z);
 
 /** 카메라 (main.js updateCamera · camera_rig basePose 와 같은 자리) — eye(월드) · look(월드) */
-function gameCamera(P, D) {
+export function gameCamera(P, D) {
   const a = V(P.com ?? P.bodies.pelvis.translation());
   const b = V(D.com ?? D.bodies.pelvis.translation());
   const dir = new THREE.Vector3(b.x - a.x, 0, b.z - a.z).normalize();
@@ -73,7 +73,7 @@ function hidden(eye, p, parts) {
   return false;
 }
 /** 칼(밑동 → 칼끝)의 화면 길이 · 가려지지 않은 길이 · 칼끝이 머리 위로 솟은 px (눈 eye · 보는 점 look) */
-function bladeView(P, eye, look, fov) {
+export function bladeView(P, eye, look, fov) {
   const pr = projector(eye, look, fov);
   const a = P.bladePoint(0, new THREE.Vector3());
   const b = P.bladePoint(1, new THREE.Vector3());

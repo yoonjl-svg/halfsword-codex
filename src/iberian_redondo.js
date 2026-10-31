@@ -22,6 +22,8 @@
 //   ② 감기 꼴 셋 (UNIQUE_ASSIST.rdWindMode — windSpec): 'spin' 10/29 판 원뿔 고리 · 'slowSpin' 안 A(rdSlow — 한 바퀴 1.2 s · 칼을 더 눕힌 큰 고리 · 팔을 더 뻗음) ·
 //    'shoulder' 안 B(rdShoulder — 오른 어깨에 얹어 멈춤 · 날 위 · 감은 셈은 그 자세로 woundT 넘게 쥐었나)
 //  10/30 00:1x 사장님 '레돈두는 A로 하고 흐름 보너스 시간은 한바퀴로 둬' — 기본 'slowSpin' · 흐름 셈 '한 바퀴' 그대로 (내려침 길은 secret_instant.js comboPlanRdDiag — 기록 §8-9)
+//  10/31 19:xx 사장님 '칼을 더 들어올리거나 아예 어깨에 얹거나. 그리고 칼 끝이 머리 뒤로 넘어와서 땅쪽으로 기울어 있어야 해' — 기본 'load'(UNIQUE_ASSIST.rdLoad — 칼 든 어깨에 메어 칼끝이 머리 뒤 · 땅 쪽 ·
+//   놓기는 'shoulder' 와 같은 틀) · 내려침은 멘 어깨에서 반대쪽 아래로 사선(secret_instant.js comboPlanRdTajo) · 흐름과 무관(config IB_FLOW.windmillApart) — 기록 docs/strike/b4_rework_2026-10-31.md · `?b4Old=1` = 10/31 14:xx 판
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
 import { UNIQUE_ASSIST as UA } from './config.js';
@@ -38,8 +40,9 @@ const BODY0 = Object.freeze({ pelvisYaw: 0, chestYaw: 0, pitch: 0, drop: 0 });
  * 지금 감기 꼴 (UNIQUE_ASSIST.rdWindMode — 사장님 10/29 20:0x 두 안 · 10/30 00:1x 안 A 'slowSpin' 기본): { kind 'spin' | 'shoulder', loopT, cone, hand, handR, windIn, woundT, blade }
  *  'spin' = 10/29 판(rdLoopT · rdLoop · rdWindIn) · 'slowSpin' = 안 A(rdSlow) · 'shoulder' = 안 B(rdShoulder). 모르는 이름은 'spin'
  */
-export function windSpec() {
-  const m = UA.rdWindMode;
+export function windSpec(f = null) {
+  const m = f?.aiControlled && UA.rdAiOld > 0 ? 'shoulder' : UA.rdWindMode; // AI 옛 판 (10/31 19:xx UNIQUE_ASSIST.rdAiOld — 기본 0: AI 도 사람과 같은 꼴)
+  if (m === 'load' && UA.rdLoad) return { kind: 'shoulder', name: 'load', loopT: 0, cone: 0, handR: 0, ...UA.rdLoad }; // B4 어깨에 메기 (10/31 19:xx — 놓기는 'shoulder' 와 같음 · 자리만 다름)
   if (m === 'shoulder' && UA.rdShoulder) return { kind: 'shoulder', loopT: 0, cone: 0, handR: 0, ...UA.rdShoulder };
   if (m === 'slowSpin' && UA.rdSlow) return { kind: 'spin', handR: 0, ...UA.rdSlow };
   return { kind: 'spin', loopT: UA.rdLoopT, cone: UA.rdLoop.cone, hand: UA.rdLoop.hand, handR: 0, windIn: UA.rdWindIn };
@@ -102,7 +105,7 @@ export function windStart(f) {
   const AH = new THREE.Vector3(sw.x - c.x, sw.y - c.y, sw.z - c.z).applyQuaternion(inv);
   const AD = f.bladePoint(1, new THREE.Vector3()).sub(f.bladePoint(0, new THREE.Vector3())).normalize().applyQuaternion(inv);
   const psi = Math.atan2(sideOf(f) * AD.z, AD.x); // 지금 칼 가로 각에서 돌기 시작
-  const M = windSpec(); // 이 감기의 꼴 (감는 동안 그대로)
+  const M = windSpec(f); // 이 감기의 꼴 (감는 동안 그대로 · AI 옛 판 rdAiOld 면 AI 는 'shoulder')
   const I = { yaw: f.yaw.clone(), mord: null, kind: 'wind', moves: null, mi: 0, off: !!(f.weaponCfg.twoHand && f.bodies.uarmO && f.limbs?.armO > 0.3), body: M.body ? { ...BODY0, ...M.body } : BODY0, wristMargin: UA.rdWristMargin ?? 0 }; // 손목 교정은 범위 끝에서 rdWristMargin ° 안쪽으로 (10/29 몸 검사) · 몸 = 꼴의 body(덧씌우기 몸 ° · m) 없으면 0
   f.rdWind = { t: 0, psi, psi0: psi, AH, AD, H: AH.clone(), D: AD.clone(), k: 0, I, turns: 0, M };
   // 휘청 고침 ① (rdSteady — 10/29 20:0x): 감는 동안 손목 원뿔 · 칼 어깨 면 밧줄을 뗀다 (휩쓸기 · 죽음의 일격과 같음 — secret_instant.js ropes).

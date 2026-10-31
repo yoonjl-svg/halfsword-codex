@@ -11,27 +11,30 @@ import { kitFromNodes, nodeOf } from '../../src/skill_tree_data.js';
 import { classifyStroke } from '../../src/attack_stroke.js';
 import { G as PAD } from '../../src/ai_techniques.js';
 import { windSpec } from '../../src/iberian_redondo.js';
+import { applyB4Old } from '../../src/config.js';
 
 const UA = CONFIG.UNIQUE_ASSIST;
 const { realS, STAMINA, IB_FLOW, INPUT } = CONFIG;
 
-test('기본값 — 길게 누름 실제 0.6 s · 기력 초당 붙어 버티기와 같은 수 · 고노센 칼끝 × 0.5 · 실제 0.2 s · 식힘 3 s(끝난 때부터 — 10/29 19:5x) · 사슬 simple · B4 칸 = 풍차 베기 · AI 는 왼 가로베기 강화동작 그대로', () => {
+test('기본값 — 길게 누름 실제 0.6 s · 기력 초당 붙어 버티기와 같은 수 · 고노센 칼끝 × 0.3 · 실제 0.4 s · 식힘 3 s(끝난 때부터 — 10/29 19:5x) · 흐름과 무관(10/31 19:xx) · B4 칸 = 정수리 가르기 · AI 는 왼 가로베기 강화동작 그대로', () => {
   assert.equal(UA.rdHold, 1);
   assert.ok(Math.abs(UA.rdHoldTime - realS(0.6)) < 1e-12); // 사장님 '0.6초'
   assert.equal(UA.rdDrain, STAMINA.clinchPerSecond);
-  assert.equal(UA.specialShare.redondo, 0.3); // 10/31 13:5x 사장님 '배율을 0.5에서 0.3으로 낮춰' (전 0.5) // 10/29 02:0x 사장님 '풍차베기는 50%' (전 싱지르 × 0.6 = 고노센 × 0.42)
-  assert.ok(Math.abs(UA.rdSnapTime - realS(0.4)) < 1e-12); // 10/31 0.2 → 0.4 [사장님 확인 전] — 칼끝 × 0.3 의 벰(0.265 s)을 끊지 않게 (redondo_motion 내려침 길 시험)
+  assert.equal(UA.specialShare.redondo, 0.2); // 11/01 00:xx 사장님 '고노센의 20%로 바꿔' (전 0.3) // 10/31 13:5x 사장님 '배율을 0.5에서 0.3으로 낮춰' (전 0.5) // 10/29 02:0x 사장님 '풍차베기는 50%' (전 싱지르 × 0.6 = 고노센 × 0.42)
+  assert.equal(UA.rdSnapTime, 0); // 11/01 00:xx 사장님 '공격이 몇 초 안에 끝나야한다 이런 기준 없애라고 햇지' — 상한 없음(0) · 전 0.4 — // 10/31 0.2 → 0.4 [사장님 확인 전] — 칼끝 × 0.3 의 벰(0.265 s)을 끊지 않게 (redondo_motion 내려침 길 시험)
   assert.ok(Math.abs(UA.specialCooldown - realS(3.0)) < 1e-12); // 10/29 19:5x 사장님 '특수공격 3초(발동이 완료된 시점부터)' (전 6 s · 나간 순간부터)
   assert.equal(UA.specialCoolFrom, 'free');
-  assert.equal(IB_FLOW.windmillChain, 'simple'); // 10/29 08:3x 사장님 결정
+  assert.equal(IB_FLOW.windmillChain, 0); // 10/31 19:xx 사장님 '풍차베기는 이어지는 흐름과 무관한 게 낫겠어' (전 10/29 08:3x 'simple' — `?b4Old=1`)
+  assert.equal(IB_FLOW.windmillApart, 1); // B4 칼은 흐름 위력 · 세 칼 기력 0 자리와 닿지 않음 (감독 판단 · 사장님 확인 전 — 확인표 3292)
   const e = PLAYER_UNIQUE.iberian.find((x) => x.name === 'redondo');
   assert.equal(e.role, 'hold');
   assert.deepEqual(e.on, []); // 사람: 긋기 조건 없음 — 왼 가로베기는 보통 긋기
   assert.ok(e.special && e.hold);
-  assert.equal(e.nameKo, '풍차 베기 (레돈두)'); // 사장님 10/29 01:5x '레돈두는 풍차 베기로'
+  assert.equal(e.nameKo, '정수리 가르기 (알티바슈 포르트)'); // 사장님 10/31 19:xx 결정 (전 10/29 01:5x '풍차 베기 (레돈두)')
+  assert.equal(e.orig, 'altibaxo forte'); // 원어 글자는 대기실 스킬에서만 (화면 글 지침 §1) — 피게이레두 낱말 altibaxo 로 지은 이름
   const n = nodeOf('iberian', 'B4');
-  assert.equal(n.u, 'redondo');
-  assert.equal(n.name, '풍차 베기');
+  assert.equal(n.u, 'redondo'); // 열쇠는 그대로 (10/31 — 이름만 바꿈)
+  assert.equal(n.name, '정수리 가르기');
   assert.deepEqual([n.d, n.cx, [...n.pre]], [2, 560, ['B5']]); // 01:3x 흐르는 긋기와 자리 바꿈
   assert.deepEqual([nodeOf('iberian', 'B5').d, nodeOf('iberian', 'B5').cx, [...nodeOf('iberian', 'B5').pre]], [1, 588, ['B1']]);
   assert.deepEqual([...nodeOf('iberian', 'B6').pre], ['B4']);
@@ -46,11 +49,12 @@ function oneTurn() {
   if (M.kind === 'shoulder') return (M.woundFrom === 'start' ? 0 : M.windIn ?? 0) + M.woundT;
   return M.loopT + (UA.rdSteady > 0 && UA.rdRamp > 0 ? (M.windIn ?? 0) / 2 : 0);
 }
-/** 감기 꼴을 이 시험 동안만 (안 A 'slowSpin' · 안 B 'shoulder' — 둘 다 덮음) */
+/** 감기 꼴을 이 시험 동안만 (안 A 'slowSpin' · 안 B 'shoulder' — 둘 다 덮음) · 흐름 셈 시험은 10/31 14:xx 판(B4 옛 판 — 흐름의 첫 칼 'simple' · 흐름과 닿음)으로 덮음 (`?b4Old=1`) */
 function withWind(mode, fn) {
+  applyB4Old(true);
   const keep = UA.rdWindMode;
   UA.rdWindMode = mode;
-  try { return fn(); } finally { UA.rdWindMode = keep; }
+  try { return fn(); } finally { UA.rdWindMode = keep; applyB4Old(false); }
 }
 
 /** 사람 츠바이핸더 + 풍차 베기만 연 강화 · 상대는 서 있음 */
@@ -87,7 +91,7 @@ test('짧은 누름 · 끈 누름은 감지 않음 / 0.6 s 넘게 누르면 감�
     assert.equal(uq.stats.fired.redondo, 1, '떼면 내려침');
     assert.equal(uq.coolT.redondo, Infinity, '내려침이 도는 동안 식힘 중 (끝난 때부터 셈 — 10/29 19:5x)');
     assert.ok(P.iai || P.instantResult?.combo, '운동학 칼');
-    steps(0.6);
+    steps(1.1); // 내려침(10/31 19:xx 멘 어깨에서 — 11/01 빠르기 0.2 에서 실제 약 0.67 s) + 끝 자세 풀기 0.2 s 뒤
     assert.equal(P.instantResult?.tech, 'redondo');
     const run = uq.stats.coolRuns?.at(-1);
     assert.ok(run?.name === 'redondo' && Number.isFinite(uq.coolT.redondo), '내려침 · 풀기가 끝나면 식힘을 셈');
@@ -207,6 +211,41 @@ test(`simple — 풍차 베기 뒤 이어 그은 긋기는 n 2 (× 1.4) [${mode 
     assert.equal(P.ibChainCostK(), 0, '사슬 3 번째 = 기력 0');
   } finally { B.free(); }
 }));
+
+test('B4 는 이어지는 흐름과 무관 (사장님 10/31 19:xx \'풍차베기는 이어지는 흐름과 무관한 게 낫겠어\' — windmillChain 0 · windmillApart 1): 흐름의 첫 칼이 아님 · 사슬이 켜져 있어도 B4 칼은 흐름 위력 × 1 · 세 칼 기력 0 자리가 아님 · 사슬을 늘이거나 끊지 않음 (옛 판은 B4_OLD)', () => {
+  const kitAll = kitFromNodes('iberian', new Set(['B1', 'B5', 'B4', 'B6']));
+  const B = body({ seed: 7, kit: kitAll });
+  try {
+    const { P, uq, press, steps } = B;
+    // 바로 앞에 사슬 둘 (마지막 진짜 긋기가 막 끝남 — 이어짐 창 안에서 누르기 시작)
+    P.ibFlowT = 10; P.ibFlowCutEnd = 10; P.ibLastN = 2;
+    const cutEnd0 = P.ibFlowCutEnd;
+    press.down = true; steps(realS(0.6) + realS(1.4)); press.down = false;
+    let k = 0;
+    while (!(P.iai || P.iaiReq) && k++ < 40) steps(DT);
+    assert.ok(P.iai || P.iaiReq, '내려침');
+    steps(DT);
+    assert.equal(P.ibStrike, null, '흐름 칼로 셈하지 않음 (ibStrike 없음)');
+    assert.equal(uq.stats.windChain.at(-1), 0, '이어 그은 수 0 — 흐름의 첫 칼 아님');
+    assert.equal(P.rdStrikeNow(), true);
+    // 사슬이 켜진 채로 B4 칼이 맞는다고 해도 (흐름 켬 · 이어 그은 수 2 — 사슬 3 번째 자리) 위력 · 기력은 보통
+    P.ibFlowOn = true; P.ibFlowSw = true; P.ibFlowChain = true; P.ibCutN = 2; P.ibChainN0 = 0;
+    assert.equal(P.ibFlowK(), 1, 'B4 칼 흐름 위력 × 1');
+    assert.equal(P.ibChainCostK(), 1, 'B4 칼은 세 칼 기력 0 자리가 아님');
+    IB_FLOW.windmillApart = 0;
+    try {
+      assert.ok(Math.abs(P.ibFlowK() - 1.4) < 1e-9, '닿음 판이면 1 + 0.2 × 2 (가드가 하는 일)');
+      assert.equal(P.ibChainCostK(), 0, '닿음 판이면 사슬 3 번째 기력 0');
+    } finally { IB_FLOW.windmillApart = 1; }
+    P.ibFlowSw = false;
+    while ((P.iai || P.iaiReq) && k++ < 400) steps(DT);
+    steps(0.05);
+    assert.equal(P.ibFlowCutEnd, cutEnd0, 'B4 는 마지막 진짜 긋기 끝을 옮기지 않음 (사슬을 늘이지 않음)');
+    // B4 뒤 첫 긋기 = 새 사슬 (앞 사슬의 창은 감는 동안 이미 지남 — 길게 누름 0.6 s = 이어짐 창 0.6 s)
+    P.skill.swinging = true; P.skill.vel.set(-8, 0); P.updateIbFlow(1 / 120);
+    assert.equal(P.ibChainN(), 0, 'B4 뒤 첫 긋기 = 새 사슬의 첫 칼');
+  } finally { B.free(); }
+});
 
 test('사람 왼 가로베기는 보통 긋기 (풍차 베기를 열어도 강화동작으로 안 읽힘)', () => {
   const B = body();

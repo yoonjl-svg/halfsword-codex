@@ -15,7 +15,7 @@ test('기본값 — 날개 접기 탭 켬 · 놓은 뒤 창 실제 0.6 s · 고�
   assert.equal(UA.lianTap, 1);
   assert.ok(Math.abs(UA.lianWindow - realS(0.6)) < 1e-12);
   assert.equal(UA.specialShare.lianchi, 0.6); // 10/29 12:3x 사장님 0.6 (02:0x '염시는 50%' · 전 격살 × 0.6 = 고노센 × 0.36)
-  assert.ok(Math.abs(UA.lianSnapTime - realS(0.2)) < 1e-12);
+  assert.equal(UA.lianSnapTime, 0); // 11/01 00:xx 사장님 '공격이 몇 초 안에 끝나야한다 이런 기준 없애라고 햇지' — 상한 없음(0)
   const e = PLAYER_UNIQUE.chinese.find((x) => x.name === 'lianchi');
   assert.deepEqual(e.on, []);
   assert.equal(e.tapKey, 'lian');

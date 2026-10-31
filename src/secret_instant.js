@@ -1969,6 +1969,7 @@ function comboPlanAim(f, I, m, A, D, at0 = null) {
  *   칼날 at 자리가 겨눈 곳에 오게 손 거리 · 마지막 ⅓ 은 손을 당김. 몸은 곧게(덧씌우기 몸 = 손 쪽 몸 돌림 — 싱지르의 온몸 한 바퀴가 아님)
  */
 function comboPlanRd(f, I, m, A) {
+  if (m.rd.tajo) return comboPlanRdTajo(f, I, m, A); // 10/31 19:xx B4 멘 어깨에서 내려침 (rdRelease 'tajo' — 아래)
   if (m.rd.diag) return comboPlanRdDiag(f, I, m, A); // 10/30 곧장 사선 내려침 (rdRelease 'direct' — 아래)
   const R = m.rd.arc;
   const s = f.side >= 0 ? 1 : -1;
@@ -2071,6 +2072,66 @@ function comboPlanRdDiag(f, I, m, A) {
     push(new THREE.Vector3(L.hand[0], L.hand[1], s * L.hand[2]), new THREE.Vector3(Math.sin(b) * cx, Math.cos(b), Math.sin(b) * cz), false);
   }
   push(p0.H, p0.D, false); // 든 자리 (왼 위)
+  const N = 6;
+  for (let j = 1; j <= N; j++) {
+    const p = pose(j / N);
+    push(p.H, p.D, true, j === N ? comboPad(p.H) : null);
+  }
+  return segs;
+}
+
+/**
+ * B4 멘 어깨에서 내려침 (사장님 10/31 19:xx '온몸으로 대검의 힘을 응축해서 … 강하고 재빠르게 치는 일격' · '45도~90도 사이로 … 살짝 사선이어야 어깨에 얹고 있다가 치는 게 자연스럽고' —
+ *  config UNIQUE_ASSIST.rdRelease 'tajo' · rdTajo · 기록 docs/strike/b4_rework_2026-10-31.md §3): 칼 든 어깨에 멘 칼(칼끝 뒤 아래 — iberian_redondo.js 'load')을 머리 위로 들어(맞힘 없음 · 한 토막)
+ *  멘 쪽 위 → 반대쪽 아래 한 면으로 내려 벤다(맞힘 · 6 토막). 틀은 곧장 사선(comboPlanRdDiag)과 같고 u 가 칼 **든** 쪽(멘 어깨) 가로에서 하늘 쪽으로 angle ° — 탈류(오른 위 → 왼 아래).
+ *  드는 토막은 멘 칼에서 θ = from 자리로 곧장(칼끝이 뒤 아래 → 뒤 → 위 · 손은 어깨 앞 위로) — 어깨 뒤로 더 내리는 고리 없음. 섞는 첫머리에 떼어 칼이 아직 앞 · 아래면(칼 앞 성분 > 0 · 위 성분 < lowY)
+ *  먼저 감는 고리 손 자리로 세운다(rdDiag 와 같음).
+ */
+function comboPlanRdTajo(f, I, m, A) {
+  const R = m.rd.tajo;
+  const s = f.side >= 0 ? 1 : -1;
+  const S = comboShoulder(f, I.yaw);
+  const Lf = comboArmLen();
+  const HL = f.weaponCfg.hiltLength;
+  const BL = f.weaponCfg.bladeLength;
+  const segs = [];
+  let cur = A;
+  const push = (H, Dv, cut, pad = null) => {
+    const B = { H, D: Dv, px: H.z - 0.1, pad };
+    const sg = { cut, A: cur, B };
+    sg.T = comboSegLen(f, sg) / I.v;
+    segs.push(sg);
+    cur = B;
+  };
+  const { P, part } = comboAimPoint(f, I, R.target ?? 'lung');
+  I.aim = part;
+  const dc = P.clone().sub(S);
+  const dist = dc.length();
+  dc.normalize();
+  const an = (R.angle ?? 75) * D2R; // 벰 면이 땅과 이루는 각 (90 = 곧게 내려침 · 45 = 사선)
+  const u = new THREE.Vector3(0, Math.sin(an), s * Math.cos(an)); // 칼 든 쪽(멘 어깨) 위 — 곧장 사선(rdDiag)의 −s 와 반대
+  u.addScaledVector(dc, -u.dot(dc)).normalize();
+  const r0 = clamp(dist - HL - BL * (R.at ?? 0.7), 0.15, Lf);
+  const pose = (w) => {
+    const th = (R.from + (R.to - R.from) * w) * D2R;
+    const r = r0 * (w <= 2 / 3 ? 1 : 1 - (R.pull ?? 0) * ((w - 2 / 3) / (1 / 3)));
+    const Hd = dc.clone().multiplyScalar(Math.cos(th / 2)).addScaledVector(u, Math.sin(th / 2));
+    return { H: S.clone().addScaledVector(Hd, r), D: dc.clone().multiplyScalar(Math.cos(th)).addScaledVector(u, Math.sin(th)).normalize() };
+  };
+  const p0 = pose(0);
+  const L = m.rd.loop;
+  if (L && A?.D && A.D.x > 0 && A.D.y < (R.lowY ?? 0.35)) {
+    // 섞는 첫머리에 뗌 (칼이 아직 앞 · 아래): 감는 고리의 손 · 지금 칼 가로 쪽으로 cone ° 기운 칼로 먼저 세움 (곧장 들면 칼날이 제 몸 앞을 가로지름)
+    const b = L.cone * D2R;
+    const h = Math.hypot(A.D.x, A.D.z);
+    const cx = h > 1e-3 ? A.D.x / h : 1;
+    const cz = h > 1e-3 ? A.D.z / h : 0;
+    push(new THREE.Vector3(L.hand[0], L.hand[1], s * L.hand[2]), new THREE.Vector3(Math.sin(b) * cx, Math.cos(b), Math.sin(b) * cz), false);
+  }
+  const lead0 = segs.length;
+  push(p0.H, p0.D, false); // 든 자리 (멘 쪽 위)
+  // 드는 몫 빠르기 배 (rdTajo.liftK — 1 = 벰과 같은 칼끝 빠르기): 맞힘 없는 드는 토막만 · 벰 칼끝 빠르기(specialShare)는 그대로
+  if ((R.liftK ?? 1) > 0 && (R.liftK ?? 1) !== 1) for (let k = lead0; k < segs.length; k++) segs[k].T /= R.liftK;
   const N = 6;
   for (let j = 1; j <= N; j++) {
     const p = pose(j / N);
@@ -2566,7 +2627,7 @@ function comboPlanDupLine(f, I, m, A) {
     return { segs, p1, p2, padLen: un + l2, dFace: t1[2], tFace, iFace, sweep, edge1: t1[3] ?? null, side: t1[4] ?? null, tB };
   };
   // 앞 박차기와 때 맞춤 (사장님 10/31 19:xx '손 동작과 발 동작이 어우러져야'): 칼날이 얼굴을 지나는 때 = 앞발이 디디는 때 = 몸 미끄러짐이 끝나는 때.
-  //  그 때 Tstep = 얼굴까지 칼 시간(몫 빠르기) · 박찬 걸음 발 뜬 시간 GAIT.burstT(0.22 s — 끄는 시간 상한 dupSnapTime 과 같은 수) 가운데 긴 것 → 얼굴은 미끄러진 끝 자리(k = 1).
+  //  그 때 Tstep = 얼굴까지 칼 시간(몫 빠르기) · 박찬 걸음 발 뜬 시간 GAIT.burstT(0.22 s) 가운데 긴 것 → 얼굴은 미끄러진 끝 자리(k = 1).
   //  칼이 몫 빠르기로 그보다 일찍 닿으면 얼굴까지 토막을 그만큼 늦춤(손이 발을 기다림 — 몫은 빠르기 위 끝) · 얼굴 뒤 끝 따라 돌기는 몫 빠르기 그대로 · 끄는 시간 상한은 얼굴까지(Tstep) + 끝 따라 돌기
   let k = 1;
   let z = null;
@@ -2676,7 +2737,7 @@ function comboPlanDupLine(f, I, m, A) {
     I.dupStepT = Tstep; // 몸 미끄러짐 시간 (dupBurstStart)
     I.dupFootT = Tfoot; // 앞발 발 뜬 시간 (dupBurstStart — sync 1 은 박찬 걸음 그대로 · 아니면 미끄러짐과 같음)
     I.dupProf = prof; // 몸 미끄러짐 꼴 (sync 1)
-    I.maxT = I.t + Math.max(Tstep, z.tFace + Tfol); // 끄는 시간 상한: 얼굴까지 + 끝 따라 돌기 · 몸이 다 설 때까지 (박차기 판 — 상한 0.2 s 는 얼굴까지 몫)
+    if (I.maxT > 0) I.maxT = I.t + Math.max(Tstep, z.tFace + Tfol); // 상한을 따로 준 판만(`?dupSnapTime=`): 길 끝 · 몸이 다 설 때까지로 늘림 — 기본은 상한 없음(dupSnapTime 0 · 사장님 11/01 00:xx '공격이 몇 초 안에 끝나야한다 이런 기준 없애라') · 칼은 길 끝까지
     z.slow = sc;
     z.hold = hold;
     z.t0 = t0;
@@ -2718,7 +2779,7 @@ function dupBurstStart(f, I, m, span) {
   const asked = g?.active ? g.takeStep({ kind: 'lunge', fwd: S.slide, duration: Tf / k, minT: Tf / k, accel: true, force: true }) : false; // 앞발이 이미 떠 있으면 그 걸음을 이어받음 (gait.js takeStep)
   if (!m.step.free) f.stamina?.burst();
   I.burst = { slide: +S.slide.toFixed(3), T: +T.toFixed(3), Tf: +Tf.toFixed(3), asked: !!asked, why, match: I.dupProf?.mode ?? null, v0: I.dupProf?.v0 == null ? null : +I.dupProf.v0.toFixed(3), plantT: null, launchT: null };
-  I.burstFoot = asked && I.segs[0]?.launch ? { mi: I.mi, t0: I.t, leg: null, plantT: null, launchT: null, Tmax: Tf + 0.1 } : null; // 칼 출발 = 앞발 디딤 (stepCombo dupLaunchTick)
+  I.burstFoot = asked && I.segs[0]?.launch ? { mi: I.mi, t0: I.t, leg: null, plantT: null, launchT: null } : null; // 칼 출발 = 앞발 디딤 (stepCombo dupLaunchTick — 시간 한도 없음)
 }
 
 /**
@@ -2764,7 +2825,8 @@ function dupBurstProfile(f, I, m, Tf) {
 
 /**
  * 겹치기 칼 출발 = 앞발 디딤 (사장님 10/31 00:xx — 얼굴까지 시간은 길 ÷ 몫 빠르기): 박찬 앞발이 디딘 스텝에 실려 가는 토막(launch)을 끝냄 —
- *  디딤이 짠 때보다 이르면 곧장 · 늦으면 디딜 때까지(발 뜬 시간 + 0.1 s 까지) 기다림 · 끄는 시간 상한도 그만큼 옮김. 재기 I.burst.plantT · launchT (낸 때부터 게임 초)
+ *  디딤이 짠 때보다 이르면 곧장 · 늦으면 그 발이 아직 그 걸음으로 떠 있는 동안 기다림(시간 한도 없음 — 사장님 11/01 00:xx) ·
+ *  걸음이 없어지면(넘어짐 · 걸음 꺼짐 · 다른 걸음이 덮음 · 부탁이 버려짐) 곧장. 상한을 따로 준 판만 끄는 시간 상한도 그만큼 옮김. 재기 I.burst.plantT · launchT (낸 때부터 게임 초)
  */
 function dupLaunchTick(f, I) {
   const B = I.burstFoot;
@@ -2780,14 +2842,17 @@ function dupLaunchTick(f, I) {
   const sg = I.segs[I.si];
   if (!sg?.launch || B.launchT != null) return;
   const end = I.ts + sg.T;
+  const g = f.gait;
+  const live = !!g?.active && f.state === 'stand' && (B.leg ? !L[B.leg].stance && L[B.leg].kind === 'req' : !!g.req); // 그 걸음이 아직 살아 있음 (발이 그 걸음으로 떠 있거나 부탁이 남음)
+  const go = B.plantT != null || !live;
   let d = 0;
-  if (B.plantT != null) d = Math.min(0, I.t - end);
-  else if (I.t >= end && I.t - B.t0 < B.Tmax) d = I.t - end + 1e-4;
+  if (go) d = Math.min(0, I.t - end);
+  else if (I.t >= end) d = I.t - end + 1e-4;
   if (d) {
     sg.T += d;
     if (I.maxT > 0) I.maxT += d;
   }
-  if (B.plantT != null || I.t >= I.ts + sg.T) {
+  if (go) {
     B.launchT = I.ts + sg.T;
     if (I.burst) I.burst.launchT = +(B.launchT - B.t0).toFixed(3);
   }
@@ -2913,7 +2978,7 @@ function stepCombo(f, combat) {
   I.cutting = sg.cut;
   const bp = I.moves[I.mi]?.bodyPose; // 겹치기 몸 (10/28 — 엇갈린 손: UNIQUE_ASSIST.dupBody [골반 °, 가슴 °, 숙임 °, 낮춤 m] — 이 수 동안 손 쪽 몸 돌림에서 그 꼴로)
   if (bp) {
-    const b0 = comboBody(P.px);
+    const b0 = I.moves[I.mi]?.bodyFrom ?? comboBody(P.px); // bodyFrom: 이 수의 몸 처음 꼴 (B4 멘 몸 꼬임 — 10/31 19:xx requestArtRedondo tajo) · 없으면 손 쪽 몸 돌림 (전과 같음)
     const w = clamp((I.t - I.segT0) / Math.max(1e-3, I.segs.reduce((a, x) => a + x.T, 0)), 0, 1);
     I.body = { pelvisYaw: b0.pelvisYaw + (bp[0] - b0.pelvisYaw) * w, chestYaw: b0.chestYaw + (bp[1] - b0.chestYaw) * w, pitch: b0.pitch + (bp[2] - b0.pitch) * w, drop: b0.drop + (bp[3] - b0.drop) * w };
   } else I.body = comboBody(P.px);
@@ -3254,8 +3319,14 @@ export function requestArtDup(f, { share, maxT, tech, face = 0, follow = 25, pla
  *  길 = comboPlanRd (arc = UNIQUE_ASSIST.rdArc) · 날 세우기 · 굴림 묶음 · 끝나도 손 목표 그대로(keepAim). 이미 끌고 가는 중이면 거절(false)
  *  diag 를 주면(10/30 rdRelease 'direct' — UNIQUE_ASSIST.rdDiag) 곧장 사선 내려침 comboPlanRdDiag · 잔상은 베는 토막만(arcCut)
  */
-export function requestArtRedondo(f, { share, maxT, tech, arc, loop = null, diag = null }) {
-  if (f.iai || f.iaiReq || !(share > 0) || !f.foe?.bodies?.chest || !(arc || diag)) return false;
+export function requestArtRedondo(f, { share, maxT, tech, arc, loop = null, diag = null, tajo = null, bodyFrom = null }) {
+  if (f.iai || f.iaiReq || !(share > 0) || !f.foe?.bodies?.chest || !(arc || diag || tajo)) return false;
+  if (tajo) {
+    // 10/31 19:xx B4 멘 어깨에서 내려침 (comboPlanRdTajo): 몸 = 멘 몸 꼬임(bodyFrom — 감기 꼴 body)에서 tajo.body 로 풀며 앉음 · 잔상은 베는 토막만
+    const bf = bodyFrom ? { pelvisYaw: bodyFrom.pelvisYaw ?? 0, chestYaw: bodyFrom.chestYaw ?? 0, pitch: bodyFrom.pitch ?? 0, drop: bodyFrom.drop ?? 0 } : null;
+    requestCombo(f, { moves: [{ name: tech, kind: 'cut', cutSweep: true, same: true, roll: true, capFromCut: true, rd: { loop, tajo }, ...(tajo.body ? { bodyPose: tajo.body } : {}), ...(bf ? { bodyFrom: bf } : {}) }], share, hold: 0, hitMul: 1, tech, maxT, keepAim: true, attack: true, arcCut: true });
+    return true;
+  }
   requestCombo(f, { moves: [{ name: tech, kind: 'cut', cutSweep: true, same: true, roll: true, capFromCut: true, rd: { arc, loop, diag } }], share, hold: 0, hitMul: 1, tech, maxT, keepAim: true, attack: true, arcCut: !!diag });
   return true;
 }

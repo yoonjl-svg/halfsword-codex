@@ -50,7 +50,7 @@ test('기본값 — 세 해법 켬 · 0.6 · 0.2 s (사장님 10/25 결정) · A
   assert.deepEqual(TSU_AIM.line, { path: [[-0.3, 0.25]], plan: [[0, 0, 0], [0, 0, 0]], shift: 'slide', pathHint: true, arcCut: true });
   assert.deepEqual(TSU_AIM.band.path, [[0.2, -0.2], [0, 0.1]], '갈고리 길은 `?tsuHook=1` 로 그대로');
   assert.equal(UA.specialShare.tsubameGaeshi, 0.6); // 10/29 02:0x 특수 공격 칼끝 = 고노센 × n 한 표 (제비 베기는 전과 같은 0.6)
-  assert.equal(UA.tsuSnapTime, 0.2);
+  assert.equal(UA.tsuSnapTime, 0); // 11/01 00:xx 사장님 '공격이 몇 초 안에 끝나야한다 이런 기준 없애라고 햇지' — 상한 없음(0)
   const u = TRADITIONS.japanese.unique.find((x) => x.name === 'tsubameGaeshi');
   assert.deepEqual([u.from, ...u.path], [G.tag, [0.0, 0.14], G.alber, [0.06, -0.15], G.ochsR]); // AI 가 읽는 길은 그대로
 });
@@ -125,7 +125,7 @@ test('② 꺾는 순간 끌고 감: 몫 0.6 · 0.2 s 상한 · 붙잡기 0 · �
     const R = a.P.iaiReq;
     assert.ok(R?.combo);
     assert.equal(R.share, 0.6);
-    assert.equal(R.maxT, 0.2);
+    assert.equal(R.maxT, 0); // 11/01 00:xx 사장님 '공격이 몇 초 안에 끝나야한다 이런 기준 없애라고 햇지' — 상한 없음(0)
     assert.equal(R.hold, 0);
     assert.equal(R.hitMul, 1);
     assert.equal(R.arcCut, true, '잔상은 베는 토막만');
@@ -145,7 +145,7 @@ test('② 꺾는 순간 끌고 감: 몫 0.6 · 0.2 s 상한 · 붙잡기 0 · �
       a.g.step();
       n++;
     }
-    assert.ok(n * DT <= 0.2 + 2 * DT, `끌고 간 시간 ${(n * DT).toFixed(3)} s`);
+    assert.ok(n < 100, `끌고 간 칼이 끝남 ${(n * DT).toFixed(3)} s`); // 11/01 00:xx 사장님 '공격이 몇 초 안에 끝나야한다 이런 기준 없애라고 햇지' — 상한 없음(0)
     for (let k = 0; k < Math.ceil(0.25 / DT); k++) a.g.step();
     assert.equal(a.P.skill.thrustPose.w, 0, '0.2 s 뒤 손가락으로');
   } finally {
