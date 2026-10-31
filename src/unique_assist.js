@@ -27,7 +27,7 @@ import { classifyStroke } from './attack_stroke.js';
 //  수는 config.js UNIQUE_ASSIST (확인표 1040~1047 · 10/14 강화 수는 owner_defaults_table.md 끝, 사장님 확인 전). 끄기 `?uniqueAssist=0`.
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
-import { UNIQUE_ASSIST as UA, SKILL, SECRET, STAMINA, IB_FLOW, THRUST } from './config.js';
+import { UNIQUE_ASSIST as UA, SKILL, SECRET, STAMINA, IB_FLOW, THRUST, realRate } from './config.js';
 import { G, TECH, TECH_BY_NAME } from './ai_techniques.js';
 import { TRADITIONS } from './schools.js';
 import { segDist } from './skill.js';
@@ -708,7 +708,7 @@ export class PlayerUniqueAssist {
       if (!P.down) return this.windFire('release');
       const S = f.stamina;
       S.spent.wind ??= 0;
-      S.spend('wind', UA.rdDrain * dt); // 회복도 멈춤 (spend — 쉼 시계 0)
+      S.spend('wind', (UA.rdDrainCut ? realRate(STAMINA.cutCost) * S.weight : UA.rdDrain) * dt); // 회복도 멈춤 (spend — 쉼 시계 0) · 11/01 메는 동안 초당 베기 한 번 값(rdDrainCut)
       if (STAMINA.on && !S.infinite && S.value <= 0) return this.windFire('empty');
       const hit = windStep(f, dt);
       if (hit) this.stats.windTouch = (this.stats.windTouch ?? 0) + 1; // 감는 칼이 무엇에 닿은 스텝 (재기만 — 닿아도 그대로 감음 · 세게 맞으면 windStop 의 jolt · 상처면 hit)

@@ -11,18 +11,18 @@ const UA = CONFIG.UNIQUE_ASSIST;
 const { realS, SECRET, STAMINA } = CONFIG;
 const LADDER = [0.3, 0.45, 0.6, 0.9];
 
-test('기본값 — 단순 길(dupOld 0) · 앞 박차기 걸음 사다리 칸 · 기력 안 냄(dupBurstFree 1 — 사장님) · 손발 순서(dupBurstSync 1 — 몸 · 발 먼저 · 칼은 디딤에 출발 · 정해 둔 칼 늦음 없음) · 몸 꼴 고르게(dupBurstMatch 0 — 사장님 확인 전) · 몫 0.3 · 견줌 몫 0.5 · 시간 상한 없음', () => {
+test('기본값 — 단순 길(dupOld 0) · 앞 박차기 걸음 사다리 칸 · 기력 안 냄(dupBurstFree 1 — 사장님) · 손발 순서(dupBurstSync 1 — 몸 · 발 먼저 · 칼은 디딤에 출발 · 정해 둔 칼 늦음 없음) · 박차기 물리(dupBurstMatch 1) · 길이 맞춤(dupBurstFit 1) · 몫 0.25 — 사장님 11/01 00:xx 결정 · 견줌 몫 0.5 · 시간 상한 없음', () => {
   assert.equal(UA.dupOld, 0);
   assert.ok(LADDER.includes(UA.dupBurst), `dupBurst ${UA.dupBurst}`);
   assert.equal(UA.dupBurstFree, 1, '사장님 10/31 22:xx — 겹치기 중 박차기 기력 0');
   assert.equal(UA.dupBurstT, 0, '박차기 시간 = 박찬 걸음 GAIT.burstT');
   assert.equal(UA.dupStrikeLag, undefined, '사장님 10/31 00:xx — 칼이 닿는 때는 정해 두지 않음(길 ÷ 몫 빠르기)');
-  assert.equal(UA.dupBurstMatch, 0, '몸 꼴 고르게 (첫 걸음 박차기 물리는 `?dupBurstMatch=1` — 사장님 확인 전)');
-  assert.equal(UA.dupBurstFit, 0, '박차기 길이 고정 (가장 잘 드는 거리까지는 `?dupBurstFit=1` — 사장님 확인 전)');
+  assert.equal(UA.dupBurstMatch, 1, '첫 걸음 박차기 물리 (사장님 11/01 00:xx 결정)');
+  assert.equal(UA.dupBurstFit, 1, '가장 가까운 잘 드는 자리까지 (사장님 11/01 00:xx 결정)');
   assert.equal(UA.dupFitPoint, 0.2, '길이 맞춤 칼날 자리 — 잘 드는 몫의 코등이 쪽 끝 (사장님 확인 전)');
   assert.equal(UA.dupFitFloor, 0.5, '몸통이 맞닿는 가슴 사이까지 (죽음의 일격 거리 한도 없음 — 사장님 11/01 00:xx)');
   assert.equal(UA.dupOldShare, 0.5);
-  assert.equal(UA.specialShare.duplieren, 0.3, `몫 ${UA.specialShare.duplieren}`); // 사장님 확인 전 (말씀은 '10% 정도?')
+  assert.equal(UA.specialShare.duplieren, 0.25, `몫 ${UA.specialShare.duplieren}`); // 사장님 11/01 00:xx '겹치기도 25%로 테이블 맞추자'
   assert.equal(UA.dupBurstSync, 1, '몸 · 발 먼저 · 칼은 디딤에 출발');
   assert.equal(UA.dupSnapTime, 0, '시간 상한 없음 (사장님 11/01 00:xx)');
   assert.equal(UA.dupEdge, 1);
@@ -59,7 +59,7 @@ function body(set = {}, gap = 1.25) {
 }
 
 test('단순 길 — 맞물린 패드에서 얼굴로 가는 패드 곧은 줄 하나 (토막 패드가 한 줄 위 · 따로 밀어 넣는 토막 없음 · 모두 베는 토막 · 칼날이 얼굴 곁을 지남) · 앞 박차기 = 칼이 끌리는 시간 동안 고르게 · 앞발이 같은 때 뜸', () => {
-  const B = body({ dupBurst: 0.45, share: 0.2 });
+  const B = body({ dupBurst: 0.45, dupBurstMatch: 0, dupBurstFit: 0, share: 0.2 });
   try {
     const R = B.fire();
     assert.ok(R.ok, '냄');
@@ -113,7 +113,7 @@ test('단순 길 — 맞물린 패드에서 얼굴로 가는 패드 곧은 줄 �
 });
 
 test('앞 박차기는 죽음의 일격 거리(가슴 사이 SECRET.mordCloseN 0.8 m)에서 멈춤 — 가슴 사이 1.0 m 에서 0.45 m 박차기면 0.2 m 만', () => {
-  const B = body({ dupBurst: 0.45, share: 0.2 }, 1.0);
+  const B = body({ dupBurst: 0.45, dupBurstFit: 0, share: 0.2 }, 1.0);
   try {
     const d0 = B.P.foeDistance();
     const R = B.fire();
@@ -127,7 +127,7 @@ test('앞 박차기는 죽음의 일격 거리(가슴 사이 SECRET.mordCloseN 0
 
 test('기력: 박차기는 기본 0 (사장님 10/31 22:xx — dupBurstFree 1) · dupBurstFree 0 이면 박찬 걸음 pushCost 12 (죽음의 일격 강제 박차기와 같은 칸) · 탭 하나(베기 12 × 무게)는 그대로', () => {
   for (const free of [0, 1]) {
-    const B = body({ dupBurst: 0.45, dupBurstFree: free, share: 0.2 });
+    const B = body({ dupBurst: 0.45, dupBurstFit: 0, dupBurstFree: free, share: 0.2 });
     try {
       const st = B.P.stamina;
       const p0 = st.spent.push;
@@ -159,7 +159,7 @@ test('박차기 0 = 걸음 · 미끄러짐 없음 (단순 길만) · dupOld 1 = 
 });
 
 test('때 맞춤 끔(dupBurstSync 0) = 칼은 몫 빠르기 그대로 — 얼굴까지 늦추지 않음(slow 1) · 얼굴을 디딤과 같거나 먼저 지남 · 박차기 시간은 그대로(박찬 걸음 GAIT.burstT 이상)', () => {
-  const B = body({ dupBurst: 0.45, dupBurstSync: 0, share: 0.3 });
+  const B = body({ dupBurst: 0.45, dupBurstFit: 0, dupBurstSync: 0, share: 0.3 });
   try {
     const R = B.fire();
     const first = R.steps.find((s) => s.on);
@@ -173,7 +173,7 @@ test('때 맞춤 끔(dupBurstSync 0) = 칼은 몫 빠르기 그대로 — 얼굴
 });
 
 test('고르게 늦춤(dupBurstSync 2 — 10/31 첫 판 · 견줌) = 칼날이 얼굴을 지나는 때 = 디딤 · 실려 가는 토막 없음', () => {
-  const B = body({ dupBurst: 0.45, dupBurstSync: 2, share: 0.3 });
+  const B = body({ dupBurst: 0.45, dupBurstFit: 0, dupBurstSync: 2, share: 0.3 });
   try {
     const R = B.fire();
     const first = R.steps.find((s) => s.on);
@@ -188,7 +188,7 @@ test('고르게 늦춤(dupBurstSync 2 — 10/31 첫 판 · 견줌) = 칼날이 �
 test('몸 꼴 첫 걸음 박차기 물리(dupBurstMatch 1 · 2 — 감독 10/31 23:xx): 골반 꼴 빠르기 ≤ GAIT.burstBackV · 가속 ≤ maxAccel × burstAccel · 0.45 m 를 다 감 · 박찬 걸음보다 오래 · 앞발 발 뜬 시간은 박찬 걸음 그대로 · 1 은 같은 한도로 줄여 섬', () => {
   const a = CONFIG.GAIT.maxAccel * CONFIG.GAIT.burstAccel;
   for (const match of [1, 2]) {
-    const B = body({ dupBurst: 0.45, dupBurstMatch: match, share: 0.3 });
+    const B = body({ dupBurst: 0.45, dupBurstFit: 0, dupBurstMatch: match, share: 0.3 });
     try {
       const R = B.fire();
       const first = R.steps.find((s) => s.on);

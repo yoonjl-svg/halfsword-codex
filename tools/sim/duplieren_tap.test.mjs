@@ -15,9 +15,9 @@ const UA = CONFIG.UNIQUE_ASSIST;
 UA.dupAuto = 0;
 const { realS, SECRET } = CONFIG;
 
-test('기본값 — 겹치기 탭 켬 · 고노센 칼끝 × 0.3(10/31 19:xx — 전 0.5) · 시간 상한 없음 · 긴 날 · 긋기 조건 없음 (탭으로만)', () => {
+test('기본값 — 겹치기 탭 켬 · 고노센 칼끝 × 0.25(11/01 — 전 0.3 ← 0.5) · 시간 상한 없음 · 긴 날 · 긋기 조건 없음 (탭으로만)', () => {
   assert.equal(UA.dupTap, 1);
-  assert.equal(UA.specialShare.duplieren, 0.3); // 10/31 19:xx 단순 길 · 앞 박차기와 함께 0.3 [사장님 확인 전 — duplieren_simple_2026-10-31.md] (10/29 02:0x 사장님 '두플리렌 50%' · 전 모르트슐라크 × 0.6 = 고노센 × 0.18)
+  assert.equal(UA.specialShare.duplieren, 0.25); // 사장님 11/01 00:xx '겹치기도 25%로 테이블 맞추자' (전 0.3 ← 0.5 — duplieren_simple_2026-10-31.md) (10/29 02:0x 사장님 '두플리렌 50%' · 전 모르트슐라크 × 0.6 = 고노센 × 0.18)
   assert.equal(UA.dupOldShare, 0.5); // `?dupOld=1` 견줌 몫
   assert.equal(UA.dupSnapTime, 0); // 11/01 00:xx 사장님 '공격이 몇 초 안에 끝나야한다 이런 기준 없애라고 햇지' — 상한 없음(0)
   assert.equal(UA.dupEdge, 1);

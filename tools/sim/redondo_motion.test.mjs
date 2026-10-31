@@ -342,10 +342,10 @@ test('AI 풍차 베기 빠른 틈 · 성향 기력 아낌 (사장님 10/31 13:4x
     assert.equal(ai.phase, 'rdWind');
     assert.ok(E.rdWind);
   });
-  // (c) 기력 30 — 바탕 AI(규율 0.85 · 공격적 기질 아님): 아낌 0.85 × (쉼 20 + 감기 24) ≈ 37 > 30 → 바탕 동작
+  // (c) 기력 30 — 바탕 AI(규율 0.85 · 공격적 기질 아님): 아낌 0.85 × (쉼 20 + 감기 31.3) ≈ 44 > 30 → 바탕 동작 (11/01 메는 동안 초당 베기 한 번 값 — 츠바이핸더 16.1/s · 전 감기 24)
   once(({ ai, E, rd }) => {
     assert.equal(ai.aggressiveTemper, false);
-    assert.ok(Math.abs(ai.rdWindCost() - 24) < 0.5, `감기 한 번 몫 ${ai.rdWindCost()}`);
+    assert.ok(Math.abs(ai.rdWindCost() - 31.3) < 0.5, `감기 한 번 몫 ${ai.rdWindCost()}`); // 11/01 rdDrainCut (전 24)
     E.stamina.value = 30;
     assert.ok(ai.startAttack(rd, 'open', { noFeint: true }));
     assert.equal(ai.tech.name, rd.plain.name);

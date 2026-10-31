@@ -165,7 +165,7 @@ test('고유 공격 칸 글 = 고유 공격 표(PLAYER_UNIQUE): 스틱 쪽 · �
       assert.ok(e.hold && !e.on.length && !e.tapKey, `${x.id} 길게 누름 칸은 긋기 조건 · 탭 조건 없음`);
       assert.ok(c.startsWith('탭을 길게 ') && c.endsWith('떼기'), `${id} — 탭을 길게 누르다 떼기`);
       assert.ok(!c.includes('긋기') && !c.includes('공격'), `${id} — 긋기 · 공격으로는 안 남`);
-      assert.match(ua, /holdTick\(dt\) \{[\s\S]{0,1200}if \(!P\.still\) \{/, 'unique_assist.js holdTick — 끈 누름은 감지 않음');
+      assert.match(ua, /holdTick\(dt\) \{[\s\S]{0,1600}if \(!P\.still\) \{/, 'unique_assist.js holdTick — 끈 누름은 감지 않음'); // 창 1200 → 1600: 개발 가지 621a1011 이 holdTick 앞에 메는 동안 기력 줄을 넣어 1219 자가 됨
       assert.ok(src('main.js').includes('player.skill.uniq.holdInput(hs.down && !exhausted, hs.still, !!playerSecret?.open);'), 'main.js — 누름 상태 · 비기 창');
       continue;
     }
