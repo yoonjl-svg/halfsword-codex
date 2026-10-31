@@ -69,7 +69,7 @@ const TREE_SRC = {
       N({ id: 'B2', name: '옆 박차기', cat: 'foot', l1: '보법 II', l2: '옆 박차기', eff: '옆으로 누르면 첫 걸음을 박찬다', pre: ['B1'], price: 100, opt: true, d: 1, cx: 84, f: ['burstSide'] }),
       N({ id: 'B10', name: '손목 힘', cat: 'passive', l1: '패시브', l2: '손목 힘', eff: '큰 칼을 돌리는 손목 힘이 세진다', pre: ['B1'], price: 0, heads: 5, d: 1, cx: 252, f: ['passive'] }),
       N({ id: 'B3', name: '나선\u00a0걸음 베기', cat: 'atk', l1: '나선 걸음 베기', l2: '걸음 기술', eff: '옆으로 걸으며 사선으로 내려 긋는다', pre: ['B1'], price: 200, d: 1, cx: 420, u: 'talhoRodeado' }), // 10/29 01:1x 사장님 '나선 걸음 베기로 해' — 머리 위 돌려 베기 · 거듭 돌려 베기와 헷갈려서 이름만(전 '돌며 베기') · 10/29 01:4x '나선 걸음 / 베기 - 이렇게 줄을 바꿔' — 나선과 걸음 사이는 줄 안 바꿈 빈칸(\u00a0 — skill_tree.js nameOptions 는 보통 빈칸에서만 줄을 나눔)
-      N({ id: 'B4', name: '풍차 베기', cat: 'atk', l1: '풍차', l2: '베기', eff: '칼을 머리 위로 돌려서 강하게 내려 벤다', pre: ['B5'], price: 300, d: 2, cx: 560, u: 'redondo' }), // 10/29 01:3x 사장님 '흐르는 긋기와 머리 위 돌려 베기 스킬 위치를 바꿔 · 레돈두를 특수공격으로 · 이름을 특수공격 답게' · 01:5x '레돈두는 풍차 베기로' · 확인표 2726 · 2727 (전: 머리 위 돌려 베기 — 왼 가로베기 강화동작 · d 1 · cx 588 · B1 뒤 · 금화 200 — 값은 자리의 깊이를 따름) // 10/29 14:1x · 14:2x 사장님 글 (효과)
+      N({ id: 'B4', name: '정수리 가르기', cat: 'atk', l1: '정수리', l2: '가르기', eff: '칼을 어깨에 메었다가 온 몸으로 비스듬히 내려 가른다', pre: ['B5'], price: 300, d: 2, cx: 560, u: 'redondo' }), // 10/31 19:xx 사장님 결정 이름 '정수리 가르기'(전 '풍차 베기' · 확인표 3290) · 효과 글 = 사장님 글 '칼을 어깨에 메었다가 온 몸으로 비스듬히 내려 가른다'(19:xx — 전 10/29 14:xx '칼을 머리 위로 돌려서 강하게 내려 벤다' · 확인표 3297) // // 10/29 01:3x 사장님 '흐르는 긋기와 머리 위 돌려 베기 스킬 위치를 바꿔 · 레돈두를 특수공격으로 · 이름을 특수공격 답게' · 01:5x '레돈두는 풍차 베기로' · 확인표 2726 · 2727 (전: 머리 위 돌려 베기 — 왼 가로베기 강화동작 · d 1 · cx 588 · B1 뒤 · 금화 200 — 값은 자리의 깊이를 따름) // 10/29 14:1x · 14:2x 사장님 글 (효과)
       N({ id: 'B8', name: '쳐내기', cat: 'parry', l1: '막기 I', l2: '쳐내기', title: '막기 I · 쳐내기 (탈류 · 레베스)', eff: '높이 오는 칼을 베어 쳐낸다', pre: ['B1'], price: 200, d: 1, cx: 756, f: ['parry', 'parryCover'] }),
       N({ id: 'B11', name: '리스본에서 온 편지', cat: 'letter', l1: '리스본에서', l2: '온 편지', title: '리스본에서 온 편지', pre: ['B1'], price: 100, opt: true, d: 0, cx: 250, letter: true }),
       N({ id: 'B5', name: '흐르는 긋기', cat: 'atk', l1: '이어 긋기', l2: '흐름', eff: '이어 그을 때 칼이 멈추지 않고 다음 긋기로 흐른다', pre: ['B1'], price: 200, d: 1, cx: 588, f: ['ibFlow'] }), // 10/29 01:3x 머리 위 돌려 베기와 자리 바꿈 (전 d 2 · cx 560 · B4 뒤 · 금화 300)
@@ -144,7 +144,7 @@ const NODE_LORE = {
   B2: { lore: '오른발을 오른쪽 끝없는 선으로 옮기고, 왼발이 따르게 하라', src: '피게이레두 『Memorial da Prattica do Montante』(1651) — 복합 규칙 12' },
   B10: { lore: '왼손을 낮춰 몸에 붙여 굳게 하면, 칼이 더 큰 힘으로 나간다', src: '피게이레두 『Memorial da Prattica do Montante』(1651) — 복합 규칙 13' },
   B3: { lore: '같은 오른발을 다시 들이며, 왼발 위로 나사처럼 돌아 걸어라', src: '피게이레두 『Memorial da Prattica do Montante』(1651) — 단순 규칙 13' },
-  B4: { lore: '칼을 머리 위로 넘겨 어깨 뒤로 보내, 왼팔 위로 떨어뜨리며 둘러 벤다', src: '피게이레두 『Memorial da Prattica do Montante』(1651) — 복합 규칙 2' },
+  B4: { lore: '칼을 어깨에 감아 두었다가, 위에서 아래로 내려 베어라', src: '피게이레두 『Memorial da Prattica do Montante』(1651) — 복합 규칙 15' }, // 10/31 19:xx B4 다시 짬 — 피 복ⅩⅤ 「altibaxo pella mesma parte esquerda cingindo o montante ao hombro esquerdo」 · 「altibaxo para vir a cingir o montante com o braço dereyto」(docs/motion/iberian_montante_2026-10-10.md 원문 표)를 줄여 옮김 [풀이] · 'altibaxo forte' 는 이 낱말로 지은 이름(검술서 말 아님) · 전 복합 규칙 2 머리 위로 넘겨 둘러 벰
   B8: { lore: '맞선 무기가 오는 쪽에 따라, 탈류로 아니면 레베스로 쳐내라', src: '피게이레두 『Memorial da Prattica do Montante』(1651) — 단순 규칙 14' },
   B11: { lore: '부두에 큰 칼이 내릴 때마다, 선원들이 네게 먼저 보이자고 한다' }, // 10/23 (전 '리스본 항구에 큰 칼이 들거든, …')
   B5: { lore: '탈류에서 다른 탈류가 나고, 레베스에서 다른 레베스가 난다', src: '피게이레두 『Memorial da Prattica do Montante』(1651) — 맺음말' },

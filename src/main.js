@@ -393,8 +393,12 @@ if (params.has('stickGuardGrab')) CONFIG.INPUT.stickGuardGrab = +params.get('sti
 if (params.has('holdPx') && +params.get('holdPx') > 0) CONFIG.INPUT.holdPx = +params.get('holdPx'); // 길게 누름 떠돎 한도 (손가락 px — 10/31 · 기본 24 · 12 = 전 판 탭 문턱) [사장님 확인 전 — 확인표 3090]
 if (params.has('strokeMin')) CONFIG.STAMINA.humanStrokeMin = Math.max(0, +params.get('strokeMin') || 0); // 사람 긋기 청구 바닥 (패드 m — 10/31 · 기본 0.15 · 0 = 전 판 strokeTravel 0.06) [사장님 확인 전 — 확인표 3092]
 if (params.has('rdEdge')) CONFIG.UNIQUE_ASSIST.rdEdge = +params.get('rdEdge') < 0 ? -1 : 1; // 감는 칼 날 쪽 (기본 −1 — 사장님 확인 전)
-if (params.has('rdWind')) CONFIG.UNIQUE_ASSIST.rdWindMode = ['spin', 'slowSpin', 'shoulder'].includes(params.get('rdWind')) ? params.get('rdWind') : 'shoulder'; // 풍차 베기 감기 꼴 (사장님 10/29 20:0x 두 안 · 10/30 00:1x 'A로' · 10/31 02:xx 'b안으로 본판 적용해' — 기본 안 B 'shoulder' · 안 A 'slowSpin' · 10/29 판 'spin')
-if (params.has('rdRelease')) CONFIG.UNIQUE_ASSIST.rdRelease = params.get('rdRelease') === 'chamber' ? 'chamber' : 'direct'; // 풍차 베기 내려침 길 (사장님 10/30 00:1x '바로 내려치는 게 아닌가?' — 기본 'direct' 곧장 사선 · 'chamber' 10/29 판 왼 어깨 뒤 길)
+if (params.get('b4Old') === '1') CONFIG.applyB4Old(true); // B4 옛 판 견줌 (사장님 10/31 19:xx 다시 짬 — 기본 새 판 · 1 = 10/31 14:xx 판: 어깨에 얹음 · 곧장 사선 60° · 흐름의 첫 칼 · 아래 칸 하나하나는 그 위에 덮음)
+if (params.has('rdWind')) CONFIG.UNIQUE_ASSIST.rdWindMode = ['spin', 'slowSpin', 'shoulder', 'load'].includes(params.get('rdWind')) ? params.get('rdWind') : 'load'; // 풍차 베기 감기 꼴 (사장님 10/29 20:0x 두 안 · 10/30 00:1x 'A로' · 10/31 02:xx 'b안으로 본판 적용해' · 10/31 19:xx 어깨에 메기 — 기본 'load' · 10/31 08:xx 판 'shoulder' · 안 A 'slowSpin' · 10/29 판 'spin')
+if (params.has('rdRelease')) CONFIG.UNIQUE_ASSIST.rdRelease = ['chamber', 'direct', 'tajo'].includes(params.get('rdRelease')) ? params.get('rdRelease') : 'tajo'; // 풍차 베기 내려침 길 (사장님 10/30 00:1x '바로 내려치는 게 아닌가?' · 10/31 19:xx '45도~90도 사이로' — 기본 'tajo' 멘 어깨에서 내려침 · 'direct' 10/30 곧장 사선 · 'chamber' 10/29 판 왼 어깨 뒤 길)
+if (params.has('rdTajoAngle')) CONFIG.UNIQUE_ASSIST.rdTajo = { ...CONFIG.UNIQUE_ASSIST.rdTajo, angle: Math.min(90, Math.max(45, +params.get('rdTajoAngle') || CONFIG.UNIQUE_ASSIST.rdTajo.angle)) }; // B4 내려침 벰 면 각 (10/31 19:xx 사장님 '45도~90도 사이로' — 견줌용)
+if (params.has('rdAiOld')) CONFIG.UNIQUE_ASSIST.rdAiOld = +params.get('rdAiOld') ? 1 : 0; // AI B4 옛 판 (10/31 19:xx — 기본 0 = AI 도 새 꼴)
+if (params.has('ibWindApart')) CONFIG.IB_FLOW.windmillApart = +params.get('ibWindApart') ? 1 : 0; // B4 와 흐름 서로 닿지 않음 (10/31 19:xx 사장님 '이어지는 흐름과 무관' — 기본 1)
 if (params.has('rdAiWind')) CONFIG.UNIQUE_ASSIST.rdAiWind = +params.get('rdAiWind') ? 1 : 0; // AI 풍차 베기 = 사람과 같은 감기 · 내려침 (사장님 10/31 08:xx — 기본 1 · 0 = 옛 판 패드 길)
 if (params.has('rdAiQuick')) CONFIG.UNIQUE_ASSIST.rdAiQuick = +params.get('rdAiQuick') ? 1 : 0; // (a) 빠른 틈엔 감지 않고 바탕 동작 (사장님 10/31 13:4x — 기본 1 · 0 = 08:xx 판)
 if (params.has('rdAiThrift')) CONFIG.UNIQUE_ASSIST.rdAiThrift = +params.get('rdAiThrift') ? 1 : 0; // (c) 성향마다 기력 아낌 (사장님 10/31 13:4x — 기본 1 · 0 = 늘 감음)

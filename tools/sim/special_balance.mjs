@@ -30,6 +30,9 @@ import { MEASURED } from '../../src/weapon_measured.js';
 import { PlayerParryGuard } from '../../src/parry_button.js';
 import { classifyStroke } from '../../src/attack_stroke.js';
 import { isMain } from './is_main.mjs';
+import { applyB4Old } from '../../src/config.js';
+if (+(process.env.B4_OLD ?? 0)) applyB4Old(true); // B4 옛 판 견줌 (10/31 19:xx — `?b4Old=1` 과 같음)
+if (process.env.B4_ANGLE) CONFIG.UNIQUE_ASSIST.rdTajo = { ...CONFIG.UNIQUE_ASSIST.rdTajo, angle: +process.env.B4_ANGLE }; // B4 벰 면 각 견줌 (45 ~ 90)
 import { wristSample, outOfRange, OOR_EPS, ROLL_AT } from './wrist_audit.mjs';
 
 const UA = CONFIG.UNIQUE_ASSIST;
@@ -72,6 +75,10 @@ const p50 = (a) => {
   return s[Math.floor((s.length - 1) / 2)];
 };
 const RD_COMBO = +(process.env.RD_COMBO ?? 0.5); // 풍차 베기 시도 가운데 이어 긋기 사슬 안에서 누르는 몫 (rdBot · 10/29)
+// 10/31 19:xx B4 옆걸음 판 (사장님 '살짝 사선이어야 … 사이드 스텝 밟으면서 발동해서 더 잘 맞출 수 있어'): RD_SIDE=1 이면 뗄 때가 되면 먼저 스틱을 옆(무작위 왼 · 오른 — 이베리아 옆 박차기 B2)으로 밀고
+//  RD_SIDE_LEAD 실제 초 뒤에 뗌 · 뗀 뒤 0.12 게임 초까지 옆걸음 이어감 (기본 0 = 전과 같음 — 난수 수도 같음)
+const RD_SIDE = +(process.env.RD_SIDE ?? 0);
+const RD_SIDE_LEAD = CONFIG.realS(+(process.env.RD_SIDE_LEAD ?? 0.2));
 const RD_HELD = +(process.env.RD_HELD ?? 1); // 풍차 베기 누름 동안 손가락 닿음(handHeld) — 게임과 같음 (10/29 20:0x · RD_HELD=0 = 10/29 판 봇: 누르는 동안 손가락이 안 닿은 것으로 셈)
 const OTHER_RD = ['zornhau', 'zwerch', 'zornhauL', 'oberhau'].map((n) => ({ from: TECH_BY_NAME[n].from, path: TECH_BY_NAME[n].path }));
 const APPR = CONFIG.SKILL.recoverSpeed; // 1.2 패드 m/s — 손가락으로 자세를 잡는 빠르기 (게임의 자세로 돌아가기와 같은 수)
@@ -325,6 +332,7 @@ function cavBot(G, P, uq, bot, rnd, R, guard) {
     }
   };
   c.step = () => {
+    if (c.sideEnd != null && G.t > c.sideEnd) (c.side = 0), (c.sideEnd = null), (c.sideAt = null); // 옆걸음 판 끝 (RD_SIDE)
     if (c.stage === 'rdPre') {
       // 앞 칼(이어 긋기)이 끝나면 0.05 ~ 0.25 s 안에 누름 — 이어 긋기 창(0.6 s) 안
       if (bot.queue.length) return;
@@ -354,8 +362,15 @@ function cavBot(G, P, uq, bot, rnd, R, guard) {
       bot.hold = true; // 손가락이 닿아 있음 (feed → handHeld)
       c.stick = dist < (MEASURED[R.w] ?? MEASURED.longsword)[0] + 0.1 ? 0 : 0.6;
       if (uq.winding) c.bound = 1;
-      const go = uq.winding && dist <= c.releaseAt && (W?.turns ?? 0) >= c.minTurns;
+      let go = uq.winding && dist <= c.releaseAt && (W?.turns ?? 0) >= c.minTurns;
+      if (RD_SIDE && uq.winding && (go || c.sideAt != null)) {
+        // 옆걸음 판: 뗄 때가 되면 옆으로 먼저 딛고 RD_SIDE_LEAD 뒤에 뗌 (다가가기 스틱은 멈춤)
+        if (c.sideAt == null) (c.sideAt = G.t), (c.side = rnd() < 0.5 ? -1 : 1);
+        c.stick = 0;
+        go = G.t - c.sideAt >= RD_SIDE_LEAD;
+      }
       if (go || (uq.winding && G.t - c.t1 > 4) || (!uq.winding && G.t - c.t1 > UAc.rdHoldTime + 0.3)) {
+        if (c.sideAt != null) c.sideEnd = G.t + 0.12;
         uq.holdInput(false, true, false);
         bot.hold = false;
         c.second = uq.winding ? 1 : 0;
@@ -534,8 +549,8 @@ export function drillRun(rowKey, seed, { foe = 'still', variant = 'on', dur = 14
     // 아래 획 끝(길 점 1 — 맨 아래 [0, −0.5])을 지나 3 프레임까지 내 칼 ↔ 상대 몸 충돌 끔 (on · off 같은 프레임 — on 은 꺾는 순간부터 끌고 가는 칼이 제 충돌 끔을 둔다)
     if (ghost && R.combo && cur && bot.queue.length && bot.fed < (bot.marks[1] ?? 0) + 3) P.instantGhost = Math.max(P.instantGhost ?? 0, 2);
     const fwd = cav?.stick ?? Math.min(R.fwdCap ?? 1, stepIn(P, dist, bot.queue.length, t >= nextAtk && !cur, CONTACT, REACH, REACH + startAdd)); // 날개 접기 줄: 물러나는 손(스틱 뒤)
-    P.move.set(0, fwd);
-    P.stickX = 0;
+    P.move.set(cav?.side ?? 0, fwd); // side: B4 옆걸음 판 (RD_SIDE — 기본 0)
+    P.stickX = cav?.side ?? 0;
     P.stickY = fwd;
   };
   const pw = G.combat.hooks.onWound;
@@ -670,7 +685,7 @@ export function fightRun(rowKey, seed, opp, { variant = 'on', dur = 30, prof = 3
     const fNow = uq.stats?.fired?.[R.name] ?? 0;
     if (fNow > firedSeen) {
       firedSeen = fNow;
-      fireCur = { t: G.t, dist0: P.foeDistance(), snap: false, gap: Infinity, gapPart: null, minDist: Infinity, distSnap0: null, hits: [], res: null, done: false };
+      fireCur = { t: G.t, dist0: P.foeDistance(), snap: false, gap: Infinity, gapPart: null, minDist: Infinity, distSnap0: null, hits: [], res: null, done: false, ...(cav?.side ? { side: cav.side } : {}) }; // side: B4 옆걸음 판 쪽 (RD_SIDE — +1 칼 든 쪽)
       fires.push(fireCur);
     }
     if (!fireCur || fireCur.done) return;
@@ -778,7 +793,7 @@ export function fightRun(rowKey, seed, opp, { variant = 'on', dur = 30, prof = 3
     P.inputActive = guard.active;
     bot.feed();
     const fwd = cav?.stick ?? Math.min(R.fwdCap ?? 1, stepIn(P, dist, bot.queue.length, t >= nextAtk && !guard.held, CONTACT, REACH, REACH + startAdd));
-    P.move.set(inqHand ? inqHand.side : cav?.stick != null ? 0 : 0.18 * Math.sin(t * 0.65 + seed), inqHand ? 0 : fwd);
+    P.move.set(inqHand ? inqHand.side : cav?.side ? cav.side : cav?.stick != null ? 0 : 0.18 * Math.sin(t * 0.65 + seed), inqHand ? 0 : fwd); // cav.side: B4 옆걸음 판 (RD_SIDE — 기본 0)
     P.stickX = P.move.x;
     P.stickY = P.move.y;
   };
@@ -842,7 +857,7 @@ export function fightRun(rowKey, seed, opp, { variant = 'on', dur = 30, prof = 3
       dealt: r3(dealt), bleedDealt: r3(bleedDealt), recv: r3(recv), spSev: r3(spSev), spHits, strokesN, taps, counters,
       fired: { ...(uq.stats?.fired ?? {}) }, uqStrokes: slog.length, wind: windStats(uq),
       it: IT ? itStats(IT, uq, fires) : undefined,
-      fires: fires.map((x) => ({ dist0: r3(x.dist0), snap: x.snap, distSnap0: r3(x.distSnap0), minDist: r3(x.minDist), gap: r3(x.gap), gapPart: x.gapPart, hits: x.hits, res: x.res })),
+      fires: fires.map((x) => ({ dist0: r3(x.dist0), snap: x.snap, distSnap0: r3(x.distSnap0), minDist: r3(x.minDist), gap: r3(x.gap), gapPart: x.gapPart, hits: x.hits, res: x.res, ...(x.side ? { side: x.side } : {}) })), // side: B4 옆걸음 판 (RD_SIDE)
       downs: downs.length, downsMiss: downs.filter((s) => !s.landed).length,
       atts,
     };

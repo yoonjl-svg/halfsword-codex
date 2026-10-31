@@ -120,7 +120,9 @@ export const PLAYER_UNIQUE = {
     // 풍차 베기 (B4 레돈두 — 이베리아 특수 공격 · 사장님 10/29 01:3x '레돈두를 지금 우리가 개발 중인 특수공격으로' · 01:5x '레돈두는 풍차 베기로' — config UNIQUE_ASSIST.rdHold · 확인표 2727):
     //  사람 = role 'hold' — 탭을 길게 눌러 머리 위로 칼을 돌리다(iberian_redondo.js) 떼면 곧장 왼 위 → 오른 아래 사선으로 내려 벰(secret_instant.js requestArtRedondo — 10/30 rdRelease 'direct' · 'chamber' = 10/29 판 왼팔 위로 떨어뜨림) · 왼 가로베기는 사람에게 보통 긋기로 돌아감(긋기 조건 on 없음).
     //  ai = AI 몫 그대로(전 판 강화동작 — 왼 가로베기 대신 · enhancedMoves · sword_art.js 가 읽음) · stack = AI 이어 그을수록 맞는 순간 에너지 + 10 %(셋까지 — strokeHitK · 사람은 쌓기 칸이 없어 안 받음 — 10/29 B6 은 이어지는 흐름)
-    { stage: 3, name: 'redondo', role: 'hold', hold: 1, special: true, nameKo: '풍차 베기 (레돈두)', orig: 'redondo', hint: '탭을 길게 눌러 머리 위로 칼을 돌리다 떼면 내려 벤다', on: [], ai: { role: 'enh', replaces: 'zwerchL' }, stack: 0.1 },
+    // 10/31 19:xx 사장님 결정 — 이름 '정수리 가르기 (알티바슈 포르트)' (전 '풍차 베기 (레돈두)' · 확인표 3290): 원어 'altibaxo forte' 는 피게이레두의 낱말 altibaxo(위에서 아래로 내려 베기 — 피 단Ⅸ · 복ⅩⅤ)에
+    //  forte(센)를 붙여 지은 이름이고 검술서에 그대로 나오는 말은 아님 · 원어 글자는 대기실 스킬에서만(화면 글 지침 §1). 열쇠 name 'redondo' 는 그대로(바꾸면 저장 · 주소 · 시험이 닿음 — 기록 docs/strike/b4_rework_2026-10-31.md §7)
+    { stage: 3, name: 'redondo', role: 'hold', hold: 1, special: true, nameKo: '정수리 가르기 (알티바슈 포르트)', orig: 'altibaxo forte', hint: '탭을 길게 눌러 칼을 어깨에 메었다가 떼면 정수리로 내려 가른다', on: [], ai: { role: 'enh', replaces: 'zwerchL' }, stack: 0.1 },
   ],
   japanese: [
     { stage: 1, name: 'hirakiGiri', role: 'step', stick: 'side', hint: '옆으로 걸으며 왼 사선 내려 긋기', body: [-18, -12, 2, 0.02], bodyMirror: -1, /* 開き = 비스듬히 디딘 뒤 몸을 상대 쪽으로 엶 → 디딘 쪽의 반대로(오른쪽으로 디디면 왼쪽) · 원전에 몸 돌림 수 없음 — 10/21 확인 */ on: [{ tech: 'zornhauL' }] }, // 히라키기리 ← 옆 + 왼 분노의 베기
@@ -195,6 +197,17 @@ export function enhancedMoves(tradition) {
 const D2R = Math.PI / 180;
 /** 특수 공격 칼끝 빠르기 몫 (사장님 10/29 02:0x '모든 유파 특수공격을 고노센 곱하기 n으로' — config UNIQUE_ASSIST.specialShare · 확인표 2734): 끌고 가는 칼 칼끝 = 같은 칼 고노센 칼끝 × 이 몫 */
 export const specialShare = (name) => UA.specialShare?.[name] ?? 0;
+/**
+ * B4 내려침 길 고르기 (사람 windFire · AI rdFire 같은 셈 — requestArtRedondo 의 칸): UNIQUE_ASSIST.rdRelease 'tajo'(10/31 19:xx 기본 — 멘 어깨에서 반대쪽 아래로 · rdTajo ·
+ *  몸 = 이 감기 꼴 body 에서 풂) · 'direct'(10/30 곧장 사선 rdDiag) · 'chamber'(10/29 판 rdArc). '먼저 머리 위로' 자리 = 이 감기 꼴의 고리 (어깨 꼴은 10/29 판 고리 — windLoopOf).
+ *  AI 옛 판(rdAiOld 1)이면 AI 는 'direct'
+ */
+export function rdReleaseOpt(f, W, base) {
+  const rel = f?.aiControlled && UA.rdAiOld > 0 ? 'direct' : UA.rdRelease;
+  const o = { ...base, arc: UA.rdArc, loop: windLoopOf(W?.M) };
+  if (rel === 'tajo' && UA.rdTajo) return { ...o, tajo: UA.rdTajo, bodyFrom: W?.M?.body ?? null };
+  return { ...o, diag: rel === 'chamber' ? null : UA.rdDiag };
+}
 const _v = new THREE.Vector3();
 const _a = new THREE.Vector3();
 const _b = new THREE.Vector3();
@@ -797,7 +810,7 @@ export class PlayerUniqueAssist {
     const chain = !!mode && IB_FLOW.a && turns >= 1 && f.swordArt?.tradition === 'iberian' && !kitOff(f, 'ibFlow');
     const n = !chain ? 0 : mode === 'inside' && this.hold.chainN >= 0 ? this.hold.chainN + 1 : 1;
     f.ibStrike = chain ? { n, t0: this.t, newChain: !(mode === 'inside' && this.hold.chainN >= 0) } : null; // fighter.js updateIbFlow 가 칼이 끄는 동안 흐름을 켬 · newChain = 이 칼이 새 사슬의 첫 칼(세 칼 셈 — 10/29 14:2x)
-    const ok = UA.enhance > 0 && requestArtRedondo(f, { share: specialShare(e.name), maxT: UA.rdSnapTime, tech: U.name, arc: UA.rdArc, loop: windLoopOf(W?.M), diag: UA.rdRelease === 'chamber' ? null : UA.rdDiag }); // '먼저 머리 위로' 자리 = 이 감기 꼴의 고리 (어깨 꼴은 10/29 판 고리 — 10/29 20:0x) · 길 = 곧장 사선(10/30 rdRelease 'direct' — rdDiag) · 'chamber' 면 10/29 판 왼 어깨 뒤 길
+    const ok = UA.enhance > 0 && requestArtRedondo(f, rdReleaseOpt(f, W, { share: specialShare(e.name), maxT: UA.rdSnapTime, tech: U.name })); // 길 = rdReleaseOpt (10/31 19:xx 기본 'tajo' 멘 어깨에서 내려침 · 'direct' 10/30 곧장 사선 · 'chamber' 10/29 판)
     if (!ok) {
       f.ibStrike = null;
       this.stats.windCancel ??= {};

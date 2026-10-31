@@ -35,7 +35,7 @@ export const SCHOOLS = [
     { id: 'B2', cat: 'foot', name: '보법 II', sub: '옆 박차기', eff: '옆으로 첫 걸음을 박찬다', pre: ['B1'], price: 100, st: 'split', opt: true, d: 1, cx: 84 },
     { id: 'B10', cat: 'passive', name: '패시브', sub: '손목 힘', eff: '손목 힘 30% — 큰 칼을 빨리 돌린다 (보법 바로 아래)', pre: ['B1'], price: 0, heads: 10, st: 'now', d: 1, cx: 252 },
     { id: 'B3', cat: 'atk', name: '둥근 걸음', sub: '탈류', eff: '옆으로 돌며 내려베기 (걸음 명령)', pre: ['B1'], price: 200, st: 'split', d: 1, cx: 420 },
-    { id: 'B4', cat: 'atk', name: '풍차', sub: '베기', eff: '칼을 머리 위로 돌려서 강하게 내려 벤다', pre: ['B5'], price: 300, st: 'split', d: 2, cx: 560 }, // 10/29 01:3x 사장님 '흐르는 긋기와 머리 위 돌려 베기 스킬 위치를 바꿔' · 레돈두 = 특수 공격 · 01:5x '풍차 베기' · 한 바퀴 넘게 돌리면 이어 그은 칼 하나(× 1.2)
+    { id: 'B4', cat: 'atk', name: '정수리', sub: '가르기', eff: '칼을 어깨에 메었다가 온 몸으로 비스듬히 내려 가른다', pre: ['B5'], price: 300, st: 'split', d: 2, cx: 560 }, // 10/31 19:xx 사장님 이름 '정수리 가르기' · 효과 글 사장님 글 · 흐름과 무관 (전 '풍차 베기') // 10/29 01:3x 사장님 '흐르는 긋기와 머리 위 돌려 베기 스킬 위치를 바꿔' · 레돈두 = 특수 공격 · 01:5x '풍차 베기' · 한 바퀴 넘게 돌리면 이어 그은 칼 하나(× 1.2)
     { id: 'B8', cat: 'parry', name: '막기 I', sub: '쳐내기', eff: '높이 오는 칼을 베어 쳐낸다', pre: ['B1'], price: 200, st: 'split', d: 1, cx: 756 },
     { id: 'B11', cat: 'letter', name: '리스본에서', sub: '온 편지', eff: '이베리아 무기가 나올 확률 ×2', pre: ['B1'], price: 100, st: 'new', opt: true, d: 0, cx: 250 },
     { id: 'B5', cat: 'atk', name: '이어 긋기', sub: '흐름', eff: '이어 그을 때 칼을 덜 세워 흐르듯', pre: ['B1'], price: 200, st: 'split', d: 1, cx: 588 }, // 10/29 01:3x 머리 위 돌려 베기와 자리 바꿈

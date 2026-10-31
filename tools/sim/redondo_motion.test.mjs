@@ -8,6 +8,7 @@ import assert from 'node:assert/strict';
 import { CONFIG, newRound, DT, THREE } from './harness_m.mjs';
 import { PlayerUniqueAssist } from '../../src/unique_assist.js';
 import { windSpec, windRate } from '../../src/iberian_redondo.js';
+import { applyB4Old } from '../../src/config.js';
 
 const UA = CONFIG.UNIQUE_ASSIST;
 const { realS, IB_FLOW } = CONFIG;
@@ -59,21 +60,26 @@ function sway(B, holdS) {
 test('기본값 — 휘청 고침 켬 · 감기 꼴 = 안 B(shoulder — 사장님 10/31 02:xx \'풍차 베기. 아까 b안으로 본판 적용해.\' · 10/30 00:1x 판 안 A) · 얹은 채 0.6 s = 감음(얹은 때부터 — 감독 해석) · 안 A 한 바퀴 1.2 s (시간 사다리) · 내려침 = 곧장 사선(direct)', () => {
   assert.equal(UA.rdSteady, 1);
   assert.equal(UA.rdRamp, 1);
-  assert.equal(UA.rdWindMode, 'shoulder');
+  assert.equal(UA.rdWindMode, 'load'); // 10/31 19:xx B4 다시 짬 — 어깨에 메기 (전 10/31 02:xx 안 B 'shoulder' — `?b4Old=1`)
   assert.ok(Math.abs(UA.rdSlow.loopT - realS(1.2)) < 1e-12);
   assert.ok(Math.abs(UA.rdSlow.windIn - realS(0.6)) < 1e-12);
   assert.ok(Math.abs(UA.rdShoulder.windIn - realS(0.6)) < 1e-12);
   assert.ok(Math.abs(UA.rdShoulder.woundT - realS(0.6)) < 1e-12);
   assert.equal(UA.rdShoulder.woundFrom, 'rest'); // 10/31 감독 해석 · 사장님 확인 전 — 'start' = 10/29 판 셈(감기 시작부터)
-  assert.equal(windSpec().kind, 'shoulder');
-  assert.equal(windRate(), 0, '안 B 는 돌지 않음');
+  assert.equal(windSpec().kind, 'shoulder'); // 메기 'load' 는 어깨 꼴과 같은 놓기 (자리만 rdLoad)
+  assert.equal(windSpec().name, 'load');
+  assert.ok(Math.abs(UA.rdLoad.windIn - realS(0.6)) < 1e-12);
+  assert.ok(Math.abs(UA.rdLoad.woundT - realS(0.6)) < 1e-12);
+  assert.equal(windRate(), 0, '메기 · 안 B 는 돌지 않음');
   assert.ok(Math.abs(windRate({ ...UA.rdSlow }) - (2 * Math.PI) / UA.rdSlow.loopT) < 1e-12, '안 A 한 바퀴');
-  assert.equal(UA.rdRelease, 'direct'); // 10/30 00:1x '바로 내려치는 게 아닌가?' — 'chamber' = 10/29 판 왼 어깨 뒤 길
+  assert.equal(UA.rdRelease, 'tajo'); // 10/31 19:xx 멘 어깨에서 내려침 (전 10/30 'direct' 곧장 사선 · 'chamber' = 10/29 판 왼 어깨 뒤 길)
+  assert.ok(UA.rdTajo.angle >= 45 && UA.rdTajo.angle <= 90, '사장님 10/31 19:xx \'45도~90도 사이로\'');
+  assert.equal(UA.rdAiOld, 0, 'AI 도 새 꼴');
   assert.deepEqual({ ...UA.rdDiag }, { angle: 60, from: 95, to: -45, at: 0.7, pull: 0, target: 'lung', lowY: 0.35 }); // angle 60 — 사장님 10/30 01:3x '그래 60도로 진행해' (벰 면이 땅과 이루는 각)
 });
 
 test('휘청 고침 — 네 칼(츠바이핸더 · 플랑베르주 · 티소나 · 듀란달) 손가락을 대고 길게 눌러 감아도(안 B 기본 · 안 A 둘 다) 가슴이 크게 안 젖혀지고 · 무게중심이 발 둘레 안 · 안 넘어짐 / 고치기 전(rdSteady 0)은 휘청', () => {
-  for (const mode of ['shoulder', 'slowSpin'])
+  for (const mode of ['load', 'shoulder', 'slowSpin'])
     for (const weapon of ['zweihander', 'flamberge', 'tizona', 'durandal']) {
       const B = body({ weapon, set: { rdWindMode: mode } });
       try {
@@ -195,17 +201,22 @@ test('흐르는 긋기 셈 (IB_FLOW.windmillChain simple) — 안 B 는 어깨�
       return uq.stats.windChain?.at(-1);
     } finally { B.free(); }
   };
+  applyB4Old(true); // 흐름 셈은 10/31 14:xx 판 몫 (10/31 19:xx 부터 B4 는 흐름과 무관 — redondo_hold.test.mjs)
+  try {
   assert.equal(IB_FLOW.windmillChain, 'simple');
   assert.equal(run(0.8), 0, '감기 0.8 s = 얹은 지 0.2 s → 셈 없음');
   assert.equal(run(1.0), 0, '얹은 지 0.4 s → 셈 없음');
   assert.equal(run(1.4), 1, '얹은 채 0.8 s → n 1');
   assert.equal(run(0.8, 'start'), 1, "10/29 판 셈(woundFrom 'start') — 감기 0.6 s 넘으면 n 1");
+  } finally { applyB4Old(false); }
 });
 
 test('내려침 길 [안 A 고리] (사장님 10/30 00:1x \'궤적이 8자 모양으로 현란해 보이는데. 바로 내려치는 게 아닌가?\') — 곧장 사선(direct): 원 어디서 떼도 칼끝이 머리 위에 머문 채 왼 위로 들려 왼 위 → 오른 아래로 벰 · 10/29 판(chamber)은 칼끝이 어깨 뒤로 떨어지는 고리', async () => {
   const { traceRun, figure8 } = await import('./redondo_trace.mjs');
   const keepWind = UA.rdWindMode;
+  const keepRel = UA.rdRelease;
   UA.rdWindMode = 'slowSpin'; // 안 A 를 덮음 (10/31 부터 기본은 안 B — 아래 시험)
+  UA.rdRelease = 'direct'; // 10/30 곧장 사선 (10/31 19:xx 부터 기본은 멘 어깨에서 내려침 'tajo')
   try {
   for (const release of [1.6, 2.2]) {
     const r = traceRun({ w: 'zweihander', release });
@@ -223,11 +234,13 @@ test('내려침 길 [안 A 고리] (사장님 10/30 00:1x \'궤적이 8자 모�
     assert.ok(m.leadBack < -0.7 && m.leadLow < 0.6, `10/29 판 — 칼끝이 가슴 뒤 ${m.leadBack} m · 높이 ${m.leadLow} m 로 떨어짐 (8 자의 둘째 고리)`);
     assert.ok(m.leadLen > 2.5, `드는 길 ${m.leadLen} m`);
   } finally { UA.rdRelease = keep; }
-  } finally { UA.rdWindMode = keepWind; }
+  } finally { UA.rdWindMode = keepWind; UA.rdRelease = keepRel; }
 });
 
 test('내려침 길 [안 B 어깨 — 10/31 기본] 곧장 사선 60°: 어깨에 얹은 칼을 떼어 들면 칼끝이 얹은 자리보다 더 뒤로 가지 않고 머리 위에 머문 채(어깨 뒤 고리 · 8 자 없음) 왼 위 → 오른 아래로 벰 · 칼날이 제 몸을 지나지 않음 · 섞는 첫머리에 떼어도 같음', async () => {
   const { traceRun, figure8 } = await import('./redondo_trace.mjs');
+  applyB4Old(true); // 10/31 14:xx 판 (`?b4Old=1` — 안 B 어깨 · 곧장 사선 60°)
+  try {
   assert.equal(UA.rdWindMode, 'shoulder');
   for (const release of [0.4, 1.4]) { // 0.4 s = 아직 어깨로 섞는 중 · 1.4 s = 얹은 채 0.8 s
     const r = traceRun({ w: 'zweihander', release });
@@ -240,6 +253,7 @@ test('내려침 길 [안 B 어깨 — 10/31 기본] 곧장 사선 60°: 어깨�
     assert.ok(m.cutZ[0] < -0.5 && m.cutZ[1] > 0.2, `왼 → 오른 — 칼끝 옆 ${m.cutZ}`);
     assert.ok(r.selfBlade > 0.05, `${release} s — 칼날 ↔ 내 몸 가장 가까이 ${r.selfBlade} m`);
   }
+  } finally { applyB4Old(false); }
 });
 
 test('AI 풍차 베기 (사장님 10/31 08:xx \'플레이어만 그런 건가? 누가봐도 레돈두 준비처럼 보여야해.\' — UNIQUE_ASSIST.rdAiWind): 머리 위 돌려 베기를 고르면 사람과 같은 감기(안 B 어깨에 얹음 — 칼끝이 머리 위로 솟음)로 다가가 감음 뒤 닿는 거리에서 같은 곧장 사선 내려침 · 밧줄 다시 · 0 = 옛 패드 길', async () => {
@@ -253,7 +267,7 @@ test('AI 풍차 베기 (사장님 10/31 08:xx \'플레이어만 그런 건가? �
       const E = G.enemy;
       for (let i = 0; i < Math.round(2.0 / DT); i++) G.step();
       assert.ok(G.ai.startAttack({ ...t, plain: null }, 'open', { noFeint: true }));
-      const o = { phases: new Set(), restTipY: null, rdMove: false, wound: false, ropesBack: null, kind: E.rdWind?.M?.kind ?? null };
+      const o = { phases: new Set(), restTipY: null, rdMove: false, wound: false, ropesBack: null, kind: E.rdWind?.M?.kind ?? null, name: E.rdWind?.M?.name ?? null, tajo: false };
       const w0 = G.wounds.length;
       for (let i = 0; i < Math.round(4.0 / DT); i++) {
         G.step();
@@ -264,7 +278,7 @@ test('AI 풍차 베기 (사장님 10/31 08:xx \'플레이어만 그런 건가? �
           o.restTipY = E.bladePoint(1, new THREE.Vector3()).y - c.y;
           o.placed = E.armsPlaced();
         }
-        if (E.iai?.moves?.[0]?.rd) o.rdMove = true;
+        if (E.iai?.moves?.[0]?.rd) { o.rdMove = true; if (E.iai.moves[0].rd.tajo) o.tajo = true; }
         if (o.rdMove && !E.iai && o.ropesBack == null && G.ai.phase !== 'rdStrike') o.ropesBack = false;
         if (o.ropesBack === false && E.shoulderRopes?.length && E.gripCone?.length) o.ropesBack = true;
       }
@@ -275,14 +289,27 @@ test('AI 풍차 베기 (사장님 10/31 08:xx \'플레이어만 그런 건가? �
   };
   assert.equal(UA.rdAiWind, 1);
   const on = run(1);
-  assert.equal(on.kind, 'shoulder', '사람과 같은 감기 꼴');
+  assert.equal(on.kind, 'shoulder', '사람과 같은 감기 꼴 (놓기 틀)');
+  assert.equal(on.name, 'load', '10/31 19:xx — AI 도 어깨에 메기 (rdAiOld 0)');
   assert.ok(on.phases.has('rdWind') && on.phases.has('rdStrike'), [...on.phases].join(','));
   assert.equal(on.placed, true, '감는 동안 두 팔 · 칼을 놓음');
-  assert.ok(on.restTipY > 1.2, `얹은 칼끝 가슴 위 ${on.restTipY?.toFixed(2)} m`);
+  assert.ok(on.restTipY < -0.2, `멘 칼끝 가슴 아래 ${on.restTipY?.toFixed(2)} m (땅 쪽으로 기욺)`);
+  assert.equal(on.tajo, true, '내려침 = 멘 어깨에서 내려침');
   assert.equal(on.rdMove, true, '내려침 = 사람 풍차 베기 운동학 칼');
   assert.equal(on.wound, true, '서 있는 사람을 벰');
   assert.equal(on.ropesBack, true, '내려침 뒤 밧줄 다시');
   assert.equal(on.stats.fire, 1);
+  // AI 옛 판 (rdAiOld 1 — 10/31 14:xx 판 어깨 'shoulder' · 곧장 사선): 사람 기본은 그대로
+  const keepOld = UA.rdAiOld;
+  UA.rdAiOld = 1;
+  try {
+    const old = run(1);
+    assert.equal(old.kind, 'shoulder');
+    assert.equal(old.name, null, 'AI 옛 판 = 안 B');
+    assert.ok(old.restTipY > 1.2, `옛 얹은 칼끝 가슴 위 ${old.restTipY?.toFixed(2)} m`);
+    assert.equal(old.tajo, false, '옛 판 = 곧장 사선');
+    assert.equal(UA.rdWindMode, 'load');
+  } finally { UA.rdAiOld = keepOld; }
   const off = run(0);
   assert.equal(off.kind, null);
   assert.ok(!off.phases.has('rdWind') && off.phases.has('strike'), `옛 패드 길 — ${[...off.phases].join(',')}`);

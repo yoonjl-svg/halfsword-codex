@@ -29,7 +29,7 @@ import { resolveSwordArt } from './sword_art.js'; // 검술 풀이: 유파 꾸�
 import { spendAweDrain } from './stamina.js'; // 티소나 '위세' (10/21 — 내 공격이 상대 칼에 막히면 막은 쪽 기력 −, afterStrike)
 import { schoolPassiveOn } from './school_passive.js'; // 유파 패시브 스위치 (10/21 — 이베리아 손목 힘 · 나머지 넷은 fighter.schoolPassive)
 import { beginFlowRecovery } from './nagashi_recovery.js'; // 칼끝 돌려 빼기 심화 · 헛누름 AI 몫 — 상대 두 팔 늦춤 (10/31)
-import { aiUniqueStages, PLAYER_UNIQUE, specialShare } from './unique_assist.js'; // 숙련도 거르기 (10/13): 고유 동작·패시브 단계 표 한 곳
+import { aiUniqueStages, PLAYER_UNIQUE, specialShare, rdReleaseOpt } from './unique_assist.js'; // 숙련도 거르기 (10/13): 고유 동작·패시브 단계 표 한 곳
 import { installCover } from './frames.js'; // 유파 막기 자리 몸꼴 덧씌우기 (10/11 중국 — schools.js parryCover)
 import { MEASURED } from './weapon_measured.js';
 import { routeAroundStageObstacle, obstacleSegmentBlocked, OBSTACLE_ROUTE } from './arena_obstacle.js'; // 잠든 습지 가운데 석상: 막힌 길이면 스틱 방향만 둘레로 (석상 없는 무대는 아무 일 없음)
@@ -1278,7 +1278,7 @@ export class AI {
   }
   /** 감기 한 번 몫 기력: 감는 동안(rdDrain × '감음'까지 게임 초 windWoundT) + 내려침 베기(cutCost) — 츠바이핸더 안 B 12 + 12 = 24 */
   rdWindCost() {
-    return UA.rdDrain * windWoundT(windSpec()) + STAMINA.cutCost;
+    return UA.rdDrain * windWoundT(windSpec(this.me)) + STAMINA.cutCost;
   }
   /** 머리 위 돌려 베기를 감기 대신 바탕 동작으로 바꿀 까닭 — 'quick'(a) · 'low'(c) · null (감기 길 rdAiWind 일 때만 · 비기 칼 · 속임은 아님)
    *  (a) 빠른 틈 = this.quick 과 같은 셈(SLOW_WHY 밖의 why — 상대 헛친 뒤 recover · 들어옴 stepin · 맞받기 counter · stop · 이어 치기 follow · 패시브 …) 또는 이어 치기(opt.chain) — 감기 1.2 ~ 1.4 s 가 못 끝나는 틈
@@ -1611,7 +1611,7 @@ export class AI {
     const W = me.rdWind;
     const R = windEnd(me, true);
     this.rd = { ...(this.rd ?? {}), ropes: R ?? this.rd?.ropes ?? null, fade: 0.12 };
-    const ok = UA.enhance > 0 && requestArtRedondo(me, { share: specialShare('redondo'), maxT: UA.rdSnapTime, tech: 'redondo', arc: UA.rdArc, loop: windLoopOf(W?.M), diag: UA.rdRelease === 'chamber' ? null : UA.rdDiag });
+    const ok = UA.enhance > 0 && requestArtRedondo(me, rdReleaseOpt(me, W, { share: specialShare('redondo'), maxT: UA.rdSnapTime, tech: 'redondo' })); // 사람 windFire 와 같은 길 고르기 (10/31 19:xx — 기본 멘 어깨에서 내려침 · rdAiOld 면 곧장 사선)
     if (!ok) {
       const C = (this.stats.rdWind ??= { begin: 0, fire: 0, cancel: {} }).cancel;
       C.noStrike = (C.noStrike ?? 0) + 1;
@@ -1620,7 +1620,10 @@ export class AI {
     me.stamina.attack('cut');
     this.phase = 'rdStrike';
     this.path.length = 0;
-    this.strikeCue(this.tech);
+    // 기술 알림 = 사람 B4 와 같은 이름 (10/31 19:xx 사장님 '정수리 가르기 (알티바슈 포르트)' — 같은 감기 · 내려침이라 사람 표 이름 · 옛 패드 길 rdAiWind 0 은 schools.js 이름 그대로)
+    const B4 = PLAYER_UNIQUE.iberian?.find((e) => e.name === 'redondo');
+    if (B4?.nameKo && !this.passiveAtk && !this.secretRun) this.setTechCue(B4.nameKo, 'unique');
+    else this.strikeCue(this.tech);
     const sp = this.specialNow();
     if (sp) this.specStart(sp);
     const st = (this.stats.rdWind ??= { begin: 0, fire: 0, cancel: {} });
