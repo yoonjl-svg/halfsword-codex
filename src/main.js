@@ -346,6 +346,7 @@ if (params.has('dupBurstSync')) CONFIG.UNIQUE_ASSIST.dupBurstSync = [0, 1, 2].in
 if (params.has('dupBurstT') && +params.get('dupBurstT') >= 0) CONFIG.UNIQUE_ASSIST.dupBurstT = CONFIG.realS(+params.get('dupBurstT')); // 겹치기 박차기 시간 (실제 초)
 if (params.has('dupBurstFit')) CONFIG.UNIQUE_ASSIST.dupBurstFit = +params.get('dupBurstFit') ? 1 : 0; // 박차기 길이 맞춤 (겹치기가 가장 잘 드는 거리까지 — 사장님 11/01 00:xx)
 if (params.has('dupFitPoint') && +params.get('dupFitPoint') > 0) CONFIG.UNIQUE_ASSIST.dupFitPoint = Math.min(1, +params.get('dupFitPoint'));
+if (params.has('dupFitFloor') && +params.get('dupFitFloor') > 0) CONFIG.UNIQUE_ASSIST.dupFitFloor = +params.get('dupFitFloor');
 if (params.has('dupBurstMatch')) CONFIG.UNIQUE_ASSIST.dupBurstMatch = [0, 1, 2].includes(+params.get('dupBurstMatch')) ? +params.get('dupBurstMatch') : 0; // 박차기 몸 꼴: 0 고르게 · 1 첫 걸음 박차기 물리(빨라짐 · 세게 멈춤) · 2 빨라짐만
 // 특수 공격 칼끝 빠르기 몫 (사장님 10/29 02:0x — 같은 칼 고노센 칼끝 × 몫 · config UNIQUE_ASSIST.specialShare 한 곳): `?specialShare=redondo:0.5,lianchi:0.5` · 옛 이름 `?tsuSnapShare=` · `?cavSnapShare=` · `?lianSnapShare=` · `?dupSnapShare=` · `?rdSnapShare=` 도 그 칸(값 = 고노센 몫)
 {

@@ -2573,23 +2573,32 @@ function comboPlanDupLine(f, I, m, A) {
   let fit = null;
   if (sl && m.step?.fit && (m.step?.sync ?? 1) === 1) {
     // 박차기 길이 맞춤 (사장님 11/01 00:xx — 독일 박차기 ② 간격 잡기처럼 '가장 잘 드는 거리'까지): 걸음 s 를 바꿔 가며 짠 얼굴 베기가 얼굴을 칼날 fit.point 자리에서 지나게 —
-    //  어긋남 = (지나는 칼날 자리 − point) × 칼날 길이 + 못 닿는 몫(칼날 ↔ 얼굴 3 cm 넘음) → 그만큼 더(덜) 들어감 (칼이 얼굴을 지날 때 몸이 간 몫 k 로 나눔) · 3 cm 안이면 멈춤 · 넷까지
+    //  어긋남 = (지나는 칼날 자리 − point) × 칼날 길이 ± 못 닿는 몫(칼날 ↔ 얼굴 3 cm 넘음 — 칼끝 너머 + · 코등이 안쪽 −) → 그만큼 더(덜) 들어감 (칼이 얼굴을 지날 때 몸이 간 몫 k 로 나눔 · 양쪽이 잡히면 할선 / 가운데) · 3 cm 안이면 멈춤 · 여섯까지
     const dir = sl.clone().normalize();
-    const sMax = I.slide.slide; // 죽음의 일격 거리까지 (comboMoveStart)
+    const sMax = I.slide.slide; // 몸통이 맞닿는 거리까지 (comboMoveStart — st.stop = fit.floor · 사장님 11/01 00:xx '들어가도 돼. 제한 없이')
     const Lb = f.weaponCfg.bladeLength;
     const pt = m.step.fit.point ?? 0.6;
     let sv = Math.min(sMax, 0.45);
     let best = null;
-    for (let it = 0; it < 4; it++) {
+    let lo = null; // 덜 들어간 쪽 (어긋남 > 0 — 더 들어가야 함)
+    let hi = null; // 더 들어간 쪽 (어긋남 < 0)
+    for (let it = 0; it < 6; it++) {
       I.slide.slide = Math.max(1e-3, sv);
       const pr = dupBurstProfile(f, I, m, GAIT.burstT);
-      const Tf = Math.min(GAIT.burstT, Math.max(pr.T, 0.1));
+      const Tf = Math.max(pr.T, 0.1); // 앞발은 몸이 다 들어가 설 때 디딤 (아래 sync 1 과 같은 규칙)
       const kk = clamp(pr.pos(Tf + (z?.tFace ?? 0.05)) / I.slide.slide, 0, 1);
       z = build(P0.clone().addScaledVector(dir, -kk * sv));
-      const err = (z.tB - pt) * Lb + Math.max(0, z.dFace - 0.03);
+      const err = (z.tB - pt) * Lb + (z.tB >= 0.99 ? 1 : z.tB <= 0.01 ? -1 : 0) * Math.max(0, z.dFace - 0.03); // 못 닿는 몫: 얼굴이 칼끝 너머면 더 들어감 · 코등이 안쪽(너무 가까움)이면 덜
       if (!best || Math.abs(err) < Math.abs(best.err)) best = { s: sv, z, k: kk, err, it };
       if (Math.abs(err) < 0.03) break;
-      const sN = clamp(sv + err / Math.max(0.5, kk), 0, sMax);
+      if (err > 0 && (!lo || sv > lo.s)) lo = { s: sv, err };
+      if (err < 0 && (!hi || sv < hi.s)) hi = { s: sv, err };
+      let sN;
+      if (lo && hi && hi.s > lo.s) {
+        // 사이에 끼면 할선 (끝에 너무 붙으면 가운데)
+        sN = lo.s + ((hi.s - lo.s) * lo.err) / (lo.err - hi.err);
+        if (!(sN > lo.s + 0.1 * (hi.s - lo.s) && sN < hi.s - 0.1 * (hi.s - lo.s))) sN = 0.5 * (lo.s + hi.s);
+      } else sN = clamp(sv + err / Math.max(0.5, kk), 0, sMax);
       if (Math.abs(sN - sv) < 0.01) break;
       sv = sN;
     }
@@ -2631,7 +2640,7 @@ function comboPlanDupLine(f, I, m, A) {
     if (sync === 1) {
       Tfoot = m.step?.burstT > 0 ? m.step.burstT : GAIT.burstT;
       prof = dupBurstProfile(f, I, m, Tfoot);
-      if (m.step?.fit && prof.mode > 0) Tfoot = Math.min(Tfoot, Math.max(prof.T, 0.1)); // 길이 맞춤: 짧은 걸음은 몸이 서는 때 디딤 (박찬 걸음보다 길게는 안 함)
+      if (m.step?.fit && prof.mode > 0) Tfoot = Math.max(prof.T, 0.1); // 길이 맞춤: 앞발은 몸이 그 거리에 다 들어가 설 때 디딤 → 칼은 그 자리에서 출발 (박찬 걸음 0.22 s 로 디디면 긴 걸음은 몸이 아직 가는 중에 칼이 얼굴을 지나 맞춘 거리가 소용없음 — 11/01 재기)
       for (let it = 0; it < 2; it++) {
         const k2 = clamp(prof.pos(Tfoot + z.tFace) / I.slide.slide, 0, 1);
         if (Math.abs(k2 - k) < 0.02) break;
@@ -2809,7 +2818,7 @@ function comboMoveStart(f, I, mi) {
   I.blockM = false;
   I.slide = null;
   const st = m.step;
-  const fwd = st?.fit ? 9 : typeof st?.fwd === 'number' ? st.fwd : 0; // 겹치기 박차기 길이 맞춤 (11/01): 걸음 한도는 죽음의 일격 거리까지 — 길이는 길을 짜며 정함 (comboPlanDupLine)
+  const fwd = st?.fit ? 9 : typeof st?.fwd === 'number' ? st.fwd : 0; // 겹치기 박차기 길이 맞춤 (11/01): 걸음 한도는 st.stop(몸통이 맞닿는 거리)까지 — 길이는 길을 짜며 정함 (comboPlanDupLine)
   if (!fwd || !f.foe) return;
   const M = f.swordArt.measure;
   const c = f.bodies.chest.translation();
@@ -3237,7 +3246,7 @@ export function requestArtFold(f, { share, maxT, tech, step = null }) {
 export function requestArtDup(f, { share, maxT, tech, face = 0, follow = 25, plan = null, body = null, edge = 1, step = null, old = true, burst = null }) {
   if (f.iai || f.iaiReq || !(share > 0) || !f.foe?.bodies?.head || !f.foe.armed || !f.foe.sword) return false;
   // old: 10/28 길 (comboPlanDup — 감기 · 밀어 넣기) · 아니면 단순 길 (comboPlanDupLine — 10/31 19:xx) · burst { fwd, free }: 앞 박차기 (dupBurstStart — 죽음의 일격 거리에서 멈춤)
-  const st = burst?.fwd > 0 ? { kind: 'lunge', fwd: burst.fwd, close: true, stop: SECRET.mordCloseN ?? 0.8, burst: true, free: !!burst.free, sync: burst.sync ?? 1, burstT: burst.T ?? 0, match: burst.fit ? burst.match || 1 : burst.match ?? 0, fit: burst.fit ?? null } : step ? { ...step, close: true } : null;
+  const st = burst?.fwd > 0 ? { kind: 'lunge', fwd: burst.fwd, close: true, stop: burst.fit ? burst.fit.floor ?? 0.5 : SECRET.mordCloseN ?? 0.8, burst: true, free: !!burst.free, sync: burst.sync ?? 1, burstT: burst.T ?? 0, match: burst.fit ? burst.match || 1 : burst.match ?? 0, fit: burst.fit ?? null } : step ? { ...step, close: true } : null;
   requestCombo(f, { moves: [{ name: tech, kind: 'cut', cutSweep: true, same: true, roll: true, dup: true, edge, plan: old ? plan : null, bodyPose: body, ...(old ? {} : { hintBody: true }), ...(st ? { step: st } : {}), dyn: { kind: 'dup', face, follow, old: !!old, edgeLead: old ? 0 : 1 } }], share, hold: 0, hitMul: 1, tech, maxT, keepAim: true, attack: true }); // step: 시제품 앞 걸음(10/31 UNIQUE_ASSIST.dupStep — 기본 없음 · 박차기가 있으면 안 씀)
   return true;
 }
