@@ -1760,10 +1760,12 @@ export class Skill {
       this.cutPending = true;
       this.recovering = false;
     }
-    // 얹은 손가락 (10/31 SKILL.restTouch — 사장님 확인 전): 닿은 자리에서 길게 누름 한도(INPUT.holdPx)를 넘게 끌지 않은 손가락(main.js handGrip 거짓)은
+    // 얹은 손가락 (10/31 SKILL.restTouch — 사장님 11/01 결정): 닿은 자리에서 길게 누름 한도(INPUT.holdPx)를 넘게 끌지 않은 손가락(main.js handGrip 거짓)은
     //  손을 뗀 것과 같다 — 닿음(touched) · 움직임(moved) 둘 다 아님(엄지 떨림 · 떠돎이 쉼 자세를 날것으로 끌어내리지 않게). 풍차 베기 감는 동안은 전과 같이 쥠.
-    //  handGrip 이 없는 몸(AI · 시뮬 대본)은 handHeld · inputActive 그대로
-    const restFinger = !!SKILL.restTouch && f.handGrip === false && !this.uniq?.winding;
+    //  handGrip 이 없는 몸(AI · 시뮬 대본)은 handHeld · inputActive 그대로.
+    //  손을 쥐는 다른 길은 그대로 쥠(11/01): 막기 단추가 이 스텝 손을 쥠(parryGuard.active — 단추가 inputActive 를 켜 쉼 무게를 비킴) · 채찍 톡(flick — 손가락이 움직이는 것처럼 알림) ·
+    //  손가락이 닿지 않은 때(handHeld 거짓 — main.js handGrip 이 inputActive 를 그대로 받음)
+    const restFinger = !!SKILL.restTouch && !!f.handHeld && f.handGrip === false && !this.uniq?.winding && !this.flick && !f.parryGuard?.active;
     const touched = !!f.handHeld && !restFinger;
     const moved = !!f.inputActive && !restFinger;
     this.idle = moved || this.tempoInput?.pending ? 0 : this.idle + dt;

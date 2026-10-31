@@ -922,13 +922,14 @@ export class Fighter {
   corrScale(s) {
     const gp = this.guardPose;
     const c = (this._corrK ||= { s: NaN, S: new THREE.Vector3() });
-    if (c.s === s && c.table === gp.table && c.oneHand === gp.oneHand) return c;
+    // 배수의 잣대 표 (10/31 SKILL.frameScale — 사장님 11/01 결정): 유파 자세표가 쉼 자리 칸을 덮기 전 무기 틀 표(guards.js applySchoolGuardTable frameTable).
+    //  'heavy' = 앞무게 틀(대검)만 · 'all' = 유파 자세표가 있는 모든 무기 · 'off' = 10/10 ~ 10/31 판(덮은 표로 잼).
+    //  비기가 도는 동안(skill.sec — 싱지르 등 대본이 손 길을 쥠)은 덮은 표 그대로 (11/01 — 비기 길은 10/10 ~ 10/31 배수 위에서 맞춘 값: 대검 배수로 재면 싱지르 손목 교정 · 어깨 범위 밖이 늘었음)
+    const fs = SKILL.frameScale;
+    const useFrame = (fs === 'all' || (fs === 'heavy' && this.swordArt?.frame === 'heavy')) && !this.skill?.sec;
+    if (c.s === s && c.table === gp.table && c.oneHand === gp.oneHand && c.useFrame === useFrame) return c;
     const [hx, hy] = SKILL.homeGuard;
     const raw = rawHand(hx, hy, _cs1);
-    // 배수의 잣대 표 (10/31 SKILL.frameScale — 사장님 확인 전): 유파 자세표가 쉼 자리 칸을 덮기 전 무기 틀 표(guards.js applySchoolGuardTable frameTable).
-    //  'heavy' = 앞무게 틀(대검)만 · 'all' = 유파 자세표가 있는 모든 무기 · 'off' = 10/10 ~ 10/31 판(덮은 표로 잼)
-    const fs = SKILL.frameScale;
-    const useFrame = fs === 'all' || (fs === 'heavy' && this.swordArt?.frame === 'heavy');
     _csG.table = (useFrame && gp.table?.frameTable) || gp.table;
     _csG.oneHand = gp.oneHand;
     const G = guardAt(hx, hy, _csG);
@@ -949,6 +950,7 @@ export class Fighter {
     c.s = s;
     c.table = gp.table;
     c.oneHand = gp.oneHand;
+    c.useFrame = useFrame;
     return c;
   }
 
