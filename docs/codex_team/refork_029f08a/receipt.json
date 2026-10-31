@@ -1,0 +1,116 @@
+{
+  "verified_at_utc": "2026-10-31T17:32:26.185116+00:00",
+  "source_repo": "yoonjl-svg/halfsword",
+  "source_sha": "029f08a43d0a255134c3870242b01c3189e40ae2",
+  "tree": "23f7c2a5916c80f41b0d0a21e3cfbb1d2abe361d",
+  "own_branch": "codex/refork-029f08a",
+  "own_remote_head_verified": "029f08a43d0a255134c3870242b01c3189e40ae2",
+  "archive_branch": "archive/pre-refork-029f08a",
+  "previous_own_main": "93752ce8a1db80460f010ec2b7deab39f45a4c6e",
+  "worktree": "/workspace/halfsword-refork-029f08a",
+  "tracked_files": 6204,
+  "tracked_changes": 0,
+  "node": "v24.19.0",
+  "install": "npm ci",
+  "build": "npm run build",
+  "build_passed": true,
+  "gates": [
+    {
+      "name": "fights12",
+      "command": [
+        "node",
+        "tools/sim/fights12.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 42.31,
+      "stdout_sha256_without_rapier_warning": "ee193a8943ab790b9aec41f963a050061d4f7cba9130edc687ee2dc359526541"
+    },
+    {
+      "name": "live_battery",
+      "command": [
+        "node",
+        "tools/sim/live_battery.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 13.22,
+      "stdout_sha256_without_rapier_warning": "e8127a92b825f397e17caae7473f1fc5882e955b493f8e8fa6069a71efd5454e"
+    },
+    {
+      "name": "finish_thrust",
+      "command": [
+        "node",
+        "tools/sim/finish_thrust.mjs",
+        "1",
+        "--stand"
+      ],
+      "exitCode": 0,
+      "seconds": 7.62,
+      "stdout_sha256_without_rapier_warning": "9630b5d351156cbaac734c80af7f0d6a1c9b468cf6c568fb844518548ebd92b2"
+    },
+    {
+      "name": "corr_s0",
+      "command": [
+        "node",
+        "tools/sim/corr_s0.mjs",
+        "--limits=off,on",
+        "--scenes=a,b"
+      ],
+      "exitCode": 0,
+      "seconds": 49.14,
+      "stdout_sha256_without_rapier_warning": "74c8d6aff1502326da186f36a2dd5293f6efe3f519dbff96a82bd242e368f88f",
+      "identical": 12
+    },
+    {
+      "name": "weapon_smoke",
+      "command": [
+        "node",
+        "tools/sim/weapon_smoke.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 22.87,
+      "stdout_sha256_without_rapier_warning": "cbcb9862244f32283ac5c999b4846bff623b32fa484e394e29d2cdc94f73bd44",
+      "ok": 34,
+      "fail": 0,
+      "nanTrue": 0
+    }
+  ],
+  "targeted_tests": {
+    "files": 8,
+    "passed": 84,
+    "failed": 0
+  },
+  "browser": {
+    "passed": true,
+    "compiled": true,
+    "touch": true,
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "titleToLobby": true,
+    "lobbyToStage": true,
+    "drawn": {
+      "foeFlipped": true,
+      "foeCard": "excalibur_replica",
+      "foeWeapon": "excalibur_replica"
+    },
+    "physicsAdvance": 1.716666666666663,
+    "state": {
+      "game": "fight",
+      "simTime": 1.716666666666663,
+      "player": "stand",
+      "enemy": "stand",
+      "weapon": "longsword",
+      "enemyWeapon": "excalibur_replica"
+    },
+    "errors": []
+  },
+  "peer_writes": 0,
+  "peer_messages": 0,
+  "public_main_game_replaced": false,
+  "limitations": [
+    "Browser uses Chromium + SwiftShader, not a physical handset performance check.",
+    "Tests establish this source baseline; not an exhaustive balance or feature audit.",
+    "Old encyclopedia work remains separate and is not merged."
+  ]
+}

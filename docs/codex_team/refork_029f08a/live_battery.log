@@ -1,0 +1,50 @@
+using deprecated parameters for the initialization function; pass a single object instead
+{
+ "commit": "live ../../src",
+ "cuts": {
+  "tip": 19.4,
+  "tipMin": 17.5,
+  "tipMax": 22.8,
+  "phasePk": 0.69,
+  "vZone": 13.6,
+  "onset": 55.7,
+  "b10_90": 141.3,
+  "over": 9.5,
+  "settle": 617,
+  "a33": 279.3,
+  "handA50": 52,
+  "satW": 1,
+  "impDrive": 4.3,
+  "impBrake": -4.1
+ },
+ "steps": {
+  "wristOver_pct": 10.1,
+  "wristSettle_s": 0.7,
+  "bladeSettle_s": 0.34,
+  "bladeSettleMax_s": 0.61,
+  "chestPitch_deg": 9.1
+ },
+ "kata": {
+  "chestW_rms": 1.89,
+  "guardHoldChestW_rms": 0.25,
+  "wristErr_mean": 0.151,
+  "wristErr_p95": 0.464,
+  "bladeErr_mean": 19.8,
+  "holdBladeSpeed_rms": 3.91,
+  "tipV_p95": 16.3,
+  "state": "stand"
+ },
+ "walk": {
+  "walkTipBob_mm": 228
+ },
+ "jitter": {
+  "bladeStepDelta_rms": 0.591,
+  "worst": 1.626
+ },
+ "hits": [
+  "oberhau@1.2 {\"first\":\"neck:cut/PASS\",\"E_J\":106,\"mEff\":0.84,\"tipPre\":17.5,\"tip1\":16.1,\"tip3\":9.6,\"tip6\":4,\"maxAfter\":17.1}",
+  "zwerch@1.2 {\"first\":\"arm:cut/PASS\",\"E_J\":146,\"mEff\":0.71,\"tipPre\":19.2,\"tip1\":20.4,\"tip3\":8,\"tip6\":4.5,\"maxAfter\":20.4}",
+  "oberhau@1.4 {\"first\":\"chest:cut/PASS\",\"E_J\":97,\"mEff\":0.54,\"tipPre\":16,\"tip1\":14.4,\"tip3\":3.2,\"tip6\":0.6,\"maxAfter\":15.2}",
+  "zornhau@1.3 {\"first\":\"chest:cut/PASS\",\"E_J\":105,\"mEff\":0.63,\"tipPre\":15.6,\"tip1\":16.6,\"tip3\":5.2,\"tip6\":1.6,\"maxAfter\":16.6}"
+ ]
+}
