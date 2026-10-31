@@ -925,8 +925,11 @@ export class Fighter {
     // 배수의 잣대 표 (10/31 SKILL.frameScale — 사장님 11/01 결정): 유파 자세표가 쉼 자리 칸을 덮기 전 무기 틀 표(guards.js applySchoolGuardTable frameTable).
     //  'heavy' = 앞무게 틀(대검)만 · 'all' = 유파 자세표가 있는 모든 무기 · 'off' = 10/10 ~ 10/31 판(덮은 표로 잼).
     //  비기가 도는 동안(skill.sec — 싱지르 등 대본이 손 길을 쥠)은 덮은 표 그대로 (11/01 — 비기 길은 10/10 ~ 10/31 배수 위에서 맞춘 값: 대검 배수로 재면 싱지르 손목 교정 · 어깨 범위 밖이 늘었음)
+    //  고유 공격 길게 누름 · 감기 · 강화 동작이 도는 동안(skill.uniq — 정수리 가르기 B4 누름 'press' · 메기 'wind' · running)도 그대로 (11/01 — 같은 까닭: B4 내려침 첫 상처 자리가 바뀜)
     const fs = SKILL.frameScale;
-    const useFrame = (fs === 'all' || (fs === 'heavy' && this.swordArt?.frame === 'heavy')) && !this.skill?.sec;
+    const uq = this.skill?.uniq;
+    const scripted = !!this.skill?.sec || (!!uq && (uq.hold?.st === 'press' || uq.hold?.st === 'wind' || uq.running));
+    const useFrame = (fs === 'all' || (fs === 'heavy' && this.swordArt?.frame === 'heavy')) && !scripted;
     if (c.s === s && c.table === gp.table && c.oneHand === gp.oneHand && c.useFrame === useFrame) return c;
     const [hx, hy] = SKILL.homeGuard;
     const raw = rawHand(hx, hy, _cs1);
