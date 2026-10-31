@@ -20,8 +20,9 @@ test('기본값 — 길게 누름 실제 0.6 s · 기력 초당 붙어 버티기
   assert.equal(UA.rdHold, 1);
   assert.ok(Math.abs(UA.rdHoldTime - realS(0.6)) < 1e-12); // 사장님 '0.6초'
   assert.equal(UA.rdDrain, STAMINA.clinchPerSecond);
-  assert.equal(UA.specialShare.redondo, 0.2); // 11/01 00:xx 사장님 '고노센의 20%로 바꿔' (전 0.3) // 10/31 13:5x 사장님 '배율을 0.5에서 0.3으로 낮춰' (전 0.5) // 10/29 02:0x 사장님 '풍차베기는 50%' (전 싱지르 × 0.6 = 고노센 × 0.42)
-  assert.ok(Math.abs(UA.rdSnapTime - realS(0.4)) < 1e-12); // 10/31 0.2 → 0.4 [사장님 확인 전] — 칼끝 × 0.3 의 벰(0.265 s)을 끊지 않게 (redondo_motion 내려침 길 시험)
+  assert.equal(UA.specialShare.redondo, 0.25); // 11/01 00:xx 사장님 '알티바슈는 25%로 하고' (전 0.2 ← 0.3)
+  assert.equal(UA.rdDrainCut, 1); // 11/01 00:xx 사장님 '칼을 매고 있는 중에는 1초마다 한 번 베기와 똑같은 기력' // 10/31 13:5x 사장님 '배율을 0.5에서 0.3으로 낮춰' (전 0.5) // 10/29 02:0x 사장님 '풍차베기는 50%' (전 싱지르 × 0.6 = 고노센 × 0.42)
+  assert.equal(UA.rdSnapTime, 0); // 11/01 00:xx 사장님 '공격이 몇 초 안에 끝나야한다 이런 기준 없애라고 햇지' — 상한 없음(0) · 전 0.4 — // 10/31 0.2 → 0.4 [사장님 확인 전] — 칼끝 × 0.3 의 벰(0.265 s)을 끊지 않게 (redondo_motion 내려침 길 시험)
   assert.ok(Math.abs(UA.specialCooldown - realS(3.0)) < 1e-12); // 10/29 19:5x 사장님 '특수공격 3초(발동이 완료된 시점부터)' (전 6 s · 나간 순간부터)
   assert.equal(UA.specialCoolFrom, 'free');
   assert.equal(IB_FLOW.windmillChain, 0); // 10/31 19:xx 사장님 '풍차베기는 이어지는 흐름과 무관한 게 낫겠어' (전 10/29 08:3x 'simple' — `?b4Old=1`)
