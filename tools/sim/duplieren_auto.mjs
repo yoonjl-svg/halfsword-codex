@@ -41,7 +41,7 @@ export function applySet(set) {
 }
 
 /** 한 판 */
-export function fight({ bot: botKind = 'normal', weapon = 'longsword', opp = 'longsword', seed = 901, dur = 30, prof = 3, delay = 0.22, band = [MORD_N, 1.4], log = false } = {}) {
+export function fight({ bot: botKind = 'normal', weapon = 'longsword', opp = 'longsword', seed = 901, dur = 30, prof = 3, delay = 0.22, band = [MORD_N, 1.4], log = false, probe = null } = {}) {
   const G = newRound({ walls: true, seed, weapon, weapon2: opp, persona: { proficiency: prof } });
   applyWeaponMeasure(G.ai, opp);
   const P = G.player;
@@ -214,7 +214,7 @@ export function fight({ bot: botKind = 'normal', weapon = 'longsword', opp = 'lo
       else if (F.snap || t - F.t > 1.5) {
         F.done = true;
         const r = P.instantResult;
-        if (F.snap && r?.combo && r.tech === 'duplieren') F.res = { blocked: !!r.blocked, zone: r.zone ?? null };
+        if (F.snap && r?.combo && r.tech === 'duplieren') F.res = { blocked: !!r.blocked, zone: r.zone ?? null, ...(r.burst ? { burst: r.burst } : {}), ...(r.dup ? { sweep: r.dup.sweep } : {}) };
         F.minD = r3(F.minD);
       }
     }
@@ -234,24 +234,39 @@ export function fight({ bot: botKind = 'normal', weapon = 'longsword', opp = 'lo
       spSev += sv;
       if (sv > 0) spHits++;
       const F = fireRec.cur;
-      if (F && !F.done) F.hits.push({ zone: r.zone, type: r.type, sev: r3(sv), out: freshOutcome(r, rest[1]?.v?.part ?? null) });
+      if (F && !F.done) F.hits.push({ zone: r.zone, type: r.type, sev: r3(sv), E: r3(r.energy), out: freshOutcome(r, rest[1]?.v?.part ?? null) });
     }
   };
+  // 넘어짐 · 휘청 (10/31 19:xx 겹치기 앞 박차기 재기 — 낸 뒤 1 실제 초): 내 몸이 서 있지 않게 된 때 · knockDown 부른 때
+  const falls = [];
+  const kd = P.knockDown.bind(P);
+  P.knockDown = (heavy = true) => {
+    falls.push({ t: G.t, kind: heavy ? 'knockHeavy' : 'knock' });
+    return kd(heavy);
+  };
+  let stPrev = P.state;
+  probe?.init?.(G, P, A, uq);
   let end = dur;
   try {
     for (let i = 0; i < Math.round(dur / DT); i++) {
       G.step();
+      if (P.state !== stPrev) {
+        if (stPrev === 'stand' && P.state !== 'dead') falls.push({ t: G.t, kind: P.state });
+        stPrev = P.state;
+      }
+      probe?.step?.(G, P, A, uq);
       if ((!P.alive || !A.alive) && end === dur) end = G.t + 0.5;
       if (G.t >= end) break;
     }
     // 1 실제 초 안에 받은 상처 (낸 뒤)
     for (const F of S.fires) F.recv1 = r3(S.recv.filter((x) => x.t >= F.t && x.t <= F.t + 1 * STD).reduce((a, x) => a + x.sv, 0));
+    for (const F of S.fires) F.fall1 = falls.filter((x) => x.t >= F.t && x.t <= F.t + 1 * STD).map((x) => x.kind);
     return {
       bot: botKind, weapon, opp, seed, t: r3(G.t), steps: S.steps, touchSteps: S.touchSteps,
       win: !A.alive && P.alive, lose: !P.alive && A.alive,
       dealt: r3(dealt), recvSev: r3(recvSev), spSev: r3(spSev), spHits, recv: S.recv,
       fired: uq.stats.fired?.duplieren ?? 0, autoFired: uq.stats.autoFired ?? 0, dupReset: uq.stats.dupReset ?? 0,
-      fires: S.fires.map((F) => ({ t: r3(F.t), d0: F.d0, minD: F.minD, bits: F.bits, mordT: F.mordT, hits: F.hits, res: F.res, snap: F.snap, recv1: F.recv1 })),
+      fires: S.fires.map((F) => ({ t: r3(F.t), d0: F.d0, minD: F.minD, bits: F.bits, mordT: F.mordT, hits: F.hits, res: F.res, snap: F.snap, recv1: F.recv1, fall1: F.fall1 })), falls: falls.map((x) => ({ t: r3(x.t), kind: x.kind })),
       mordWin: S.mordWin, log: S.log,
     };
   } finally {

@@ -359,8 +359,8 @@ export class Gait {
     if (!GAIT.requestSteps || !this.active || this.f.state !== 'stand') return false;
     if (this.f.feetHeld || this.f.fireHold) return false; // 판 시작 정지 (ARENA.startHold): 기술 걸음도 받지 않는다 · AI 가 쏘는 동안(fireHold — 10/29)도
     // 물러나는 중이면 받지 않는다 (몸은 뒤로, 발은 앞으로 가면 넘어진다). 뒤로 딛는 걸음(retreat)은 예외
-    if (this.f.move.y < -0.1 && o.kind !== 'retreat') return false;
-    this.req = { kind: o.kind || 'pass', fwd: o.fwd ?? 0.5, side: o.side ?? 0, duration: clamp(o.duration ?? 0.4, 0.28, 0.7), age: 0, leg: o.leg ?? null }; // leg 'left'|'right': 기술이 고른 발(R2′ 채널 B, 확인표 182) — 없으면 아래 규칙(lunge 앞발·pass 뒷발)
+    if (this.f.move.y < -0.1 && o.kind !== 'retreat' && !o.force) return false; // force: 겹치기 앞 박차기 (몸은 이미 미끄러져 나감 — 발도 따라 디뎌야 넘어지지 않음)
+    this.req = { kind: o.kind || 'pass', fwd: o.fwd ?? 0.5, side: o.side ?? 0, duration: clamp(o.duration ?? 0.4, Math.min(0.28, o.minT ?? 0.28), 0.7), age: 0, leg: o.leg ?? null }; // minT: 이보다 짧은 발 뜬 시간도 받음 (겹치기 앞 박차기 — 칼이 끌리는 시간에 맞춤 · 10/31 · 없으면 0.28 그대로) // leg 'left'|'right': 기술이 고른 발(R2′ 채널 B, 확인표 182) — 없으면 아래 규칙(lunge 앞발·pass 뒷발)
     if (o.push) this.req.push = o.push;
     if (o.accel) this.req.accel = true; // 안다레 리솔루토 런지 · 되돌아오기 (10/24 14:0x): 이 걸음 동안 · 끝난 뒤 몸이 따라잡을 때까지 가속 한도 × GAIT.burstAccel (lungeBrake — fighter.js driveBalance)
     if (o.draw) this.req.draw = true;
@@ -693,6 +693,21 @@ export class Gait {
       lim = Math.min(lim, Math.max(0, GAIT.maxTwist - tw));
     }
     return Math.sign(turn) * Math.min(Math.abs(turn), lim);
+  }
+
+  /**
+   * 겹치기 앞 박차기 (10/31 19:xx — secret_instant.js dupBurstStart): 칼과 같은 때 앞발을 내딛음. 떠 있는 발이 없으면 requestStep 그대로(다음 스텝에 앞발 'lunge') ·
+   *  앞발이 이미 떠 있으면(걷던 걸음) 그 걸음을 이 걸음으로 이어받음(디딜 자리 = 뗀 자리 + fwd · 남은 발 뜬 시간 = duration) — 걷던 걸음을 디딘 뒤 또 내딛어 칼보다 늦지 않게 ·
+   *  뒷발이 떠 있으면 그 걸음 그대로 두고 부탁하지 않음(false — 뒷발이 디딘 뒤 앞발이 나가면 칼보다 늦음 · 몸 미끄러짐은 그대로). 받았으면 true
+   */
+  takeStep(o) {
+    const L = this.legs;
+    const sw = !L.F.stance ? L.F : !L.B.stance ? L.B : null;
+    if (!sw) return this.requestStep(o);
+    if (!this.requestStep(o)) return false;
+    sw.kind = 'req';
+    sw.T = sw.t + this.req.duration;
+    return true;
   }
 
   /** 앞발(몸 기준 앞에 있는 발) */
