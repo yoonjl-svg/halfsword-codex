@@ -63,6 +63,7 @@ for key,rs in grouped.items():
        targetWoundCases=sum(r['targetSeverity']>0 for r in rs),targetSeverity=stats([r['targetSeverity'] for r in rs]),
        totalDealt=stats([r['inflicted']['severity'] for r in rs]),totalReceived=stats([r['received']['severity'] for r in rs]),
        preparationSeverity=stats([r['preparationSeverity'] for r in rs]),staminaSpent=stats([r['stamina']['totalSpent'] for r in rs]),
+       staminaByKind={k:stats([r['stamina']['spent'].get(k,0) for r in rs]) for k in sorted({k for r in rs for k in r['stamina']['spent']})},
        targetParts=dict((k,sum(e['part']==k for r in rs for e in r['targetContacts'])) for k in sorted({e['part'] for r in rs for e in r['targetContacts'] if e.get('part')})),
        opponentTerminations=sum(r['inflicted']['dead'] for r in rs),opponentKO=sum(r['inflicted']['dead'] and r['inflicted']['cause']=='기절' for r in rs),
        causes=dict((k,sum(r['inflicted']['cause']==k for r in rs)) for k in sorted({r['inflicted']['cause'] for r in rs if r['inflicted']['cause']})),
@@ -78,7 +79,7 @@ validation=dict(base='88a96061e8dd93e8f107b7b0df647a341e73fa5d',singleRows=288,i
 (ROOT/'analysis.json').write_text(json.dumps(dict(validation=validation,groups=out,pairs=pair_rows),ensure_ascii=False,indent=2)+'\n')
 (ROOT/'validation.json').write_text(json.dumps(validation,ensure_ascii=False,indent=2)+'\n')
 lines=['# 8계열 단발·입력 시험','', '정본은 288단발(144짝)·192입력이다. 정상 상처·사람 회복25·최대100을 유지했다. 모든 짝의 초기 상태·hold/tap/pointer/stick 명령 해시·실제 포인터 공통 구간이 일치한다. 이전 a/b single은 진단용이며 정본과 합산하지 않는다.', '',
- '|기술|거리|시도/실행/목표접촉/상처 판(각6)|목표 심각도 평균|준비·그외 피해 평균|켬-끔 전체 준 피해 차이|기력 평균|',
+ '|기술|거리|시도/실행/목표접촉/상처 판(각6)|목표 심각도 평균|준비·그외 피해 평균|켬-끔 전체 준 피해 차이|관측전체 기력(이동포함)|',
  '|---|---|---:|---:|---:|---:|---:|']
 for key,v in out.items():
     mode,tech,level=key.split('/')
