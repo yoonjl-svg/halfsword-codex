@@ -7,6 +7,7 @@
 - [19종 직접 연습](https://yoonjl-svg.github.io/halfsword-codex/encounters/attack-balance-20261101/)
 - [휴대폰용 결과표](https://yoonjl-svg.github.io/halfsword-codex/encounters/attack-balance-20261101/report.html)
 - [승인된 실행계획](PLAN.md), [현재 기술·조건 조사](source-audit.md), [사람 시험 방법](HUMAN_PROTOCOL.md)
+- [비기·특수 공격 J 최소/최대/평균/중앙값](ENERGY_TABLE.md) · [CSV 표](energy_summary.csv) · [접촉 전수](energy_contacts.csv). 기존 대련120판 재집계이며 거리 통제 단발 표와 분모를 구별합니다.
 
 ## 실행량과 결과를 읽는 기준
 
