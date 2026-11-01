@@ -1,0 +1,1683 @@
+{
+  "schema": "attack-balance-browser-inputs/v1",
+  "session": {
+    "id": "schielhau-1793491208247",
+    "baseline": "88a96061e8dd93e8f107b7b0df647a341e73fa5d",
+    "started": {
+      "wallMs": 7310,
+      "activeWallS": 0,
+      "physicsS": 0.09999999999999999,
+      "referenceS": 0.0909090909090909
+    },
+    "ended": {
+      "wallMs": 8794,
+      "activeWallS": 1.5999000000000005,
+      "physicsS": 0.19999999999999998,
+      "referenceS": 0.1818181818181818
+    },
+    "technique": {
+      "id": "schielhau",
+      "school": "german",
+      "kind": "고유",
+      "label": "실하우",
+      "weapon": "longsword",
+      "instruction": "칼손을 오른 어깨 위로 옮겨 준비한 뒤 왼쪽 아래로 빠르게 긋기. 현재 게임 표시는 곁눈 베기.",
+      "hand": [
+        0.42,
+        0.42
+      ],
+      "distance": 1.4
+    },
+    "mode": "condition",
+    "actor": "automated-browser-input",
+    "inputPath": "DOM pointer/keyboard events via existing Input and stick/parry listeners",
+    "fixture": null,
+    "clockDefinition": "single condition practice, manual finish",
+    "rules": "Default activation, counts, damage and stamina constants; test=1 + skillNodes=all",
+    "storagePrefix": "stillness.research.attack-balance-20261101.",
+    "storageIsolated": true,
+    "reason": "manual"
+  },
+  "baseline": "88a96061e8dd93e8f107b7b0df647a341e73fa5d",
+  "selected": {
+    "id": "schielhau",
+    "school": "german",
+    "kind": "고유",
+    "label": "실하우",
+    "weapon": "longsword",
+    "instruction": "칼손을 오른 어깨 위로 옮겨 준비한 뒤 왼쪽 아래로 빠르게 긋기. 현재 게임 표시는 곁눈 베기.",
+    "hand": [
+      0.42,
+      0.42
+    ],
+    "distance": 1.4
+  },
+  "catalogCount": 19,
+  "storageIsolated": true,
+  "fixture": null,
+  "events": [
+    {
+      "sequence": 1,
+      "type": "new_body",
+      "wallMs": 1518.6000000238419,
+      "activeWallS": 0,
+      "physicsS": 0,
+      "referenceS": 0,
+      "player": {
+        "name": "나",
+        "weapon": "longsword",
+        "school": "german",
+        "alive": true,
+        "state": "stand",
+        "causeOfDeath": null,
+        "decapitated": false,
+        "armed": true,
+        "weaponBroken": false,
+        "armor": {
+          "hasHelmet": true,
+          "helmetType": "kettle",
+          "helmetIntegrity": 1,
+          "plate": {}
+        },
+        "blood": 1,
+        "bleed": 0,
+        "consciousness": 1,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "wounds": [],
+        "stamina": {
+          "value": 100,
+          "exhausted": false,
+          "level": 0,
+          "spent": {
+            "move": 0,
+            "attack": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "clinch": 0
+          },
+          "counts": {
+            "cut": 0,
+            "thrust": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "exhaustion": 0
+          },
+          "recovered": 0
+        },
+        "chest": {
+          "x": -2.799999952316284,
+          "y": 1.3300000429153442,
+          "z": 0
+        },
+        "hand": [
+          0.15,
+          0
+        ]
+      },
+      "enemy": {
+        "name": "하인리히 도른",
+        "weapon": "excalibur_replica",
+        "school": "german",
+        "alive": true,
+        "state": "stand",
+        "causeOfDeath": null,
+        "decapitated": false,
+        "armed": true,
+        "weaponBroken": false,
+        "armor": {
+          "hasHelmet": false,
+          "helmetType": null,
+          "helmetIntegrity": 1,
+          "plate": {
+            "pelvis": 1,
+            "abdomen": 1,
+            "chest": 1,
+            "uarmS": 1,
+            "farmS": 1,
+            "uarmO": 1,
+            "farmO": 1,
+            "thighF": 1,
+            "shinF": 1,
+            "footF": 1,
+            "thighB": 1,
+            "shinB": 1,
+            "footB": 1
+          }
+        },
+        "blood": 1,
+        "bleed": 0,
+        "consciousness": 1,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "wounds": [],
+        "stamina": {
+          "value": 100,
+          "exhausted": false,
+          "level": 0,
+          "spent": {
+            "move": 0,
+            "attack": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "clinch": 0
+          },
+          "counts": {
+            "cut": 0,
+            "thrust": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "exhaustion": 0
+          },
+          "recovered": 0
+        },
+        "chest": {
+          "x": 2.799999952316284,
+          "y": 1.3300000429153442,
+          "z": 0
+        },
+        "hand": [
+          0.15,
+          0
+        ]
+      },
+      "kit": {
+        "school": "german",
+        "unique": [
+          "schielhau",
+          "zwerchAbtritt",
+          "duplieren"
+        ],
+        "perk": [
+          "schielhau"
+        ],
+        "footwork": true,
+        "chase": true,
+        "backFlat": false,
+        "burstSide": false,
+        "stepCost": false,
+        "parry": true,
+        "parryCover": true,
+        "parryCut": false,
+        "opposition": false,
+        "flow": false,
+        "flowShield": false,
+        "ibFlow": false,
+        "ibChain": false,
+        "passive": true,
+        "secret": true
+      },
+      "constants": {
+        "timeK": 1.1,
+        "secretUses": {
+          "default": 1,
+          "chinese": 3
+        },
+        "specialCooldown": 3.3000000000000003,
+        "specialCoolFrom": "free",
+        "mordPress": 2.2,
+        "mordCloseN": 0.8,
+        "dupAuto": "bind",
+        "dupStackS": 0.66,
+        "dupBandMin": null,
+        "dupBandMax": 1.6,
+        "secretStaminaMin": 0
+      }
+    },
+    {
+      "sequence": 2,
+      "type": "new_body",
+      "wallMs": 6110.899999976158,
+      "activeWallS": 0,
+      "physicsS": 0,
+      "referenceS": 0,
+      "player": {
+        "name": "나",
+        "weapon": "longsword",
+        "school": "german",
+        "alive": true,
+        "state": "stand",
+        "causeOfDeath": null,
+        "decapitated": false,
+        "armed": true,
+        "weaponBroken": false,
+        "armor": {
+          "hasHelmet": true,
+          "helmetType": "kettle",
+          "helmetIntegrity": 1,
+          "plate": {}
+        },
+        "blood": 1,
+        "bleed": 0,
+        "consciousness": 1,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "wounds": [],
+        "stamina": {
+          "value": 100,
+          "exhausted": false,
+          "level": 0,
+          "spent": {
+            "move": 0,
+            "attack": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "clinch": 0
+          },
+          "counts": {
+            "cut": 0,
+            "thrust": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "exhaustion": 0
+          },
+          "recovered": 0
+        },
+        "chest": {
+          "x": -2.799999952316284,
+          "y": 1.3300000429153442,
+          "z": 0
+        },
+        "hand": [
+          0.15,
+          0
+        ]
+      },
+      "enemy": {
+        "name": "하인리히 도른",
+        "weapon": "excalibur_replica",
+        "school": "german",
+        "alive": true,
+        "state": "stand",
+        "causeOfDeath": null,
+        "decapitated": false,
+        "armed": true,
+        "weaponBroken": false,
+        "armor": {
+          "hasHelmet": false,
+          "helmetType": null,
+          "helmetIntegrity": 1,
+          "plate": {
+            "pelvis": 1,
+            "abdomen": 1,
+            "chest": 1,
+            "uarmS": 1,
+            "farmS": 1,
+            "uarmO": 1,
+            "farmO": 1,
+            "thighF": 1,
+            "shinF": 1,
+            "footF": 1,
+            "thighB": 1,
+            "shinB": 1,
+            "footB": 1
+          }
+        },
+        "blood": 1,
+        "bleed": 0,
+        "consciousness": 1,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "wounds": [],
+        "stamina": {
+          "value": 100,
+          "exhausted": false,
+          "level": 0,
+          "spent": {
+            "move": 0,
+            "attack": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "clinch": 0
+          },
+          "counts": {
+            "cut": 0,
+            "thrust": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "exhaustion": 0
+          },
+          "recovered": 0
+        },
+        "chest": {
+          "x": 2.799999952316284,
+          "y": 1.3300000429153442,
+          "z": 0
+        },
+        "hand": [
+          0.15,
+          0
+        ]
+      },
+      "kit": {
+        "school": "german",
+        "unique": [
+          "schielhau",
+          "zwerchAbtritt",
+          "duplieren"
+        ],
+        "perk": [
+          "schielhau"
+        ],
+        "footwork": true,
+        "chase": true,
+        "backFlat": false,
+        "burstSide": false,
+        "stepCost": false,
+        "parry": true,
+        "parryCover": true,
+        "parryCut": false,
+        "opposition": false,
+        "flow": false,
+        "flowShield": false,
+        "ibFlow": false,
+        "ibChain": false,
+        "passive": true,
+        "secret": true
+      },
+      "constants": {
+        "timeK": 1.1,
+        "secretUses": {
+          "default": 1,
+          "chinese": 3
+        },
+        "specialCooldown": 3.3000000000000003,
+        "specialCoolFrom": "free",
+        "mordPress": 2.2,
+        "mordCloseN": 0.8,
+        "dupAuto": "bind",
+        "dupStackS": 0.66,
+        "dupBandMin": null,
+        "dupBandMax": 1.6,
+        "secretStaminaMin": 0
+      }
+    },
+    {
+      "sequence": 3,
+      "type": "session_start",
+      "wallMs": 7310.899999976158,
+      "activeWallS": 0,
+      "physicsS": 0.09999999999999999,
+      "referenceS": 0.0909090909090909,
+      "metadata": {
+        "id": "schielhau-1793491208247",
+        "baseline": "88a96061e8dd93e8f107b7b0df647a341e73fa5d",
+        "started": {
+          "wallMs": 7310,
+          "activeWallS": 0,
+          "physicsS": 0.09999999999999999,
+          "referenceS": 0.0909090909090909
+        },
+        "ended": {
+          "wallMs": 8794,
+          "activeWallS": 1.5999000000000005,
+          "physicsS": 0.19999999999999998,
+          "referenceS": 0.1818181818181818
+        },
+        "technique": {
+          "id": "schielhau",
+          "school": "german",
+          "kind": "고유",
+          "label": "실하우",
+          "weapon": "longsword",
+          "instruction": "칼손을 오른 어깨 위로 옮겨 준비한 뒤 왼쪽 아래로 빠르게 긋기. 현재 게임 표시는 곁눈 베기.",
+          "hand": [
+            0.42,
+            0.42
+          ],
+          "distance": 1.4
+        },
+        "mode": "condition",
+        "actor": "automated-browser-input",
+        "inputPath": "DOM pointer/keyboard events via existing Input and stick/parry listeners",
+        "fixture": null,
+        "clockDefinition": "single condition practice, manual finish",
+        "rules": "Default activation, counts, damage and stamina constants; test=1 + skillNodes=all",
+        "storagePrefix": "stillness.research.attack-balance-20261101.",
+        "storageIsolated": true,
+        "reason": "manual"
+      },
+      "state": {
+        "wallMs": 7310.399999976158,
+        "activeWallS": 0,
+        "physicsS": 0.09999999999999999,
+        "referenceS": 0.0909090909090909,
+        "state": "fight",
+        "player": {
+          "name": "나",
+          "weapon": "longsword",
+          "school": "german",
+          "alive": true,
+          "state": "stand",
+          "causeOfDeath": null,
+          "decapitated": false,
+          "armed": true,
+          "weaponBroken": false,
+          "armor": {
+            "hasHelmet": true,
+            "helmetType": "kettle",
+            "helmetIntegrity": 1,
+            "plate": {}
+          },
+          "blood": 1,
+          "bleed": 0,
+          "consciousness": 1,
+          "pain": 0,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "wounds": [],
+          "stamina": {
+            "value": 100,
+            "exhausted": false,
+            "level": 0,
+            "spent": {
+              "move": 0,
+              "attack": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "clinch": 0
+            },
+            "counts": {
+              "cut": 0,
+              "thrust": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "exhaustion": 0
+            },
+            "recovered": 0
+          },
+          "chest": {
+            "x": -2.807661771774292,
+            "y": 1.289054274559021,
+            "z": 0.0011885663261637092
+          },
+          "hand": [
+            0.15,
+            0
+          ]
+        },
+        "enemy": {
+          "name": "하인리히 도른",
+          "weapon": "excalibur_replica",
+          "school": "german",
+          "alive": true,
+          "state": "stand",
+          "causeOfDeath": null,
+          "decapitated": false,
+          "armed": true,
+          "weaponBroken": false,
+          "armor": {
+            "hasHelmet": false,
+            "helmetType": null,
+            "helmetIntegrity": 1,
+            "plate": {
+              "pelvis": 1,
+              "abdomen": 1,
+              "chest": 1,
+              "uarmS": 1,
+              "farmS": 1,
+              "uarmO": 1,
+              "farmO": 1,
+              "thighF": 1,
+              "shinF": 1,
+              "footF": 1,
+              "thighB": 1,
+              "shinB": 1,
+              "footB": 1
+            }
+          },
+          "blood": 1,
+          "bleed": 0,
+          "consciousness": 1,
+          "pain": 0,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "wounds": [],
+          "stamina": {
+            "value": 100,
+            "exhausted": false,
+            "level": 0,
+            "spent": {
+              "move": 0,
+              "attack": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "clinch": 0
+            },
+            "counts": {
+              "cut": 0,
+              "thrust": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "exhaustion": 0
+            },
+            "recovered": 0
+          },
+          "chest": {
+            "x": 2.80710506439209,
+            "y": 1.2883275747299194,
+            "z": -0.0025858471635729074
+          },
+          "hand": [
+            0,
+            0.03
+          ]
+        },
+        "distance": 5.614768104802819,
+        "secret": {
+          "name": "mordschlag",
+          "open": false,
+          "opened": 0,
+          "left": 1,
+          "used": 0,
+          "pressT": 0,
+          "poor": {
+            "refused": 0,
+            "by": {},
+            "step": 12,
+            "last": -9,
+            "steps": 0
+          },
+          "spinArm": {
+            "t": 0,
+            "armed": false,
+            "timeKey": "armTime",
+            "graceKey": "armGrace",
+            "group": "ibSpin",
+            "ons": 0
+          },
+          "iaiArm": {
+            "t": 0,
+            "armed": false,
+            "timeKey": "iaiArmTime",
+            "graceKey": "iaiArmGrace",
+            "group": null,
+            "ons": 0
+          },
+          "stage": null,
+          "bursts": 0,
+          "stats": {}
+        },
+        "unique": {
+          "stats": {
+            "strokes": 0,
+            "techs": {},
+            "fired": {},
+            "ends": {},
+            "steps": 0,
+            "power": 0
+          },
+          "running": null,
+          "stroke": null,
+          "previousStroke": null,
+          "dupA": {
+            "st": 0,
+            "off": 0,
+            "since": null,
+            "on": false,
+            "t0": null,
+            "prev": null,
+            "tEnd": null,
+            "pair": false
+          },
+          "bladeTouch": false,
+          "touch": null,
+          "coolT": {},
+          "available": [
+            {
+              "name": "zwerchAbtritt",
+              "special": false,
+              "cooldown": 0
+            },
+            {
+              "name": "duplieren",
+              "special": true,
+              "cooldown": 0
+            },
+            {
+              "name": "schielhau",
+              "special": false,
+              "cooldown": 0
+            }
+          ]
+        },
+        "inputState": {
+          "stickX": 0,
+          "stickY": 0,
+          "handHeld": false,
+          "inputSwinging": false,
+          "guardHeld": false,
+          "guardActive": false,
+          "guardLine": null
+        },
+        "motion": {
+          "secret": null,
+          "iai": null,
+          "iaiRequest": false,
+          "tap": null,
+          "swinging": false
+        },
+        "cue": [],
+        "rawGameHits": []
+      }
+    },
+    {
+      "sequence": 4,
+      "type": "session_end",
+      "wallMs": 8794,
+      "activeWallS": 1.5999000000000005,
+      "physicsS": 0.19999999999999998,
+      "referenceS": 0.1818181818181818,
+      "reason": "manual",
+      "final": {
+        "wallMs": 8793.700000047684,
+        "activeWallS": 1.5999000000000005,
+        "physicsS": 0.19999999999999998,
+        "referenceS": 0.1818181818181818,
+        "state": "fight",
+        "player": {
+          "name": "나",
+          "weapon": "longsword",
+          "school": "german",
+          "alive": true,
+          "state": "stand",
+          "causeOfDeath": null,
+          "decapitated": false,
+          "armed": true,
+          "weaponBroken": false,
+          "armor": {
+            "hasHelmet": true,
+            "helmetType": "kettle",
+            "helmetIntegrity": 1,
+            "plate": {}
+          },
+          "blood": 1,
+          "bleed": 0,
+          "consciousness": 1,
+          "pain": 0,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "wounds": [],
+          "stamina": {
+            "value": 100,
+            "exhausted": false,
+            "level": 0,
+            "spent": {
+              "move": 0,
+              "attack": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "clinch": 0
+            },
+            "counts": {
+              "cut": 0,
+              "thrust": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "exhaustion": 0
+            },
+            "recovered": 0
+          },
+          "chest": {
+            "x": -2.7991175651550293,
+            "y": 1.253290057182312,
+            "z": -0.0005388754070736468
+          },
+          "hand": [
+            0.15,
+            0
+          ]
+        },
+        "enemy": {
+          "name": "하인리히 도른",
+          "weapon": "excalibur_replica",
+          "school": "german",
+          "alive": true,
+          "state": "stand",
+          "causeOfDeath": null,
+          "decapitated": false,
+          "armed": true,
+          "weaponBroken": false,
+          "armor": {
+            "hasHelmet": false,
+            "helmetType": null,
+            "helmetIntegrity": 1,
+            "plate": {
+              "pelvis": 1,
+              "abdomen": 1,
+              "chest": 1,
+              "uarmS": 1,
+              "farmS": 1,
+              "uarmO": 1,
+              "farmO": 1,
+              "thighF": 1,
+              "shinF": 1,
+              "footF": 1,
+              "thighB": 1,
+              "shinB": 1,
+              "footB": 1
+            }
+          },
+          "blood": 1,
+          "bleed": 0,
+          "consciousness": 1,
+          "pain": 0,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "wounds": [],
+          "stamina": {
+            "value": 100,
+            "exhausted": false,
+            "level": 0,
+            "spent": {
+              "move": 0,
+              "attack": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "clinch": 0
+            },
+            "counts": {
+              "cut": 0,
+              "thrust": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "exhaustion": 0
+            },
+            "recovered": 0
+          },
+          "chest": {
+            "x": 2.799485921859741,
+            "y": 1.2535085678100586,
+            "z": 0.0009633992449380457
+          },
+          "hand": [
+            0,
+            0.03
+          ]
+        },
+        "distance": 5.59860368856763,
+        "secret": {
+          "name": "mordschlag",
+          "open": false,
+          "opened": 0,
+          "left": 1,
+          "used": 0,
+          "pressT": 0,
+          "poor": {
+            "refused": 0,
+            "by": {},
+            "step": 24,
+            "last": -9,
+            "steps": 0
+          },
+          "spinArm": {
+            "t": 0,
+            "armed": false,
+            "timeKey": "armTime",
+            "graceKey": "armGrace",
+            "group": "ibSpin",
+            "ons": 0
+          },
+          "iaiArm": {
+            "t": 0,
+            "armed": false,
+            "timeKey": "iaiArmTime",
+            "graceKey": "iaiArmGrace",
+            "group": null,
+            "ons": 0
+          },
+          "stage": null,
+          "bursts": 0,
+          "stats": {}
+        },
+        "unique": {
+          "stats": {
+            "strokes": 0,
+            "techs": {},
+            "fired": {},
+            "ends": {},
+            "steps": 0,
+            "power": 0
+          },
+          "running": null,
+          "stroke": null,
+          "previousStroke": null,
+          "dupA": {
+            "st": 0,
+            "off": 0,
+            "since": null,
+            "on": false,
+            "t0": null,
+            "prev": null,
+            "tEnd": null,
+            "pair": false
+          },
+          "bladeTouch": false,
+          "touch": null,
+          "coolT": {},
+          "available": [
+            {
+              "name": "zwerchAbtritt",
+              "special": false,
+              "cooldown": 0
+            },
+            {
+              "name": "duplieren",
+              "special": true,
+              "cooldown": 0
+            },
+            {
+              "name": "schielhau",
+              "special": false,
+              "cooldown": 0
+            }
+          ]
+        },
+        "inputState": {
+          "stickX": 0,
+          "stickY": 0,
+          "handHeld": false,
+          "inputSwinging": false,
+          "guardHeld": false,
+          "guardActive": false,
+          "guardLine": null
+        },
+        "motion": {
+          "secret": null,
+          "iai": null,
+          "iaiRequest": false,
+          "tap": null,
+          "swinging": false
+        },
+        "cue": [],
+        "rawGameHits": []
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "type": "pointermove",
+      "wallMs": 8793,
+      "activeWallS": 1.5999000000000005,
+      "physicsS": 0.19999999999999998,
+      "referenceS": 0.1818181818181818,
+      "trusted": true,
+      "target": "ab-finish",
+      "eventTimestampMs": 8792.399999976158,
+      "pointerId": 1,
+      "pointerType": "mouse",
+      "x": 39.2400016784668,
+      "y": 83.29000091552734,
+      "movementX": -403,
+      "movementY": 32,
+      "buttons": 0
+    }
+  ],
+  "samples": [
+    {
+      "wallMs": 8050.700000047684,
+      "activeWallS": 0.9166000000000004,
+      "physicsS": 0.09999999999999999,
+      "referenceS": 0.0909090909090909,
+      "state": "fight",
+      "player": {
+        "name": "나",
+        "weapon": "longsword",
+        "school": "german",
+        "alive": true,
+        "state": "stand",
+        "causeOfDeath": null,
+        "decapitated": false,
+        "armed": true,
+        "weaponBroken": false,
+        "armor": {
+          "hasHelmet": true,
+          "helmetType": "kettle",
+          "helmetIntegrity": 1,
+          "plate": {}
+        },
+        "blood": 1,
+        "bleed": 0,
+        "consciousness": 1,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "wounds": [],
+        "stamina": {
+          "value": 100,
+          "exhausted": false,
+          "level": 0,
+          "spent": {
+            "move": 0,
+            "attack": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "clinch": 0
+          },
+          "counts": {
+            "cut": 0,
+            "thrust": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "exhaustion": 0
+          },
+          "recovered": 0
+        },
+        "chest": {
+          "x": -2.807661771774292,
+          "y": 1.289054274559021,
+          "z": 0.0011885663261637092
+        },
+        "hand": [
+          0.15,
+          0
+        ]
+      },
+      "enemy": {
+        "name": "하인리히 도른",
+        "weapon": "excalibur_replica",
+        "school": "german",
+        "alive": true,
+        "state": "stand",
+        "causeOfDeath": null,
+        "decapitated": false,
+        "armed": true,
+        "weaponBroken": false,
+        "armor": {
+          "hasHelmet": false,
+          "helmetType": null,
+          "helmetIntegrity": 1,
+          "plate": {
+            "pelvis": 1,
+            "abdomen": 1,
+            "chest": 1,
+            "uarmS": 1,
+            "farmS": 1,
+            "uarmO": 1,
+            "farmO": 1,
+            "thighF": 1,
+            "shinF": 1,
+            "footF": 1,
+            "thighB": 1,
+            "shinB": 1,
+            "footB": 1
+          }
+        },
+        "blood": 1,
+        "bleed": 0,
+        "consciousness": 1,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "wounds": [],
+        "stamina": {
+          "value": 100,
+          "exhausted": false,
+          "level": 0,
+          "spent": {
+            "move": 0,
+            "attack": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "clinch": 0
+          },
+          "counts": {
+            "cut": 0,
+            "thrust": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "exhaustion": 0
+          },
+          "recovered": 0
+        },
+        "chest": {
+          "x": 2.80710506439209,
+          "y": 1.2883275747299194,
+          "z": -0.0025858471635729074
+        },
+        "hand": [
+          0,
+          0.03
+        ]
+      },
+      "distance": 5.614768104802819,
+      "secret": {
+        "name": "mordschlag",
+        "open": false,
+        "opened": 0,
+        "left": 1,
+        "used": 0,
+        "pressT": 0,
+        "poor": {
+          "refused": 0,
+          "by": {},
+          "step": 12,
+          "last": -9,
+          "steps": 0
+        },
+        "spinArm": {
+          "t": 0,
+          "armed": false,
+          "timeKey": "armTime",
+          "graceKey": "armGrace",
+          "group": "ibSpin",
+          "ons": 0
+        },
+        "iaiArm": {
+          "t": 0,
+          "armed": false,
+          "timeKey": "iaiArmTime",
+          "graceKey": "iaiArmGrace",
+          "group": null,
+          "ons": 0
+        },
+        "stage": null,
+        "bursts": 0,
+        "stats": {}
+      },
+      "unique": {
+        "stats": {
+          "strokes": 0,
+          "techs": {},
+          "fired": {},
+          "ends": {},
+          "steps": 0,
+          "power": 0
+        },
+        "running": null,
+        "stroke": null,
+        "previousStroke": null,
+        "dupA": {
+          "st": 0,
+          "off": 0,
+          "since": null,
+          "on": false,
+          "t0": null,
+          "prev": null,
+          "tEnd": null,
+          "pair": false
+        },
+        "bladeTouch": false,
+        "touch": null,
+        "coolT": {},
+        "available": [
+          {
+            "name": "zwerchAbtritt",
+            "special": false,
+            "cooldown": 0
+          },
+          {
+            "name": "duplieren",
+            "special": true,
+            "cooldown": 0
+          },
+          {
+            "name": "schielhau",
+            "special": false,
+            "cooldown": 0
+          }
+        ]
+      },
+      "inputState": {
+        "stickX": 0,
+        "stickY": 0,
+        "handHeld": false,
+        "inputSwinging": false,
+        "guardHeld": false,
+        "guardActive": false,
+        "guardLine": null
+      },
+      "motion": {
+        "secret": null,
+        "iai": null,
+        "iaiRequest": false,
+        "tap": null,
+        "swinging": false
+      },
+      "cue": [],
+      "rawGameHits": []
+    },
+    {
+      "wallMs": 8730.600000023842,
+      "activeWallS": 1.5999000000000005,
+      "physicsS": 0.15,
+      "referenceS": 0.13636363636363635,
+      "state": "fight",
+      "player": {
+        "name": "나",
+        "weapon": "longsword",
+        "school": "german",
+        "alive": true,
+        "state": "stand",
+        "causeOfDeath": null,
+        "decapitated": false,
+        "armed": true,
+        "weaponBroken": false,
+        "armor": {
+          "hasHelmet": true,
+          "helmetType": "kettle",
+          "helmetIntegrity": 1,
+          "plate": {}
+        },
+        "blood": 1,
+        "bleed": 0,
+        "consciousness": 1,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "wounds": [],
+        "stamina": {
+          "value": 100,
+          "exhausted": false,
+          "level": 0,
+          "spent": {
+            "move": 0,
+            "attack": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "clinch": 0
+          },
+          "counts": {
+            "cut": 0,
+            "thrust": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "exhaustion": 0
+          },
+          "recovered": 0
+        },
+        "chest": {
+          "x": -2.8059158325195312,
+          "y": 1.2639487981796265,
+          "z": 0.0004810416721738875
+        },
+        "hand": [
+          0.15,
+          0
+        ]
+      },
+      "enemy": {
+        "name": "하인리히 도른",
+        "weapon": "excalibur_replica",
+        "school": "german",
+        "alive": true,
+        "state": "stand",
+        "causeOfDeath": null,
+        "decapitated": false,
+        "armed": true,
+        "weaponBroken": false,
+        "armor": {
+          "hasHelmet": false,
+          "helmetType": null,
+          "helmetIntegrity": 1,
+          "plate": {
+            "pelvis": 1,
+            "abdomen": 1,
+            "chest": 1,
+            "uarmS": 1,
+            "farmS": 1,
+            "uarmO": 1,
+            "farmO": 1,
+            "thighF": 1,
+            "shinF": 1,
+            "footF": 1,
+            "thighB": 1,
+            "shinB": 1,
+            "footB": 1
+          }
+        },
+        "blood": 1,
+        "bleed": 0,
+        "consciousness": 1,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "wounds": [],
+        "stamina": {
+          "value": 100,
+          "exhausted": false,
+          "level": 0,
+          "spent": {
+            "move": 0,
+            "attack": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "clinch": 0
+          },
+          "counts": {
+            "cut": 0,
+            "thrust": 0,
+            "block": 0,
+            "secret": 0,
+            "push": 0,
+            "exhaustion": 0
+          },
+          "recovered": 0
+        },
+        "chest": {
+          "x": 2.805473566055298,
+          "y": 1.2641429901123047,
+          "z": -0.0015463662566617131
+        },
+        "hand": [
+          0,
+          0.03
+        ]
+      },
+      "distance": 5.611389764828396,
+      "secret": {
+        "name": "mordschlag",
+        "open": false,
+        "opened": 0,
+        "left": 1,
+        "used": 0,
+        "pressT": 0,
+        "poor": {
+          "refused": 0,
+          "by": {},
+          "step": 18,
+          "last": -9,
+          "steps": 0
+        },
+        "spinArm": {
+          "t": 0,
+          "armed": false,
+          "timeKey": "armTime",
+          "graceKey": "armGrace",
+          "group": "ibSpin",
+          "ons": 0
+        },
+        "iaiArm": {
+          "t": 0,
+          "armed": false,
+          "timeKey": "iaiArmTime",
+          "graceKey": "iaiArmGrace",
+          "group": null,
+          "ons": 0
+        },
+        "stage": null,
+        "bursts": 0,
+        "stats": {}
+      },
+      "unique": {
+        "stats": {
+          "strokes": 0,
+          "techs": {},
+          "fired": {},
+          "ends": {},
+          "steps": 0,
+          "power": 0
+        },
+        "running": null,
+        "stroke": null,
+        "previousStroke": null,
+        "dupA": {
+          "st": 0,
+          "off": 0,
+          "since": null,
+          "on": false,
+          "t0": null,
+          "prev": null,
+          "tEnd": null,
+          "pair": false
+        },
+        "bladeTouch": false,
+        "touch": null,
+        "coolT": {},
+        "available": [
+          {
+            "name": "zwerchAbtritt",
+            "special": false,
+            "cooldown": 0
+          },
+          {
+            "name": "duplieren",
+            "special": true,
+            "cooldown": 0
+          },
+          {
+            "name": "schielhau",
+            "special": false,
+            "cooldown": 0
+          }
+        ]
+      },
+      "inputState": {
+        "stickX": 0,
+        "stickY": 0,
+        "handHeld": false,
+        "inputSwinging": false,
+        "guardHeld": false,
+        "guardActive": false,
+        "guardLine": null
+      },
+      "motion": {
+        "secret": null,
+        "iai": null,
+        "iaiRequest": false,
+        "tap": null,
+        "swinging": false
+      },
+      "cue": [],
+      "rawGameHits": []
+    }
+  ],
+  "final": {
+    "wallMs": 8793.700000047684,
+    "activeWallS": 1.5999000000000005,
+    "physicsS": 0.19999999999999998,
+    "referenceS": 0.1818181818181818,
+    "state": "fight",
+    "player": {
+      "name": "나",
+      "weapon": "longsword",
+      "school": "german",
+      "alive": true,
+      "state": "stand",
+      "causeOfDeath": null,
+      "decapitated": false,
+      "armed": true,
+      "weaponBroken": false,
+      "armor": {
+        "hasHelmet": true,
+        "helmetType": "kettle",
+        "helmetIntegrity": 1,
+        "plate": {}
+      },
+      "blood": 1,
+      "bleed": 0,
+      "consciousness": 1,
+      "pain": 0,
+      "limbs": {
+        "armS": 1,
+        "armO": 1,
+        "legF": 1,
+        "legB": 1
+      },
+      "wounds": [],
+      "stamina": {
+        "value": 100,
+        "exhausted": false,
+        "level": 0,
+        "spent": {
+          "move": 0,
+          "attack": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "clinch": 0
+        },
+        "counts": {
+          "cut": 0,
+          "thrust": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "exhaustion": 0
+        },
+        "recovered": 0
+      },
+      "chest": {
+        "x": -2.7991175651550293,
+        "y": 1.253290057182312,
+        "z": -0.0005388754070736468
+      },
+      "hand": [
+        0.15,
+        0
+      ]
+    },
+    "enemy": {
+      "name": "하인리히 도른",
+      "weapon": "excalibur_replica",
+      "school": "german",
+      "alive": true,
+      "state": "stand",
+      "causeOfDeath": null,
+      "decapitated": false,
+      "armed": true,
+      "weaponBroken": false,
+      "armor": {
+        "hasHelmet": false,
+        "helmetType": null,
+        "helmetIntegrity": 1,
+        "plate": {
+          "pelvis": 1,
+          "abdomen": 1,
+          "chest": 1,
+          "uarmS": 1,
+          "farmS": 1,
+          "uarmO": 1,
+          "farmO": 1,
+          "thighF": 1,
+          "shinF": 1,
+          "footF": 1,
+          "thighB": 1,
+          "shinB": 1,
+          "footB": 1
+        }
+      },
+      "blood": 1,
+      "bleed": 0,
+      "consciousness": 1,
+      "pain": 0,
+      "limbs": {
+        "armS": 1,
+        "armO": 1,
+        "legF": 1,
+        "legB": 1
+      },
+      "wounds": [],
+      "stamina": {
+        "value": 100,
+        "exhausted": false,
+        "level": 0,
+        "spent": {
+          "move": 0,
+          "attack": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "clinch": 0
+        },
+        "counts": {
+          "cut": 0,
+          "thrust": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "exhaustion": 0
+        },
+        "recovered": 0
+      },
+      "chest": {
+        "x": 2.799485921859741,
+        "y": 1.2535085678100586,
+        "z": 0.0009633992449380457
+      },
+      "hand": [
+        0,
+        0.03
+      ]
+    },
+    "distance": 5.59860368856763,
+    "secret": {
+      "name": "mordschlag",
+      "open": false,
+      "opened": 0,
+      "left": 1,
+      "used": 0,
+      "pressT": 0,
+      "poor": {
+        "refused": 0,
+        "by": {},
+        "step": 24,
+        "last": -9,
+        "steps": 0
+      },
+      "spinArm": {
+        "t": 0,
+        "armed": false,
+        "timeKey": "armTime",
+        "graceKey": "armGrace",
+        "group": "ibSpin",
+        "ons": 0
+      },
+      "iaiArm": {
+        "t": 0,
+        "armed": false,
+        "timeKey": "iaiArmTime",
+        "graceKey": "iaiArmGrace",
+        "group": null,
+        "ons": 0
+      },
+      "stage": null,
+      "bursts": 0,
+      "stats": {}
+    },
+    "unique": {
+      "stats": {
+        "strokes": 0,
+        "techs": {},
+        "fired": {},
+        "ends": {},
+        "steps": 0,
+        "power": 0
+      },
+      "running": null,
+      "stroke": null,
+      "previousStroke": null,
+      "dupA": {
+        "st": 0,
+        "off": 0,
+        "since": null,
+        "on": false,
+        "t0": null,
+        "prev": null,
+        "tEnd": null,
+        "pair": false
+      },
+      "bladeTouch": false,
+      "touch": null,
+      "coolT": {},
+      "available": [
+        {
+          "name": "zwerchAbtritt",
+          "special": false,
+          "cooldown": 0
+        },
+        {
+          "name": "duplieren",
+          "special": true,
+          "cooldown": 0
+        },
+        {
+          "name": "schielhau",
+          "special": false,
+          "cooldown": 0
+        }
+      ]
+    },
+    "inputState": {
+      "stickX": 0,
+      "stickY": 0,
+      "handHeld": false,
+      "inputSwinging": false,
+      "guardHeld": false,
+      "guardActive": false,
+      "guardLine": null
+    },
+    "motion": {
+      "secret": null,
+      "iai": null,
+      "iaiRequest": false,
+      "tap": null,
+      "swinging": false
+    },
+    "cue": [],
+    "rawGameHits": []
+  },
+  "limitations": [
+    "Automated browser input is not human success rate.",
+    "Condition preparation success is distinct from activation and contact.",
+    "A request or fired counter alone is not proof of executed motion or effective wound.",
+    "No wound result is not a zero-power estimate; condition failures remain separate.",
+    "Motion sampled per animation frame may miss a very short intermediate phase.",
+    "Body contact hooks include armor/block outcomes that pass the minimum-energy gate; subthreshold geometric contact is not exhaustively measured."
+  ]
+}

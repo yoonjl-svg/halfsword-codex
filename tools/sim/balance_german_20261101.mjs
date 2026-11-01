@@ -1,0 +1,449 @@
+// German attack research; no runtime/config edits. Scripted Input events are NOT human trials.
+import { mkdirSync, appendFileSync, writeFileSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { performance } from 'node:perf_hooks';
+import { execFileSync } from 'node:child_process';
+import { newRound, CONFIG, DT } from './harness_m.mjs';
+import { PlayerSecretWatch, secretLeft } from '../../src/secret.js';
+import { PlayerUniqueAssist, strokeTechOf } from '../../src/unique_assist.js';
+import { PlayerParryGuard } from '../../src/parry_button.js';
+import { Input } from '../../src/input.js';
+import { TECH_BY_NAME } from '../../src/ai_techniques.js';
+import { allNodeIds, kitFromNodes } from '../../src/skill_tree_data.js';
+import { LOOKS } from '../../src/looks.js';
+import { isMain } from './is_main.mjs';
+
+const K = CONFIG.TIME.k;
+const FRAME = DT * 2;
+const BUILD = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+const SCRIPT_HASH = createHash('sha256').update(readFileSync(new URL(import.meta.url))).digest('hex');
+const round = (x) => Number.isFinite(x) ? +x.toFixed(6) : null;
+const RANGES = { close: 0.65, normal: 1.35, edge: 1.95 };
+const JITTER = { exact: { startSigma: 0, pathUniform: 0, speed: [4,4], reaction: [.2,.2] },
+  small: { startSigma: .02, pathUniform: .01, speed: [3.8,4.2], reaction: [.16,.24] },
+  large: { startSigma: .06, pathUniform: .04, speed: [3,5.5], reaction: [.12,.30] } };
+const CATEGORIES = { mordschlag: 'secret', duplieren: 'special', schielhau: 'unique', zwerchAbtritt: 'unique' };
+const OPPONENTS = { pressure: { aggr:1.2, margin:.1, patienceTime:4, circleRate:.15 }, distance: { aggr:.7, margin:.45, patienceTime:12, circleRate:.25 } };
+const canvas = { addEventListener() {} };
+// Minimal event surface only. Input's touch mapping/tap thresholds run unchanged.
+const inputWindow = { innerWidth: 844, innerHeight: 390, addEventListener() {}, location: { search: '' } };
+export function inputEnv(fn) {
+  const had = Object.hasOwn(globalThis, 'window'), prev = globalThis.window;
+  globalThis.window = inputWindow;
+  try { return fn(); } finally { if (had) globalThis.window = prev; else delete globalThis.window; }
+}
+globalThis.document ??= { pointerLockElement: null };
+globalThis.matchMedia ??= () => ({ matches: true });
+
+// Reusable event-level adapter. No Fighter/Skill mutation; caller owns main-like routing.
+// A moving "held:false" proxy frame still needs a real touch pointer to emit movement;
+// `down` is the actual pointer state and may differ from the proxy's requested held flag.
+export class ScriptedTouchInput {
+  constructor({ x=620, y=180, verticalGain=null }={}) {
+    this.input=inputEnv(()=>new Input(canvas, verticalGain==null?new URLSearchParams():new URLSearchParams({mobileVerticalGain:String(verticalGain)})));
+    this.input.enabled=true;this.x=x;this.y=y;this.origin={x,y};this.down=false;this.events=[];
+  }
+  event(kind,tReference,dx=0,dy=0) {
+    const scale=CONFIG.INPUT.touchSensitivity/Math.max(320,inputWindow.innerHeight);
+    if(kind==='pointerdown'&&!this.down){this.x=this.origin.x;this.y=this.origin.y;}
+    if(kind==='pointermove'){this.x+=dx/scale;this.y-=dy/(scale*this.input.mobileIntent.verticalGain);}
+    const e={type:kind,pointerId:1,pointerType:'touch',button:0,buttons:kind==='pointerup'?0:1,timeStamp:Math.max(1,tReference*1000),clientX:this.x,clientY:this.y};
+    inputEnv(()=>this.input[kind==='pointerdown'?'onDown':kind==='pointerup'?'onUp':'onMove'](e));
+    this.down=kind!=='pointerup';this.events.push({...e});
+  }
+  frame(dx,dy,held,tReference) {
+    if(![dx,dy,tReference].every(Number.isFinite))throw new Error('nonfinite scripted touch frame');
+    const moving=Math.abs(dx)+Math.abs(dy)>1e-10;
+    if((held||moving)&&!this.down)this.event('pointerdown',tReference);
+    if(moving)this.event('pointermove',tReference,dx,dy);
+    if(!held&&!moving&&this.down)this.event('pointerup',tReference);
+    const d=this.input.consumeHandDelta();
+    return {dx:d.x,dy:d.y,taps:this.input.consumeTaps(),down:this.down,heldRequested:!!held,hold:this.input.holdState()};
+  }
+}
+
+function health(f) {
+  return { blood: f.blood, consciousness: f.consciousness, limbs: { ...f.limbs }, alive: f.alive, state: f.state, armed: f.armed };
+}
+function observedDamage(f, baseline, severity, knocks, disarms) {
+  return { severity: round(severity), bloodLost: round(baseline.blood - f.blood), consciousnessLost: round(baseline.consciousness - f.consciousness),
+    limbsLost: round(Object.keys(baseline.limbs).reduce((s, k) => s + Math.max(0, baseline.limbs[k] - (f.limbs[k] ?? 0)), 0)),
+    limbs: { ...f.limbs }, dead: !f.alive, gameEnded: !f.alive, cause: f.causeOfDeath ?? null,
+    outcomeClass: classifyOutcome(!f.alive,f.causeOfDeath),knockdowns: knocks, disarms };
+}
+function classifyOutcome(ended,cause) {
+  if(!ended)return'ongoing';
+  if(cause==='기절')return'knockout';
+  return ['목','머리','출혈','내려찍기'].includes(cause)?'fatal':'ended_unknown';
+}
+
+export function runTrial({ tech = 'mordschlag', variant = 'on', seed = 101, range = 'close', mode = 'single', seconds = 12, opponent = 'fixture', gap = null, jitter = 'exact', policy = 'normal', opponentType = null } = {}) {
+  const wall0 = performance.now();
+  let rs = (seed * 7919 + 19) >>> 0;
+  const rnd = () => ((rs = (Math.imul(rs,1664525)+1013904223)>>>0)/4294967296);
+  const gauss = () => Math.sqrt(-2*Math.log(1-rnd()))*Math.cos(2*Math.PI*rnd());
+  const JP = JITTER[jitter];
+  if (!JP) throw new Error(`unknown jitter ${jitter}`);
+  const reaction = JP.reaction[0] + rnd()*(JP.reaction[1]-JP.reaction[0]);
+  const full = mode === 'frequency' && tech === 'all';
+  const actualGap=gap??(full?CONFIG.ARENA.startGap:RANGES[range]);
+  const kit = kitFromNodes('german', allNodeIds('german'));
+  if (!full) kit.unique = new Set(variant === 'on' && tech !== 'mordschlag' ? [tech] : []);
+  kit.secret = full || variant === 'on' && tech === 'mordschlag';
+  const G = newRound({ seed, weapon: 'longsword', weapon2: 'longsword', gap: actualGap, kit, walls: true,
+    difficulty: full ? CONFIG.AI_PROFICIENCY.levels[3] : 'normal',
+    look: LOOKS.player, look2: LOOKS.enemy, persona: { proficiency: 3, ...(opponentType ? {pers:OPPONENTS[opponentType]} : {}) },
+    onFighter(f) { if (f.index === 0) f.humanInput = true; } });
+  const P = G.player, E = G.enemy;
+  P.skill.autoGuard = true;
+  P.canShove = true;
+  const uq = new PlayerUniqueAssist(P, { names: kit.unique });
+  // Off variant uses a read-only condition watcher, not its secret executor.
+  const W = new PlayerSecretWatch(P, E, { locked: !full && tech !== 'mordschlag' });
+  const guard = new PlayerParryGuard(P, E);
+  P.stamina.controller = guard;
+  const input = inputEnv(() => new Input(canvas));
+  input.enabled = true;
+  const rec = { build: BUILD, scriptHash: SCRIPT_HASH, school: 'german', tech, category: full ? 'full_kit' : CATEGORIES[tech], mode, variant, seed, range, jitter, policy, opponentType,
+    weapon: { id: 'longsword', tier: P.weapon.tier ?? 'common', bladeLength: P.weapon.bladeLength, mass: P.swordMass },
+    controller: 'scripted_touch_via_Input', humanInputRules: P.humanInput === true, limitsPreserved: true,
+    setup: { startGap: actualGap, opponent, opponentProficiency: 3, opponentDifficulty: full ? CONFIG.AI_PROFICIENCY.levels[3] : 'normal', opponentPers: opponentType ? {...OPPONENTS[opponentType]} : null,
+      resolvedOpponentPers: {aggr:G.ai.pers.aggr, margin:G.ai.pers.margin, patienceTime:G.ai.pers.patienceTime, circleRate:G.ai.pers.circleRate},
+      armor: { player: P.helmetType ?? null, enemy: E.helmetType ?? null },
+      kit: { profile: full ? 'all_german_nodes' : 'all_support_and_perks_target_attack_only', unique: [...kit.unique], secret: kit.secret, perks: [...kit.perk] },
+      forcedSetup: opponent === 'fixture' ? 'spawn gap and passive opponent hand target; no teleport, hit injection, or contact override' : null,
+      policy: mode === 'single' ? 'one target attack after real conditions, preparation damage preserved' : 'target-seeking scripted policy versus live AI; NOT natural human frequency',
+      observations: full ? ['exact engine chest distance','exact bladeTouch geometry/contact','exact secret window','exact AI mode and attack phase (ground truth)','own stamina and remaining secret count'] : ['exact engine condition state'],
+      clock: { physicalDT: DT, inputFrameDT: FRAME, tempo: CONFIG.TIME.tempo, timeK: K, realObservationSeconds: seconds, includesBrowserSlowMotion: false },
+      limits: { secretUses: { ...CONFIG.UNIQUE_ASSIST.secretUses }, specialCooldownGame: CONFIG.UNIQUE_ASSIST.specialCooldown, specialCoolFrom: CONFIG.UNIQUE_ASSIST.specialCoolFrom },
+      input: { height: 390, width:844, originPerPointerDown:[620,180], verticalGain: input.mobileIntent.verticalGain, sensitivity: CONFIG.INPUT.touchSensitivity, reactionRealS: reaction, jitter: JP, outsideViewportEvents: 0,
+        keyboardSource:'Input.keys state to Input.move; not browser key dispatch or joystick',pointerSurface:'scripted Input handlers; not real human/browser event lifecycle' } },
+    conditions: { windows: 0, maxMordHeldRealS: 0, maxDupStackRealS: 0, touchSteps: 0, inDupBandSteps: 0, minDistance: Infinity, maxDistance: 0 },
+    availability: Object.fromEntries(Object.keys(CATEGORIES).map(name=>[name,{referenceSeconds:0}])),
+    attempted: 0, accepted: 0, started: 0, contacts: 0, timeline: {}, events: [], validity: {}, stamina: {},
+    byTech: Object.fromEntries(Object.keys(CATEGORIES).map(name => [name,{accepted:0,started:0,contacts:0,severity:0,consciousnessLost:0,limbFunctionLost:0,bleedAdded:0}])),
+    attribution: { target: { severity: 0, contacts: 0, consciousnessLost: 0, limbFunctionLost: 0, bleedAdded: 0 }, preparationOrOther: { severity: 0, contacts: 0, consciousnessLost: 0, limbFunctionLost: 0, bleedAdded: 0 } } };
+  const initialP = health(P), initialE = health(E);
+  let severityP = 0, severityE = 0, minStamina = P.stamina.value;
+  const counts = { P: { knocks: 0, disarms: 0 }, E: { knocks: 0, disarms: 0 } };
+  const emit = (kind, data = {}) => rec.events.push({ kind, tGame: round(G.t), tReference: round(G.t / K), ...data });
+  const techNow = (f) => strokeTechOf(f) ?? (f === P && f.skill.sec ? 'mordschlag' : null);
+  const isTarget = (name) => full ? !!CATEGORIES[name] : name === tech;
+  if(full) {
+    const busy0=uq.busy.bind(uq);let lastBusy=-Infinity;
+    uq.busy=(...args)=>{const result=busy0(...args);if(result&&G.t-lastBusy>.1){lastBusy=G.t;emit('unique_busy',{blocked:uq.blocked,held:uq.handHeld,tap:!!P.skill.tap,pom:!!P.skill.pom,sec:!!P.skill.sec,vital:!!P.skill.vitalRange,alive:P.alive,armed:P.armed,state:P.state,broken:P.weaponBroken,finish:P.finish?.amt??0});}return result;};
+    const choose0=uq.choose.bind(uq);
+    uq.choose=(...args)=>{const r=choose0(...args);emit('unique_choose',{base:args[0]?.tech,choice:r?.e?.name??null});return r;};
+  }
+  for (const [id, f] of [['P', P], ['E', E]]) {
+    const apply0 = f.applyWound.bind(f);
+    f.applyWound = (h) => {
+      const before = health(f), bleed0 = f.bleed, ret = apply0(h), attacker = f === E ? P : E;
+      const delta = { consciousnessLost: before.consciousness - f.consciousness,
+        limbFunctionLost: Object.keys(before.limbs).reduce((s, k) => s + Math.max(0, before.limbs[k] - (f.limbs[k] ?? 0)), 0), bleedAdded: f.bleed - bleed0 };
+      if (f === E) {
+        const name = techNow(P), bucket = rec.attribution[isTarget(name) ? 'target' : 'preparationOrOther'];
+        for (const k in delta) bucket[k] += delta[k];
+        if (rec.byTech[name]) for (const k in delta) rec.byTech[name][k] += delta[k];
+      }
+      emit('physiology_applied', { attacker: attacker.index, victim: f.index, tech: techNow(attacker), ...Object.fromEntries(Object.entries(delta).map(([k,v])=>[k,round(v)])), died: before.alive && !f.alive });
+      return ret;
+    };
+    for (const [method, key] of [['knockDown', 'knocks'], ['dropSword', 'disarms']]) {
+      const original = f[method].bind(f);
+      f[method] = (...a) => { const before = f.state, armed = f.armed; const r = original(...a);
+        if (method === 'knockDown' ? f.state !== before : armed && !f.armed) { counts[id][key]++; emit(method, { who: id, state: f.state }); } return r; };
+    }
+  }
+  const wound0 = G.combat.hooks.onWound;
+  G.combat.hooks.onWound = (att, vic, r, pt, pr) => {
+    wound0?.(att, vic, r, pt, pr);
+    const sv = r.type === 'blunt' ? 0 : r.severity ?? 0;
+    if (vic === E) severityE += sv; else severityP += sv;
+    if (att === P) {
+      rec.contacts++;
+      const name = techNow(P), target = isTarget(name), bucket = rec.attribution[target ? 'target' : 'preparationOrOther'];
+      bucket.contacts++; bucket.severity += sv;
+      if (rec.byTech[name]) {rec.byTech[name].contacts++;rec.byTech[name].severity+=sv;}
+      rec.timeline.bodyContact ??= round(G.t / K);
+      if (target) rec.timeline.targetBodyContact ??= round(G.t / K);
+      if (sv > 0) { rec.timeline.injury ??= round(G.t / K); if (target) rec.timeline.targetInjury ??= round(G.t / K); }
+    }
+    emit('wound', { attacker: att.index, victim: vic.index, tech: techNow(att),
+      part: pr?.v?.part ?? null, zone: r.zone, type: r.type, energy: round(r.energy), severity: round(sv), helmet: !!r.helmet });
+  };
+  const clash0 = G.combat.hooks.onClash;
+  G.combat.hooks.onClash = (...a) => { clash0?.(...a); rec.timeline.steelContact ??= round(G.t / K); emit('clash'); };
+  if (opponent === 'fixture') G.ai.update = () => {
+    E.move.set(0, 0);
+    E.handOffset.set(...(tech === 'duplieren' ? [0, 0.03] : [0, -0.5]));
+  };
+  // Conditional posture setup before the first step; fully disclosed, not a forced attack.
+  if (tech === 'duplieren') P.handOffset.set(0, 0.03);
+  let queue = [], hand = false, x = 620, y = 180, frames = 0, nextAttack = 0, due = null, pendingTapUp = null;
+  let dupPhase = 'engage', dupLastTouch = -Infinity;
+  let pressDirection = [-0.6, -0.4];
+  const seenFires = {};
+  let wasMotion = null, firedOnce = false, endAfter = null, windowSeen = 0, sampleI = 0;
+  let defendDue = Infinity, guardUntil = 0, threatSeen = false, sideStroke = false;
+  const touch = (kind, time, dx = 0, dy = 0) => {
+    if(kind==='pointerdown'&&!hand){x=620;y=180;}
+    const base = { pointerId: 1, pointerType: 'touch', button: 0, timeStamp: Math.max(1, time * 1000), type: kind, clientX: x, clientY: y };
+    if (kind === 'pointerdown') { inputEnv(() => input.onDown(base)); hand = true; }
+    else if (kind === 'pointerup') { inputEnv(() => input.onUp(base)); hand = false; }
+    else { const scale = CONFIG.INPUT.touchSensitivity / Math.max(320, inputWindow.innerHeight); x += dx / scale; y -= dy / (scale * input.mobileIntent.verticalGain);
+      inputEnv(() => input.onMove({ ...base, clientX: x, clientY: y })); }
+    if (x < 0 || x > inputWindow.innerWidth || y < 0 || y > inputWindow.innerHeight) rec.setup.input.outsideViewportEvents++;
+    emit('input_event', { event: kind, clientX: round(x), clientY: round(y), eventTimeMs: round(base.timeStamp) });
+  };
+  const makeStroke = (name) => {
+    const T = TECH_BY_NAME[name];
+    let hx = P.handOffset.x, hy = P.handOffset.y; const q = [];
+    const to = (point, speed) => { for (let i = 0; i < 400; i++) { const dx = point[0] - hx, dy = point[1] - hy, d = Math.hypot(dx, dy); if (d < 1e-6) break;
+      const st = Math.min(d, speed * FRAME); q.push([dx / d * st, dy / d * st]); hx += dx / d * st; hy += dy / d * st; } };
+    to([T.from[0]+gauss()*JP.startSigma,T.from[1]+gauss()*JP.startSigma], CONFIG.SKILL.recoverSpeed); q.push(...Array(5).fill([0, 0]));
+    const speed = JP.speed[0]+rnd()*(JP.speed[1]-JP.speed[0]);
+    for (const p of T.path) to([p[0]+(rnd()*2-1)*JP.pathUniform,p[1]+(rnd()*2-1)*JP.pathUniform], speed);
+    const tail = T.path.at(-1), pre = T.path.at(-2) ?? T.from;
+    const len = Math.hypot(tail[0] - pre[0], tail[1] - pre[1]);
+    pressDirection = [(tail[0] - pre[0]) / len, (tail[1] - pre[1]) / len];
+    return q;
+  };
+  G.before = () => {
+    const tr = G.t / K, d = P.foeDistance();
+    const C = rec.conditions;
+    if(!P.openHold&&P.alive&&E.alive&&P.state==='stand'&&P.armed&&!P.weaponBroken&&!P.stamina.exhausted&&!P.skill.sec) {
+      for(const name of Object.keys(CATEGORIES)) {
+        if(name==='mordschlag'&&(!kit.secret||secretLeft(P)<=0||!P.stamina.secretReady))continue;
+        if(name!=='mordschlag'&&!kit.unique.has(name))continue;
+        if(name==='duplieren'&&uq.cooling(uq.dupE))continue;
+        rec.availability[name].referenceSeconds+=DT/K;
+      }
+    }
+    C.minDistance = Math.min(C.minDistance, d); C.maxDistance = Math.max(C.maxDistance, d);
+    C.maxMordHeldRealS = Math.max(C.maxMordHeldRealS, (W.pressHeld ?? 0) / K);
+    C.maxDupStackRealS = Math.max(C.maxDupStackRealS, (uq.dupA?.st ?? 0) / K);
+    if (uq.bladeTouch()) C.touchSteps++;
+    if (d > CONFIG.SECRET.mordCloseN && d <= CONFIG.UNIQUE_ASSIST.dupBandMax) C.inDupBandSteps++;
+    W.update(DT, !!P.skill.sec);
+    if (W.opened > windowSeen) { windowSeen = W.opened; C.windows++; rec.timeline.condition ??= round(tr); emit('condition_window', { distance: round(d), left: W.left }); }
+    if ((full || tech === 'mordschlag') && W.open && due == null && pendingTapUp==null && (mode !== 'single' || !firedOnce)) due = tr + reaction;
+    if ((frames++ & 1) === 0) {
+      if (rec.timeline.activeStart == null && !P.openHold) rec.timeline.activeStart = round(tr);
+      if(pendingTapUp!=null&&tr>=pendingTapUp){touch('pointerup',tr);pendingTapUp=null;rec.timeline.input??=round(tr);emit('tap_release');}
+      if ((full || tech === 'mordschlag') && due != null && tr >= due && W.open && !P.skill.sec && (!full || policy === 'targeted' || !queue.length)) {
+        if(hand){touch('pointerup',tr);if(full&&policy==='targeted')queue=[];}
+        touch('pointerdown', tr);pendingTapUp=tr+.04;due = null; rec.attempted++; rec.timeline.inputDown ??= round(tr); emit('tap_attempt');
+      }
+      if (full) {
+        const threat = G.ai.mode === 'attack' && d < 2.5;
+        if (threat && !threatSeen) {defendDue=tr+reaction;threatSeen=true;}
+        if (!threat) threatSeen=false;
+        if (tr>=defendDue) {guardUntil=tr+.8;defendDue=Infinity;}
+        const touching=uq.bladeTouch(), seekBind=policy==='targeted' && secretLeft(P)<=0;
+        if (touching) dupLastTouch=tr;
+        if (seekBind && touching && dupPhase==='engage' && !uq.cooling(uq.dupE)) {
+          dupPhase='press'; rec.attempted++; emit('bind_maintenance_attempt');
+          const n=Math.ceil(.25/(.6*FRAME));
+          queue=[...Array.from({length:n},()=>[pressDirection[0]*.6*FRAME,pressDirection[1]*.6*FRAME]),...Array(Math.ceil(1.2*K/FRAME)).fill([0,0])];
+          if(!hand)touch('pointerdown',tr);
+        }
+        if(dupPhase==='press' && tr-dupLastTouch>.3){dupPhase='engage';queue=[];nextAttack=tr+.2;}
+        if(dupPhase==='press' && !queue.length)dupPhase='engage';
+        const guarding=tr<guardUntil && !queue.length && !P.skill.tap && !P.skill.sec;
+        if(!P.openHold && !guarding && !queue.length && tr>=nextAttack && P.alive && P.armed && !P.stamina.exhausted && !P.skill.sec && d<2.1) {
+          const u=rnd(), name=u<.4?'zornhau':u<.7?'zwerch':u<.85?'oberhau':'zornhauL';
+          queue=makeStroke(name);if(!hand)touch('pointerdown',tr);rec.attempted++;sideStroke=name==='zwerch'&&rnd()<.5;
+          nextAttack=tr+1.2+rnd()*.4;emit('stroke_attempt',{base:name});
+        }
+      }
+      if (tech === 'duplieren' && !P.openHold && (mode !== 'single' || !firedOnce)) {
+        const touching = uq.bladeTouch();
+        if (touching) dupLastTouch = tr;
+        if (touching && dupPhase === 'engage') {
+          dupPhase = 'press'; rec.attempted++;
+          rec.timeline.input ??= round(tr); emit('bind_maintenance_attempt');
+          const n = Math.ceil(0.25 / (0.6 * FRAME));
+          queue = [...Array.from({length:n}, () => [pressDirection[0]*0.6*FRAME, pressDirection[1]*0.6*FRAME]), ...Array(Math.ceil(3*K/FRAME)).fill([0,0])];
+        }
+        if (dupPhase === 'press' && tr - dupLastTouch > 0.3) { dupPhase = 'engage'; queue = []; nextAttack = tr + 0.2; }
+        if (dupPhase === 'engage' && !queue.length && tr >= nextAttack && !P.stamina.exhausted) {
+          queue = makeStroke('zornhau'); if (!hand) touch('pointerdown', tr); nextAttack = tr + 1.6;
+          emit('bind_preparation_stroke');
+        }
+        if (variant === 'off' && dupPhase === 'press' && !queue.length && mode === 'single') firedOnce = true;
+      }
+      if (!full && tech !== 'mordschlag' && tech !== 'duplieren' && !P.openHold && tr >= nextAttack && (mode !== 'single' || !firedOnce) && !queue.length && !P.skill.sec && P.alive && !P.stamina.exhausted) {
+        queue = makeStroke(tech === 'zwerchAbtritt' ? 'zwerch' : 'zornhau'); touch('pointerdown', tr); rec.attempted++; firedOnce = true; rec.timeline.input ??= round(tr); nextAttack = tr + 1.6; emit('stroke_attempt');
+      }
+      if (queue.length) { const [dx, dy] = queue.shift(); touch('pointermove', tr, dx, dy); }
+      else if (hand && pendingTapUp==null) touch('pointerup', tr);
+      const delta = input.consumeHandDelta(); let taps = input.consumeTaps();
+      if (![delta.x,delta.y].every(Number.isFinite)) throw new Error('nonfinite Input hand delta');
+      const swipe = Math.hypot(delta.x, delta.y) / FRAME >= CONFIG.SKILL.swingSpeed;
+      const secBusy = P.stamina.exhausted || !!P.skill.secretPhase;
+      if ((full || tech === 'mordschlag') && W.open && (taps > 0 || swipe) && !secBusy && !P.skill.tap && !P.skill.pom) {
+        const o = W.fire();
+        if (variant === 'on' && P.skill.secret(o)) { rec.accepted++;rec.byTech.mordschlag.accepted++; firedOnce = true; rec.timeline.accepted ??= round(tr); emit('secret_accepted',{tech:'mordschlag'}); taps = 0; }
+        else if (variant === 'off') { firedOnce = true; emit('secret_off_input_routed_to_base'); }
+      }
+      const guardHeld=full && tr<guardUntil && !queue.length && !taps && !swipe && !secBusy && !P.skill.tap;
+      guard.held=guardHeld;guard.broken=!!(taps||swipe||P.skill.tap);
+      uq.feed(delta.x, delta.y, FRAME, guardHeld, guardHeld);
+      if (!secBusy && !guardHeld) { P.handOffset.x += delta.x; P.handOffset.y += delta.y; }
+      P.handHeld = input.activeTouch !== null; P.inputActive = Math.abs(delta.x) + Math.abs(delta.y) > 1e-5;
+      if (taps && !secBusy) P.skill.thrust();
+      input.keys.clear();
+      if (mode !== 'single' && P.alive && !P.stamina.exhausted) {
+        const targetDistance=full ? (policy==='targeted' ? (secretLeft(P)>0 ? .62 : 1.2) : 1.5) : (tech==='mordschlag' ? .58 : 1.25);
+        if (d > targetDistance+.08) input.keys.add('KeyW');
+        else if ((full || tech !== 'mordschlag') && d < targetDistance-.12) input.keys.add('KeyS');
+      }
+      if ((tech === 'zwerchAbtritt'||full&&sideStroke) && queue.length) input.keys.add('KeyA');
+      if(P.skill.secretPhase==='stiff')input.keys.clear();
+      const mv = input.move; P.move.set(mv.x, mv.y); P.stickX = mv.x; P.stickY = mv.y;
+    }
+    if(!full)guard.held = false; guard.step(DT);
+    if ((sampleI++ % 12) === 0) emit('state', { distance: round(d), stateP: P.state, stateE: E.state, armedP:P.armed, armedE:E.armed, weaponBrokenP:P.weaponBroken, weaponBrokenE:E.weaponBroken,staminaP: round(P.stamina.value), mordHeld: round((W.pressHeld ?? 0) / K), dupStack: round((uq.dupA?.st ?? 0) / K), touch: uq.bladeTouch() });
+  };
+  const observe = () => {
+    const tr = G.t / K;
+    for(const [name,fired] of Object.entries(uq.stats.fired))if(isTarget(name)&&fired>(seenFires[name]??0)) {
+      const n=fired-(seenFires[name]??0);rec.accepted+=n;rec.byTech[name].accepted+=n;seenFires[name]=fired;firedOnce=true;rec.timeline.accepted??=round(tr);emit('unique_accepted',{tech:name,count:n});
+      if(name==='duplieren' && mode==='single'){queue=[];if(hand)touch('pointerup',tr);}
+    }
+    const motionName=P.iai?.mord?'mordschlag':P.iai?.tech??uq.r?.e?.name??null;
+    const currentMotion=isTarget(motionName)?motionName:null;
+    if(currentMotion && currentMotion!==wasMotion){rec.started++;rec.byTech[currentMotion].started++;rec.timeline.started??=round(tr);emit('motion_started',{tech:currentMotion});}
+    if(wasMotion && currentMotion!==wasMotion){rec.timeline.motionEnd=round(tr);emit('motion_ended',{tech:wasMotion});}
+    wasMotion=currentMotion;
+    const busy = P.skill.sec || P.skill.tap || P.iai || P.iaiReq || P.iaiHoldT > 0 || P.iaiFade > 0 || uq.r;
+    const finishedAction = variant === 'on' ? rec.started > 0 && rec.timeline.motionEnd != null : firedOnce && !queue.length;
+    if (finishedAction && !busy && rec.timeline.controlFree == null && tr > (rec.timeline.input ?? rec.timeline.accepted ?? 0) + 0.1) {
+      rec.timeline.controlFree = round(tr); endAfter = tr + 1; emit('control_free');
+    }
+    minStamina = Math.min(minStamina, P.stamina.value);
+  };
+  try {
+    while (G.t < CONFIG.realS(seconds + (mode === 'frequency' ? CONFIG.ARENA.startHold / K : 0))) {
+      G.step(); observe();
+      if (!P.alive || !E.alive) { rec.timeline.terminal = round(G.t / K); if (mode !== 'single' || !P.skill.sec && !P.iai) break; }
+      if (mode === 'single' && endAfter != null && G.t / K >= endAfter) break;
+    }
+    // Count the accepted last-step secret without altering its remaining-uses state.
+    W.update(0, !!P.skill.sec);
+    rec.inflicted = observedDamage(E, initialE, severityE, counts.E.knocks, counts.E.disarms);
+    rec.received = observedDamage(P, initialP, severityP, counts.P.knocks, counts.P.disarms);
+    rec.stamina = { spent: { ...P.stamina.spent }, recovered: P.stamina.recovered, min: round(minStamina), final: round(P.stamina.value), exhaustions: P.stamina.counts.exhaustion };
+    rec.uniqueStats = JSON.parse(JSON.stringify(uq.stats));
+    rec.resolvedTechList = uq.list.map(e=>e.name);
+    rec.finalEquipment={playerBroken:P.weaponBroken,enemyBroken:E.weaponBroken,playerArmed:P.armed,enemyArmed:E.armed};
+    rec.timeline.endGame = round(G.t); rec.timeline.endReference = round(G.t / K);
+    rec.conditions.secretLeft = secretLeft(P); rec.conditions.secretUsed = P.secretUsed ?? 0;
+    rec.conditions.minDistance = round(rec.conditions.minDistance); rec.conditions.maxDistance = round(rec.conditions.maxDistance);
+    rec.conditions.maxMordHeldRealS = round(rec.conditions.maxMordHeldRealS); rec.conditions.maxDupStackRealS = round(rec.conditions.maxDupStackRealS);
+    for (const bucket of Object.values(rec.attribution)) for (const k of Object.keys(bucket)) bucket[k] = round(bucket[k]);
+    for (const bucket of Object.values(rec.byTech)) for (const k of Object.keys(bucket)) bucket[k] = round(bucket[k]);
+    for (const bucket of Object.values(rec.availability)) for (const k of Object.keys(bucket)) bucket[k] = round(bucket[k]);
+    rec.timeline.activeObservedReference = round(Math.max(0, G.t / K - (rec.timeline.activeStart ?? G.t / K)));
+    rec.validity = { conditionObserved: tech === 'mordschlag' ? CBoolean(rec.conditions.windows) : tech === 'duplieren' ? rec.conditions.maxDupStackRealS >= 0.59 || rec.accepted > 0 : rec.attempted > 0,
+      failure: rec.accepted ? rec.started ? rec.contacts ? null : 'started_no_recorded_wound_contact' : 'accepted_not_observed_started' : variant === 'off' ? 'tech_disabled_control' : rec.attempted ? 'input_not_recognized_or_body_busy' : 'condition_not_reached',
+      humanSuccessRate: false, contactDefinition: 'normal Combat.onWound events; all physical no-damage contacts are not guaranteed', conditionFixture: opponent === 'fixture', fullDamage: true,
+      recoveryCensored: rec.accepted > 0 && rec.timeline.controlFree == null, preparationDamageSeparate: true,
+      preservedSecretUsesVerified: (P.secretUsed ?? 0) <= CONFIG.UNIQUE_ASSIST.secretUses.default,
+      baselineType: variant === 'off' ? 'matched_start_same_input_policy_without_target_tech' : null };
+    rec.wallMs = round(performance.now() - wall0);
+    return rec;
+  } catch (error) {
+    console.error('TRIAL_ERROR', tech, 'gameTime', G.t, 'lastEvents', JSON.stringify(rec.events.slice(-5)), error?.stack ?? error);
+    throw error;
+  } finally { try { G.world.free(); } catch {} }
+}
+const CBoolean = (x) => x > 0;
+
+function summary(rows) {
+  const groups = {};
+  for (const r of rows) {
+    const key = [r.tech, r.mode, r.range, r.variant, r.jitter,r.policy,r.opponentType].join('/');
+    const g = groups[key] ??= { n: 0, attempted: 0, accepted: 0, started: 0, contacts: 0, inflictedSeverity: 0, receivedSeverity: 0, inflictedConsciousnessLost: 0, receivedConsciousnessLost: 0, kills: 0, deaths: 0, wallMs: 0, failures: {} };
+    g.n++; for (const k of ['attempted', 'accepted', 'started', 'contacts', 'wallMs']) g[k] += r[k];
+    g.inflictedSeverity += r.inflicted.severity; g.receivedSeverity += r.received.severity;
+    g.inflictedConsciousnessLost += r.inflicted.consciousnessLost; g.receivedConsciousnessLost += r.received.consciousnessLost;
+    g.kills += +r.inflicted.dead; g.deaths += +r.received.dead;
+    const f = r.validity.failure ?? 'none'; g.failures[f] = (g.failures[f] ?? 0) + 1;
+  }
+  return { build: BUILD, controller: 'scripted_touch_via_Input', humanSuccessRate: false, groups };
+}
+
+export function aggregateResearch(dir='docs/research/attack_balance_20261101/german') {
+  const load=(name)=>{try{return readFileSync(`${dir}/${name}.jsonl`,'utf8').split('\n').filter(Boolean).map(JSON.parse);}catch{return[];}};
+  const baseSingle=load('single144'),baseInput=load('input96'),mortSingle=load('mord_single36_v4'),mortInput=load('mord_input24_v4');
+  const freqV5=[...load('frequency12_normal_v5'),...load('frequency12_targeted_v5')],freq=freqV5.length?freqV5:load('frequency24');
+  const single=mortSingle.length===36?[...mortSingle,...baseSingle.filter(r=>r.tech!=='mordschlag')]:baseSingle;
+  const input=mortInput.length===24?[...mortInput,...baseInput.filter(r=>r.tech!=='mordschlag')]:baseInput;
+  for(const r of [...single,...input,...freq])for(const key of ['inflicted','received']) {
+    r[key].gameEnded=r[key].dead;r[key].outcomeClass=classifyOutcome(r[key].dead,r[key].cause);
+  }
+  const mean=(a)=>a.length?a.reduce((s,x)=>s+x,0)/a.length:null;
+  const avg=(a,fn)=>round(mean(a.map(fn).filter(Number.isFinite)));
+  const group=(a,key,fn)=>Object.fromEntries([...new Set(a.map(key))].map(k=>[k,fn(a.filter(r=>key(r)===k))]));
+  const sg=group(single,r=>[r.tech,r.range,r.variant].join('/'),a=>{
+    const success=a.filter(r=>r.accepted>0&&r.started>0&&r.validity.conditionObserved);
+    return {n:a.length,attemptedTrials:a.filter(r=>r.attempted>0).length,acceptedTrials:a.filter(r=>r.accepted>0).length,startedTrials:success.length,
+      targetContactTrials:success.filter(r=>r.attribution.target.contacts>0).length,conditionFailureTrials:a.filter(r=>!r.validity.conditionObserved).length,
+      targetSeverityMeanAmongStarted:avg(success,r=>r.attribution.target.severity),targetConsciousnessLossMeanAmongStarted:avg(success,r=>r.attribution.target.consciousnessLost),
+      targetBleedAddedMeanAmongStarted:avg(success,r=>r.attribution.target.bleedAdded),targetLimbLossMeanAmongStarted:avg(success,r=>r.attribution.target.limbFunctionLost),
+      preparationOrOtherSeverityMean:avg(a,r=>r.attribution.preparationOrOther.severity),wholeEpisodeInflictedSeverityMean:avg(a,r=>r.inflicted.severity),receivedSeverityMean:avg(a,r=>r.received.severity),
+      opponentEndCauses:a.reduce((o,r)=>(r.inflicted.dead&&(o[r.inflicted.cause??'unknown']=(o[r.inflicted.cause??'unknown']??0)+1),o),{}),
+      selfEndCauses:a.reduce((o,r)=>(r.received.dead&&(o[r.received.cause??'unknown']=(o[r.received.cause??'unknown']??0)+1),o),{}),
+      executionToTargetContactMean:avg(success,r=>r.timeline.targetBodyContact==null?null:r.timeline.targetBodyContact-r.timeline.started),
+      acceptedToControlFreeMean:avg(success,r=>r.timeline.controlFree==null?null:r.timeline.controlFree-r.timeline.accepted),
+      recoveryCensored:success.filter(r=>r.validity.recoveryCensored).length,
+      meanSpent:avg(a,r=>Object.values(r.stamina.spent).reduce((s,x)=>s+x,0)),meanMinimumStamina:avg(a,r=>r.stamina.min),wallSeconds:round(a.reduce((s,r)=>s+r.wallMs,0)/1000)};
+  });
+  const ig=group(input,r=>[r.tech,r.jitter].join('/'),a=>({n:a.length,attempted:a.filter(r=>r.attempted>0).length,accepted:a.filter(r=>r.accepted>0).length,started:a.filter(r=>r.started>0).length,
+    targetContact:a.filter(r=>r.attribution.target.contacts>0).length,conditionFailure:a.filter(r=>!r.validity.conditionObserved).length,
+    targetSeverityMeanAmongStarted:avg(a.filter(r=>r.started>0),r=>r.attribution.target.severity),outsideViewportEvents:a.reduce((s,r)=>s+r.setup.input.outsideViewportEvents,0)}));
+  const fg=group(freq,r=>[r.policy,r.opponentType].join('/'),a=>({n:a.length,meanActiveObservedSeconds:avg(a,r=>r.timeline.activeObservedReference),full30:a.filter(r=>r.timeline.activeObservedReference>=29.99).length,
+    totalInflictedSeverityMean:avg(a,r=>r.inflicted.severity),totalReceivedSeverityMean:avg(a,r=>r.received.severity),opponentEnded:a.filter(r=>r.inflicted.dead).length,selfEnded:a.filter(r=>r.received.dead).length,
+    opponentKnockouts:a.filter(r=>r.inflicted.outcomeClass==='knockout').length,opponentFatalities:a.filter(r=>r.inflicted.outcomeClass==='fatal').length,
+    selfKnockouts:a.filter(r=>r.received.outcomeClass==='knockout').length,selfFatalities:a.filter(r=>r.received.outcomeClass==='fatal').length,
+    opponentEndCauses:a.reduce((o,r)=>(r.inflicted.dead&&(o[r.inflicted.cause??'unknown']=(o[r.inflicted.cause??'unknown']??0)+1),o),{}),
+    selfEndCauses:a.reduce((o,r)=>(r.received.dead&&(o[r.received.cause??'unknown']=(o[r.received.cause??'unknown']??0)+1),o),{}),
+    playerWeaponBroken:a.filter(r=>r.finalEquipment?.playerBroken).length,meanSpent:avg(a,r=>Object.values(r.stamina.spent).reduce((s,x)=>s+x,0)),meanMinimumStamina:avg(a,r=>r.stamina.min),
+    byTech:Object.fromEntries(Object.keys(CATEGORIES).map(t=>[t,{acceptedTotal:a.reduce((s,r)=>s+r.byTech[t].accepted,0),startedTotal:a.reduce((s,r)=>s+r.byTech[t].started,0),
+      acceptedPerRound:avg(a,r=>r.byTech[t].accepted),startedPerRound:avg(a,r=>r.byTech[t].started),targetSeverityTotal:round(a.reduce((s,r)=>s+r.byTech[t].severity,0)),
+      exposureNormalizedStartsPer30:round(a.reduce((s,r)=>s+r.byTech[t].started,0)/Math.max(1e-9,a.reduce((s,r)=>s+r.timeline.activeObservedReference,0))*30)}])),
+    wallSeconds:round(a.reduce((s,r)=>s+r.wallMs,0)/1000)}));
+  const result={build:BUILD,counts:{single:single.length,input:input.length,frequency:freq.length},complete:single.length===144&&input.length===96&&freqV5.length===24,
+    sources:{singleBase:'single144.jsonl',inputBase:'input96.jsonl',mordSingleReplacement:mortSingle.length===36?'mord_single36_v4.jsonl':null,mordInputReplacement:mortInput.length===24?'mord_input24_v4.jsonl':null,
+      frequency:freqV5.length?['frequency12_normal_v5.jsonl','frequency12_targeted_v5.jsonl']:['frequency24.jsonl']},
+    limits:{normalDamage:true,secretUsesUnchanged:true,humanSuccessRate:false,singleOpponent:'passive fixture, normal damage',frequencyOpponent:'live AI proficiency3 hard, same longsword, specified pers',
+      frequencyStartsAtDefaultArenaGap:CONFIG.ARENA.startGap,tapChronology:'v4 mordschlag tap-up processed on its later physical frame; old v3 raw preserved',
+      controlDifference:'same initial states and scripted policy; feedback after execution can diverge',contactDefinition:'Combat.onWound contact events, not every harmless physical contact'},
+    verification:{allHumanInputRules:[...single,...input,...freq].every(r=>r.humanInputRules),allSecretUsesPreserved:[...single,...input,...freq].every(r=>r.validity.preservedSecretUsesVerified),allNormalDamage:[...single,...input,...freq].every(r=>r.validity.fullDamage),
+      allInputCoordinatesWithinViewport:[...single,...input,...freq].every(r=>r.setup.input.outsideViewportEvents===0)},single:sg,input:ig,frequency:fg,
+    wallSeconds:{canonicalSingle:round(single.reduce((s,r)=>s+r.wallMs,0)/1000),canonicalInput:round(input.reduce((s,r)=>s+r.wallMs,0)/1000),frequency:round(freq.reduce((s,r)=>s+r.wallMs,0)/1000)}};
+  writeFileSync(`${dir}/single144.canonical.jsonl`,single.map(JSON.stringify).join('\n')+'\n');
+  writeFileSync(`${dir}/input96.canonical.jsonl`,input.map(JSON.stringify).join('\n')+'\n');
+  writeFileSync(`${dir}/frequency24.canonical.jsonl`,freq.map(JSON.stringify).join('\n')+'\n');
+  writeFileSync(`${dir}/german_summary.json`,JSON.stringify(result,null,2));
+  return result;
+}
+
+if (isMain(import.meta.url)) {
+  const a = Object.fromEntries(process.argv.slice(2).filter(x => x.startsWith('--')).map(x => { const [k, ...v] = x.slice(2).split('='); return [k, v.join('=') || '1']; }));
+  const out = a.out ?? 'docs/research/attack_balance_20261101/german'; mkdirSync(out, { recursive: true });
+  const mode = a.mode ?? 'pilot';
+  if(mode==='aggregate'){const r=aggregateResearch(out);console.log(JSON.stringify({counts:r.counts,complete:r.complete,verification:r.verification,wallSeconds:r.wallSeconds}));process.exit(0);}
+  const rows = []; const file = `${out}/${a.tag ?? mode}.jsonl`; writeFileSync(file, '');
+  const jobs = mode === 'pilot' ? [['mordschlag', 'close'], ['duplieren', 'normal'], ['schielhau', 'normal']].map(([tech, range]) => ({ tech, range, seed: 101, variant: 'on', mode: 'single' }))
+    : mode === 'input' ? (a.techs ?? 'mordschlag,duplieren,schielhau,zwerchAbtritt').split(',').flatMap(tech => ['exact','small','large'].flatMap(jitter => (a.seeds ?? '201,202,203,204,205,206,207,208').split(',').map(Number).map(seed => ({tech,jitter,seed,variant:'on',range:tech==='mordschlag'?'close':'normal',mode:'single'}))))
+    : mode === 'frequency' ? (a.policies??'normal,targeted').split(',').flatMap(policy=>(a.opponentTypes??'pressure,distance').split(',').flatMap(opponentType=>(a.seeds??'301,302,303,304,305,306').split(',').map(Number).map(seed=>({tech:'all',policy,opponentType,seed,variant:'on',range:'normal',mode:'frequency'}))))
+    : (a.techs ?? 'mordschlag,duplieren,schielhau,zwerchAbtritt').split(',').flatMap(tech => (a.ranges ?? 'close,normal,edge').split(',').flatMap(range => (a.seeds ?? '101,102,103,104,105,106').split(',').map(Number).flatMap(seed => (a.variants ?? 'on,off').split(',').map(variant => ({ tech, range, seed, variant, mode: mode === 'frequency' ? 'frequency' : 'single' })))));
+  for (const job of jobs) {
+    const r = runTrial({ ...job, seconds: +(a.seconds ?? (mode === 'frequency' ? 30 : 12)), opponent: a.opponent ?? (mode === 'frequency' ? 'ai' : 'fixture'), ...(a.gap ? { gap: +a.gap } : {}) });
+    rows.push(r); appendFileSync(file, JSON.stringify(r) + '\n'); writeFileSync(`${out}/${a.tag ?? mode}.summary.json`, JSON.stringify(summary(rows), null, 2));
+    console.log(JSON.stringify({ tech: r.tech, range: r.range, variant: r.variant, seed: r.seed, accepted: r.accepted, started: r.started, contacts: r.contacts, inflicted: r.inflicted, received: r.received, failure: r.validity.failure, wallMs: r.wallMs }));
+  }
+}
