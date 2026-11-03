@@ -1,0 +1,92 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "/workspace/halfsword-attack-balance-20261101/tools/sim/balance_italian_20261101.mjs",
+    "pilot"
+  ],
+  "build": "88a96061e8dd93e8f107b7b0df647a341e73fa5d",
+  "scriptHash": "35775967c22b270b6c988eeb2fe2eee54811e1a10e9d016529c3bb04cf580001",
+  "created": "2026-10-31T23:44:57.955Z",
+  "schedule": [
+    {
+      "tech": "imbroccata",
+      "seed": 401
+    },
+    {
+      "tech": "cavazione",
+      "seed": 401
+    },
+    {
+      "tech": "inquartata",
+      "seed": 401
+    }
+  ],
+  "profiles": {
+    "exact": {
+      "startSigma": 0,
+      "angleSigma": 0,
+      "endSigma": 0,
+      "speedSigma": 0,
+      "cavDelay": 0.45,
+      "delaySigma": 0,
+      "inqReaction": 0.1,
+      "side": 0.9,
+      "sideSigma": 0,
+      "stickLead": 0.05,
+      "leadSigma": 0,
+      "tapHold": 0.055,
+      "holdSigma": 0,
+      "driftPx": 0
+    },
+    "small": {
+      "startSigma": 0.06,
+      "angleSigma": 0.1,
+      "endSigma": 0.035,
+      "speedSigma": 0.35,
+      "cavDelay": 0.45,
+      "delaySigma": 0.09,
+      "inqReaction": 0.1,
+      "side": 0.9,
+      "sideSigma": 0.13,
+      "stickLead": 0.05,
+      "leadSigma": 0.025,
+      "tapHold": 0.055,
+      "holdSigma": 0.018,
+      "driftPx": 3
+    },
+    "large": {
+      "startSigma": 0.2,
+      "angleSigma": 0.45,
+      "endSigma": 0.16,
+      "speedSigma": 1.8,
+      "cavDelay": 0.45,
+      "delaySigma": 0.45,
+      "inqReaction": 0.1,
+      "side": 0.65,
+      "sideSigma": 0.55,
+      "stickLead": 0.05,
+      "leadSigma": 0.12,
+      "tapHold": 0.08,
+      "holdSigma": 0.15,
+      "driftPx": 14
+    }
+  },
+  "ranges": {
+    "imbroccata": {
+      "close": 1.15,
+      "normal": 1.55,
+      "edge": 1.95
+    },
+    "cavazione": {
+      "close": 1.1,
+      "normal": 1.45,
+      "edge": 1.8
+    },
+    "inquartata": {
+      "close": 1.15,
+      "normal": 1.55,
+      "edge": 1.95
+    }
+  },
+  "oneProcess": true
+}

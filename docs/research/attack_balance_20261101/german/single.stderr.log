@@ -1,0 +1,29 @@
+using deprecated parameters for the initialization function; pass a single object instead
+TRIAL_ERROR schielhau gameTime 0 lastEvents [{"kind":"state","tGame":0,"tReference":0,"distance":1.35,"stateP":"stand","stateE":"stand","staminaP":100,"mordHeld":0,"dupStack":0,"touch":false}] RuntimeError: unreachable
+    at wasm://wasm/005fccd2:wasm-function[1156]:0x150170
+    at wasm://wasm/005fccd2:wasm-function[1720]:0x169408
+    at wasm://wasm/005fccd2:wasm-function[1360]:0x15f5c7
+    at wasm://wasm/005fccd2:wasm-function[37]:0x24927
+    at wasm://wasm/005fccd2:wasm-function[184]:0xba595
+    at KA.stepWithEvents (file:///workspace/halfsword-refork-029f08a/node_modules/@dimforge/rapier3d-compat/rapier.mjs:1:48885)
+    at Kg.step (file:///workspace/halfsword-refork-029f08a/node_modules/@dimforge/rapier3d-compat/rapier.mjs:1:109659)
+    at ag.step (file:///workspace/halfsword-refork-029f08a/node_modules/@dimforge/rapier3d-compat/rapier.mjs:1:120421)
+    at G.step (file:///workspace/halfsword-attack-balance-20261101/tools/sim/harness_m.mjs:116:11)
+    at runTrial (file:///workspace/halfsword-attack-balance-20261101/tools/sim/balance_german_20261101.mjs:175:9)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+RuntimeError: unreachable
+    at wasm://wasm/005fccd2:wasm-function[1156]:0x150170
+    at wasm://wasm/005fccd2:wasm-function[1720]:0x169408
+    at wasm://wasm/005fccd2:wasm-function[1360]:0x15f5c7
+    at wasm://wasm/005fccd2:wasm-function[37]:0x24927
+    at wasm://wasm/005fccd2:wasm-function[184]:0xba595
+    at KA.stepWithEvents (file:///workspace/halfsword-refork-029f08a/node_modules/@dimforge/rapier3d-compat/rapier.mjs:1:48885)
+    at Kg.step (file:///workspace/halfsword-refork-029f08a/node_modules/@dimforge/rapier3d-compat/rapier.mjs:1:109659)
+    at ag.step (file:///workspace/halfsword-refork-029f08a/node_modules/@dimforge/rapier3d-compat/rapier.mjs:1:120421)
+    at G.step (file:///workspace/halfsword-attack-balance-20261101/tools/sim/harness_m.mjs:116:11)
+    at runTrial (file:///workspace/halfsword-attack-balance-20261101/tools/sim/balance_german_20261101.mjs:175:9)
+
+Node.js v24.19.0

@@ -476,7 +476,7 @@ export function windSummary(list) {
 }
 
 // ── drill: 서 있는 · 걷는 상대 ──
-export function drillRun(rowKey, seed, { foe = 'still', variant = 'on', dur = 14, sjit = 0.06, jit = 0.04, spd = [3, 5.5], foeW = 'longsword', startAdd = 0, probe = null, helm = false } = {}) {
+export function drillRun(rowKey, seed, { foe = 'still', variant = 'on', dur = 14, sjit = 0.06, jit = 0.04, spd = [3, 5.5], foeW = 'longsword', startAdd = 0, probe = null, helm = false, normalDamage = false, oneShot = false, distance = null, onInit = null, preCombo = true } = {}) {
   const R = ROWS[rowKey];
   // 'onG' · 'offG' = 제비 베기 '빗나감' 판(schielhau_strike.mjs --ghostDown 과 같음): 아래 획(내려베기)이 상대 몸을 지나가게(instantGhost) — 제비 베기가 실제로 나는 조건(앞 칼 빗나감 · 막힘)
   const ghost = variant.endsWith('G');
@@ -486,12 +486,14 @@ export function drillRun(rowKey, seed, { foe = 'still', variant = 'on', dur = 14
   const D = G.enemy;
   if (foe !== 'walk') G.ai.update = () => {};
   // 상처는 몸에 안 건다 — 통증만(fighter.js applyWound 와 같은 식: 앞 칼 '맞힘' 판단 = 상대 통증 +0.05 · 통증은 스스로 빠짐). 무릎 꺾기 · 칼 떨굼은 굴림만 남기고 몸엔 안 검
+  if (!normalDamage) {
   D.applyWound = (h) => {
     if (D.state === 'dead') return;
     D.pain = Math.min(2, D.pain + (h.severity ?? 0) * 0.8 + h.energy / 150);
   };
   D.knockDown = () => {};
   D.dropSword = () => {};
+  }
   if (helm) {
     // 투구 쓴 상대 (10/28 머리 표 — 케틀햇: 머리 틀 −0.01 m 위만 막음 · 그 아래 얼굴은 맨머리 · combat.js) · 상처를 몸에 안 거므로 닳지 않음
     D.hasHelmet = true;
@@ -528,10 +530,10 @@ export function drillRun(rowKey, seed, { foe = 'still', variant = 'on', dur = 14
       cur.second = cav.second;
     }
     if (cur && cur.tq != null && t - cur.tq > 0.35) cur = null;
-    if (!bot.queue.length && !cur && t >= nextAtk && dist < REACH + startAdd && P.alive && P.armed && !P.stamina.exhausted) {
+    if ((!oneShot || !atts.length) && !bot.queue.length && !cur && t >= nextAtk && dist < (distance == null ? REACH + startAdd : distance + 0.08) && P.alive && P.armed && !P.stamina.exhausted) {
       if (R.tap) P.skill.thrust();
       else if (cav) {
-        if (R.rd && rnd() < RD_COMBO) cav.pre = [OTHER_RD[Math.floor(rnd() * OTHER_RD.length)]]; // 이어 긋기 사슬 안에서 누름 (앞 칼 하나)
+        if (R.rd && preCombo && rnd() < RD_COMBO) cav.pre = [OTHER_RD[Math.floor(rnd() * OTHER_RD.length)]]; // 이어 긋기 사슬 안에서 누름 (앞 칼 하나)
         cav.start();
       } else bot.queue = bot.make(R.strokes);
       cur = { t0: +t.toFixed(3), tq: null, tap: !!R.tap, cav: !!cav, hits: [], sev: 0, sevSp: 0, fired0: uq.stats?.fired?.[R.name] ?? 0, chain0: uq.stats?.ends?.chained ?? 0, s0: slog.length, dist0: r3(dist) };
@@ -548,11 +550,15 @@ export function drillRun(rowKey, seed, { foe = 'still', variant = 'on', dur = 14
     bot.feed();
     // 아래 획 끝(길 점 1 — 맨 아래 [0, −0.5])을 지나 3 프레임까지 내 칼 ↔ 상대 몸 충돌 끔 (on · off 같은 프레임 — on 은 꺾는 순간부터 끌고 가는 칼이 제 충돌 끔을 둔다)
     if (ghost && R.combo && cur && bot.queue.length && bot.fed < (bot.marks[1] ?? 0) + 3) P.instantGhost = Math.max(P.instantGhost ?? 0, 2);
-    const fwd = cav?.stick ?? Math.min(R.fwdCap ?? 1, stepIn(P, dist, bot.queue.length, t >= nextAtk && !cur, CONTACT, REACH, REACH + startAdd)); // 날개 접기 줄: 물러나는 손(스틱 뒤)
-    P.move.set(cav?.side ?? 0, fwd); // side: B4 옆걸음 판 (RD_SIDE — 기본 0)
-    P.stickX = cav?.side ?? 0;
-    P.stickY = fwd;
+    const rangeMove = distance == null ? Math.min(R.fwdCap ?? 1, stepIn(P, dist, bot.queue.length, t >= nextAtk && !cur, CONTACT, REACH, REACH + startAdd)) : dist > distance + 0.04 ? Math.min(0.8, (dist - distance) * 3) : dist < distance - 0.05 ? -0.4 : 0;
+    const fwd = cav?.stick ?? rangeMove;
+    const sideways = cav?.side ?? (bot.queue.length ? R.researchStick?.x ?? 0 : 0);
+    const forward = bot.queue.length && R.researchStick?.y != null ? R.researchStick.y : fwd;
+    P.move.set(sideways, forward);
+    P.stickX = sideways;
+    P.stickY = forward;
   };
+  onInit?.(G, P, D, uq, { bot, guard }); // 연구용 관측. 기본 호출에는 영향 없음
   const pw = G.combat.hooks.onWound;
   G.combat.hooks.onWound = (att, vic, r, ...rest) => {
     pw?.(att, vic, r, ...rest);
@@ -602,7 +608,7 @@ function itStats(IT, uq, fires) {
 }
 
 // ── fight: 손가락 봇 대 치고 막는 AI ──
-export function fightRun(rowKey, seed, opp, { variant = 'on', dur = 30, prof = 3, delay = 0.15, share = 0.5, counter = 0.5, sjit = 0.06, jit = 0.04, spd = [3, 5.5], startAdd = 0, probe = null } = {}) {
+export function fightRun(rowKey, seed, opp, { variant = 'on', dur = 30, prof = 3, delay = 0.15, share = 0.5, counter = 0.5, sjit = 0.06, jit = 0.04, spd = [3, 5.5], startAdd = 0, probe = null, onInit = null } = {}) {
   const R = ROWS[rowKey];
   const G = newRound({ walls: true, seed, weapon: R.w, weapon2: opp, persona: { proficiency: prof } });
   applyWeaponMeasure(G.ai, opp);
@@ -793,10 +799,11 @@ export function fightRun(rowKey, seed, opp, { variant = 'on', dur = 30, prof = 3
     P.inputActive = guard.active;
     bot.feed();
     const fwd = cav?.stick ?? Math.min(R.fwdCap ?? 1, stepIn(P, dist, bot.queue.length, t >= nextAtk && !guard.held, CONTACT, REACH, REACH + startAdd));
-    P.move.set(inqHand ? inqHand.side : cav?.side ? cav.side : cav?.stick != null ? 0 : 0.18 * Math.sin(t * 0.65 + seed), inqHand ? 0 : fwd); // cav.side: B4 옆걸음 판 (RD_SIDE — 기본 0)
+    P.move.set(inqHand ? inqHand.side : cav?.side ? cav.side : cav?.stick != null ? 0 : bot.queue.length && R.researchStick?.x != null ? R.researchStick.x : 0.18 * Math.sin(t * 0.65 + seed), inqHand ? 0 : bot.queue.length && R.researchStick?.y != null ? R.researchStick.y : fwd); // cav.side: B4 옆걸음 판 (RD_SIDE — 기본 0)
     P.stickX = P.move.x;
     P.stickY = P.move.y;
   };
+  onInit?.(G, P, A, uq, { bot, guard }); // 연구용 관측: 기본 호출은 그대로
   let dealt = 0;
   let bleedDealt = 0;
   let recv = 0;

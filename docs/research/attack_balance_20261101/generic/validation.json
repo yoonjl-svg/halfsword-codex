@@ -1,0 +1,20 @@
+{
+  "base": "88a96061e8dd93e8f107b7b0df647a341e73fa5d",
+  "singleRows": 288,
+  "inputRows": 192,
+  "pairs": 144,
+  "duplicateCases": 0,
+  "allInitialStatesIdentical": true,
+  "allCommandPlansIdentical": true,
+  "allInputPrefixesIdentical": true,
+  "allWithinViewport": true,
+  "allHumanStaminaRules": true,
+  "allConfigUnchanged": true,
+  "caveats": [
+    "tsubame normal fixtures never create the preceding missed attack; no power estimate",
+    "redondo holdInput and all movement remain normalized command proxies, not DOM events",
+    "8 exact input runs contain repeated deterministic speeds; not 8 independent human observations",
+    "real lianchi pointer tap crosses physical frames; earlier logical tap runs excluded",
+    "off observation may continue after on termination; use censored equal windows before total differences"
+  ]
+}
